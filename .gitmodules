@@ -1,0 +1,3 @@
+[submodule "charts/storage-classes"]
+	path = charts/storage-classes
+	url = git@github.com:edwardtheharris/helm-storage-classes.git
