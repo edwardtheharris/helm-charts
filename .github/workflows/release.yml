@@ -20,8 +20,12 @@ jobs:
         run: |
           git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+          helm repo add csi-driver-lvm https://helm.metal-stack.io
+          helm repo add csi-driver-nfs https://raw.githubusercontent.com/kubernetes-csi/csi-driver-nfs/master/charts
           helm dep up charts/storage-classes
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@main
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+        with:
+          pages_branch: main
