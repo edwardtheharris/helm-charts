@@ -1,0 +1,22 @@
+apiVersion: v1
+entries:
+  storage:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2024-07-27T19:27:01.671812086Z"
+    dependencies:
+    - name: csi-driver-lvm
+      repository: https://helm.metal-stack.io
+      version: ~0.4
+    - name: local-static-provisioner
+      repository: file://./local-static-provisioner/
+      version: ~2
+    description: A Helm chart for Kubernetes
+    digest: b18cf463bc97cef4cae8064947e48409a21213d586c8a0386e801d2bb85c235a
+    icon: file://../assets/icon/csi.png
+    name: storage
+    type: application
+    urls:
+    - https://github.com/edwardtheharris/helm-charts/releases/download/storage-0.0.1/storage-0.0.1.tgz
+    version: 0.0.1
+generated: "2024-07-27T19:27:01.671823437Z"
