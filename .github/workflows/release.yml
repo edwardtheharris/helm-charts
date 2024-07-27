@@ -20,7 +20,7 @@ jobs:
         run: |
           git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
-          helm dep up charts/storage
+          helm dep up charts/storage-classes
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@main
         env:
