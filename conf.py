@@ -8,6 +8,16 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 """
 # pylint: disable=invalid-name,redefined-builtin
+from pathlib import Path
+
+def get_html_extra_paths():
+    """Get a list of files to be copied to the HTML output directory."""
+    ret_value = ['index.yaml', 'charts/index.yaml']
+    extra_paths = Path('.').glob('*.tgz')
+    for extra_path in extra_paths:
+        ret_value.append(str(extra_path))
+        ret_value.append(f'charts/{str(extra_path)}')
+    return ret_value
 
 author = 'Xander Harris'
 copyright = '2024, Xander Harris'
@@ -20,13 +30,14 @@ exclude_patterns = [
     '.gnupg',
     '.venv',
     'Thumbs.db',
+    'charts/storage_classes/*'
 ]
 extensions = [
     'myst_parser',
     'sphinx.ext.githubpages',
 ]
 
-html_extra_path = ['index.yaml', 'charts/index.yaml', '*.tgz', 'charts/*.tgz']
+html_extra_path = get_html_extra_paths()
 html_static_path = ['_static']
 html_theme = 'alabaster'
 myst_dmath_double_inline=True
