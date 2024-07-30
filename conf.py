@@ -26,7 +26,7 @@ extensions = [
     'sphinx.ext.githubpages',
 ]
 
-html_extra_path = ['index.yaml', 'charts/index.yaml']
+html_extra_path = ['index.yaml', 'charts/index.yaml', '*.tgz', 'charts/*.tgz']
 html_static_path = ['_static']
 html_theme = 'alabaster'
 myst_dmath_double_inline=True
