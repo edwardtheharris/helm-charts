@@ -6,6 +6,8 @@ name = "pypi"
 [packages]
 pipenv = "*"
 sphinx = "*"
+myst-parser = {extras = ["linkify"], version = "*"}
+sphinx-autobuild = "*"
 
 [dev-packages]
 

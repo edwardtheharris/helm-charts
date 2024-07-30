@@ -1,2 +1,3 @@
-.gnupg
-.venv
+.gnupg/
+.venv/
+_build/
