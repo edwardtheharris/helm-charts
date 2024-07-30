@@ -10,6 +10,3 @@ myst-parser = {extras = ["linkify"], version = "*"}
 sphinx-autobuild = "*"
 
 [dev-packages]
-
-[requires]
-python_version = "3.12"
