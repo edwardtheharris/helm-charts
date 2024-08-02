@@ -3,19 +3,19 @@ entries:
   calico:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-08-02T14:25:27.743226556-07:00"
+    created: "2024-08-02T14:27:37.347614058-07:00"
     description: A Helm chart to deploy Calico resources to bare metal Kubernetes.
-    digest: 21793f6639913694b9a9124eafadf1031052abc3b57654dac725953a492e3a0e
+    digest: 6a2df08e984833e951564b73f701b4690f9de647d42b6dc0858c8720eada7be6
     icon: file://./_static/img/calico.png
     name: calico
     type: application
     urls:
-    - calico-0.0.1.tgz
-    version: 0.0.1
+    - calico-0.0.2.tgz
+    version: 0.0.2
   lvm:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-08-02T14:25:27.750071397-07:00"
+    created: "2024-08-02T14:27:37.356059467-07:00"
     dependencies:
     - condition: csi-driver-lvm.enabled
       name: csi-driver-lvm
@@ -35,7 +35,7 @@ entries:
     version: 0.0.3
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-08-02T14:25:27.74759001-07:00"
+    created: "2024-08-02T14:27:37.353493259-07:00"
     dependencies:
     - condition: csi-driver-lvm.enabled
       name: csi-driver-lvm
@@ -55,7 +55,7 @@ entries:
     version: 0.0.2
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-08-02T14:25:27.74495428-07:00"
+    created: "2024-08-02T14:27:37.350604656-07:00"
     dependencies:
     - condition: csi-driver-lvm.enabled
       name: csi-driver-lvm
@@ -73,4 +73,4 @@ entries:
     urls:
     - lvm-0.0.1.tgz
     version: 0.0.1
-generated: "2024-08-02T14:25:27.740581518-07:00"
+generated: "2024-08-02T14:27:37.346273991-07:00"

@@ -3,30 +3,30 @@ entries:
   calico:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-08-02T14:24:41.697477812-07:00"
+    created: "2024-08-02T14:27:46.543248284-07:00"
     description: A Helm chart to deploy Calico resources to bare metal Kubernetes.
-    digest: 21793f6639913694b9a9124eafadf1031052abc3b57654dac725953a492e3a0e
+    digest: 6a2df08e984833e951564b73f701b4690f9de647d42b6dc0858c8720eada7be6
     icon: file://./_static/img/calico.png
     name: calico
     type: application
     urls:
-    - calico-0.0.1.tgz
-    version: 0.0.1
+    - calico-0.0.2.tgz
+    version: 0.0.2
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-08-02T14:24:41.716766975-07:00"
+    created: "2024-08-02T14:27:46.554097571-07:00"
     description: A Helm chart to deploy Calico resources to bare metal Kubernetes.
-    digest: 21793f6639913694b9a9124eafadf1031052abc3b57654dac725953a492e3a0e
+    digest: 6a2df08e984833e951564b73f701b4690f9de647d42b6dc0858c8720eada7be6
     icon: file://./_static/img/calico.png
     name: calico
     type: application
     urls:
-    - charts/calico-0.0.1.tgz
-    version: 0.0.1
+    - charts/calico-0.0.2.tgz
+    version: 0.0.2
   lvm:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-08-02T14:24:41.709611994-07:00"
+    created: "2024-08-02T14:27:46.551206435-07:00"
     dependencies:
     - condition: csi-driver-lvm.enabled
       name: csi-driver-lvm
@@ -46,7 +46,7 @@ entries:
     version: 0.0.3
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-08-02T14:24:41.727791568-07:00"
+    created: "2024-08-02T14:27:46.561462866-07:00"
     dependencies:
     - condition: csi-driver-lvm.enabled
       name: csi-driver-lvm
@@ -66,7 +66,7 @@ entries:
     version: 0.0.3
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-08-02T14:24:41.705964314-07:00"
+    created: "2024-08-02T14:27:46.548676075-07:00"
     dependencies:
     - condition: csi-driver-lvm.enabled
       name: csi-driver-lvm
@@ -86,7 +86,7 @@ entries:
     version: 0.0.2
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-08-02T14:24:41.724046181-07:00"
+    created: "2024-08-02T14:27:46.559064718-07:00"
     dependencies:
     - condition: csi-driver-lvm.enabled
       name: csi-driver-lvm
@@ -106,7 +106,7 @@ entries:
     version: 0.0.2
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-08-02T14:24:41.702490546-07:00"
+    created: "2024-08-02T14:27:46.545754823-07:00"
     dependencies:
     - condition: csi-driver-lvm.enabled
       name: csi-driver-lvm
@@ -126,7 +126,7 @@ entries:
     version: 0.0.1
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-08-02T14:24:41.720176596-07:00"
+    created: "2024-08-02T14:27:46.556596686-07:00"
     dependencies:
     - condition: csi-driver-lvm.enabled
       name: csi-driver-lvm
@@ -147,7 +147,7 @@ entries:
   postgres:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-08-02T14:24:41.710695914-07:00"
+    created: "2024-08-02T14:27:46.551769205-07:00"
     description: A Helm chart for Kubernetes
     digest: b31734d9f9cc48d3ad8f32c701384d59190b59f86b834f22db98b4710dabe1f6
     icon: file://./assets/icon/postgresql.jpeg
@@ -159,7 +159,7 @@ entries:
   postgresql:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-08-02T14:24:41.711868844-07:00"
+    created: "2024-08-02T14:27:46.552902239-07:00"
     description: A Helm chart for Kubernetes
     digest: 12f79bce72cd559f2d5c62855ed4f7530c923c4157832f834f1d3100837b4ee5
     icon: file://./assets/icon/postgresql.jpeg
@@ -168,4 +168,4 @@ entries:
     urls:
     - postgresql-0.0.2.tgz
     version: 0.0.2
-generated: "2024-08-02T14:24:41.694508288-07:00"
+generated: "2024-08-02T14:27:46.541585152-07:00"
