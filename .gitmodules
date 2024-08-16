@@ -1,3 +1,6 @@
 [submodule "charts/storage-classes"]
 	path = charts/storage-classes
 	url = git@github.com:edwardtheharris/helm-storage-classes.git
+[submodule "charts/nautobot"]
+	path = charts/nautobot
+	url = git@github.com:edwardtheharris/helm-nautobot.git
