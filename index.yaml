@@ -166,6 +166,18 @@ entries:
     urls:
     - charts/lvm-0.0.1.tgz
     version: 0.0.1
+  nautobot:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2024-08-16T16:40:39.300684016Z"
+    description: A Helm to deploy nautobot
+    digest: 5f5723592a03fb2e0aa9da834c60cc6187cd3b064302ff7650bd1c32bac6a7da
+    icon: file://./_static/img/nautobot.png
+    name: nautobot
+    type: application
+    urls:
+    - https://github.com/edwardtheharris/helm-charts/releases/download/nautobot-0.0.1/nautobot-0.0.1.tgz
+    version: 0.0.1
   postgres:
   - apiVersion: v2
     appVersion: 1.16.0
@@ -235,4 +247,4 @@ entries:
     urls:
     - charts/redis-0.0.1.tgz
     version: 0.0.1
-generated: "2024-08-02T14:35:24.917307361-07:00"
+generated: "2024-08-16T16:40:39.300714102Z"
