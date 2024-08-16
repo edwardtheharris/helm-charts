@@ -8,6 +8,8 @@ date: 2024-07-18
 title: Helm Charts
 ---
 
+[![wakatime](https://wakatime.com/badge/github/edwardtheharris/helm-charts.svg)](https://wakatime.com/badge/github/edwardtheharris/helm-charts)
+
 ## Usage
 
 [Helm](https://helm.sh) must be installed to use the charts.  Please refer to
