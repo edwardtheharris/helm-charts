@@ -4,3 +4,6 @@
 [submodule "charts/nautobot"]
 	path = charts/nautobot
 	url = git@github.com:edwardtheharris/helm-nautobot.git
+[submodule "charts/postgresql"]
+	path = charts/postgresql
+	url = git@github.com:edwardtheharris/helm-postgresql.git

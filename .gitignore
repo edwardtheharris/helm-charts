@@ -1,3 +1,4 @@
 .gnupg/
 .venv/
 _build/
+reflog
