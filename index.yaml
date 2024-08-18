@@ -3,7 +3,7 @@ entries:
   calico:
   - apiVersion: v2
     appVersion: "3.28"
-    created: "2024-08-18T11:30:40.769302509-07:00"
+    created: "2024-08-18T14:35:46.300213177-07:00"
     description: A Helm chart to deploy Calico resources to bare metal Kubernetes.
     digest: f69dd115875454b306eb86700f9d2c3d4aee9145243833133a7e9e792e5b9a31
     icon: file://./_static/img/calico.png
@@ -14,7 +14,7 @@ entries:
     version: 0.0.3
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-08-18T11:30:40.766682794-07:00"
+    created: "2024-08-18T14:35:46.297807265-07:00"
     description: A Helm chart to deploy Calico resources to bare metal Kubernetes.
     digest: 6a2df08e984833e951564b73f701b4690f9de647d42b6dc0858c8720eada7be6
     icon: file://./_static/img/calico.png
@@ -25,7 +25,7 @@ entries:
     version: 0.0.2
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-08-18T11:30:40.811996707-07:00"
+    created: "2024-08-18T14:35:46.350124097-07:00"
     description: A Helm chart to deploy Calico resources to bare metal Kubernetes.
     digest: 6a2df08e984833e951564b73f701b4690f9de647d42b6dc0858c8720eada7be6
     icon: file://./_static/img/calico.png
@@ -36,7 +36,7 @@ entries:
     version: 0.0.2
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-08-18T11:30:40.763068416-07:00"
+    created: "2024-08-18T14:35:46.296031636-07:00"
     description: A Helm chart to deploy Calico resources to bare metal Kubernetes.
     digest: 21793f6639913694b9a9124eafadf1031052abc3b57654dac725953a492e3a0e
     icon: file://./_static/img/calico.png
@@ -47,7 +47,7 @@ entries:
     version: 0.0.1
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-08-18T11:30:40.810037439-07:00"
+    created: "2024-08-18T14:35:46.347904258-07:00"
     description: A Helm chart to deploy Calico resources to bare metal Kubernetes.
     digest: 21793f6639913694b9a9124eafadf1031052abc3b57654dac725953a492e3a0e
     icon: file://./_static/img/calico.png
@@ -59,7 +59,7 @@ entries:
   lvm:
   - apiVersion: v2
     appVersion: 0.5.2
-    created: "2024-08-18T11:30:40.785094649-07:00"
+    created: "2024-08-18T14:35:46.314600583-07:00"
     dependencies:
     - condition: csi-driver-lvm.enabled
       name: csi-driver-lvm
@@ -79,7 +79,7 @@ entries:
     version: 0.0.4
   - apiVersion: v2
     appVersion: 0.5.2
-    created: "2024-08-18T11:30:40.824439244-07:00"
+    created: "2024-08-18T14:35:46.362548374-07:00"
     dependencies:
     - condition: csi-driver-lvm.enabled
       name: csi-driver-lvm
@@ -99,7 +99,7 @@ entries:
     version: 0.0.4
   - apiVersion: v2
     appVersion: 0.5.2
-    created: "2024-08-18T11:30:40.78046643-07:00"
+    created: "2024-08-18T14:35:46.311915655-07:00"
     dependencies:
     - condition: csi-driver-lvm.enabled
       name: csi-driver-lvm
@@ -119,7 +119,7 @@ entries:
     version: 0.0.3
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-08-18T11:30:40.821196053-07:00"
+    created: "2024-08-18T14:35:46.359573944-07:00"
     dependencies:
     - condition: csi-driver-lvm.enabled
       name: csi-driver-lvm
@@ -139,7 +139,7 @@ entries:
     version: 0.0.3
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-08-18T11:30:40.776165659-07:00"
+    created: "2024-08-18T14:35:46.308251909-07:00"
     dependencies:
     - condition: csi-driver-lvm.enabled
       name: csi-driver-lvm
@@ -159,7 +159,7 @@ entries:
     version: 0.0.2
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-08-18T11:30:40.818279974-07:00"
+    created: "2024-08-18T14:35:46.356865089-07:00"
     dependencies:
     - condition: csi-driver-lvm.enabled
       name: csi-driver-lvm
@@ -179,7 +179,7 @@ entries:
     version: 0.0.2
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-08-18T11:30:40.772303089-07:00"
+    created: "2024-08-18T14:35:46.302438512-07:00"
     dependencies:
     - condition: csi-driver-lvm.enabled
       name: csi-driver-lvm
@@ -199,7 +199,7 @@ entries:
     version: 0.0.1
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-08-18T11:30:40.814472699-07:00"
+    created: "2024-08-18T14:35:46.352846201-07:00"
     dependencies:
     - condition: csi-driver-lvm.enabled
       name: csi-driver-lvm
@@ -220,7 +220,47 @@ entries:
   nautobot:
   - apiVersion: v2
     appVersion: 2.3.0
-    created: "2024-08-18T11:30:40.79398747-07:00"
+    created: "2024-08-18T14:35:46.329577947-07:00"
+    dependencies:
+    - condition: redis.enabled
+      name: redis
+      repository: https://edwardtheharris.github.io/helm-charts
+      version: 0.0.3
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://edwardtheharris.github.io/helm-charts
+      version: 0.0.3
+    description: A Helm chart that will deploy Nautobot to a Kubernetes cluster.
+    digest: 65b67d12b7d881dbe427dfba39d60ffbaec337eff04abc8a8d475c1c8ec674ac
+    icon: file://./_static/img/nautobot.png
+    name: nautobot
+    type: application
+    urls:
+    - nautobot-0.0.3.tgz
+    version: 0.0.3
+  - apiVersion: v2
+    appVersion: 2.3.0
+    created: "2024-08-18T14:35:46.380405021-07:00"
+    dependencies:
+    - condition: redis.enabled
+      name: redis
+      repository: https://edwardtheharris.github.io/helm-charts
+      version: 0.0.3
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://edwardtheharris.github.io/helm-charts
+      version: 0.0.3
+    description: A Helm chart that will deploy Nautobot to a Kubernetes cluster.
+    digest: 65b67d12b7d881dbe427dfba39d60ffbaec337eff04abc8a8d475c1c8ec674ac
+    icon: file://./_static/img/nautobot.png
+    name: nautobot
+    type: application
+    urls:
+    - charts/nautobot-0.0.3.tgz
+    version: 0.0.3
+  - apiVersion: v2
+    appVersion: 2.3.0
+    created: "2024-08-18T14:35:46.321381526-07:00"
     description: A Helm chart that will deploy Nautobot to a Kubernetes cluster.
     digest: 316ef8ed1eb1d71f3655094d264ce2ae3e33f3492810965814bad4abac979d52
     icon: file://./_static/img/nautobot.png
@@ -231,7 +271,7 @@ entries:
     version: 0.0.2
   - apiVersion: v2
     appVersion: 2.3.0
-    created: "2024-08-18T11:30:40.832452662-07:00"
+    created: "2024-08-18T14:35:46.370158164-07:00"
     description: A Helm chart that will deploy Nautobot to a Kubernetes cluster.
     digest: 316ef8ed1eb1d71f3655094d264ce2ae3e33f3492810965814bad4abac979d52
     icon: file://./_static/img/nautobot.png
@@ -242,7 +282,7 @@ entries:
     version: 0.0.2
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-08-18T11:30:40.789931141-07:00"
+    created: "2024-08-18T14:35:46.317790744-07:00"
     description: A Helm to deploy nautobot
     digest: 269436fa2790159f89496bc79b03fb345c07b9c5c0ba2857ce5fcb9c6be1ffa8
     icon: file://./_static/img/nautobot.png
@@ -253,7 +293,7 @@ entries:
     version: 0.0.1
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-08-18T11:30:40.828251588-07:00"
+    created: "2024-08-18T14:35:46.366786028-07:00"
     description: A Helm to deploy nautobot
     digest: 269436fa2790159f89496bc79b03fb345c07b9c5c0ba2857ce5fcb9c6be1ffa8
     icon: file://./_static/img/nautobot.png
@@ -265,7 +305,7 @@ entries:
   postgres:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-08-18T11:30:40.795032668-07:00"
+    created: "2024-08-18T14:35:46.330828947-07:00"
     description: A Helm chart for Kubernetes
     digest: b31734d9f9cc48d3ad8f32c701384d59190b59f86b834f22db98b4710dabe1f6
     icon: file://./assets/icon/postgresql.jpeg
@@ -277,9 +317,9 @@ entries:
   postgresql:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-08-18T11:30:40.800264654-07:00"
+    created: "2024-08-18T14:35:46.334539873-07:00"
     description: PostgreSQL deployed as a single server or a cluster.
-    digest: 4c13ba51723fb26ff5965a92007ace9d037401871cfcc024263be75646035161
+    digest: 92c65a2653cdd43be70eba341ad3cef081173b86ebb22c103ca1c695cc2aa576
     icon: file://./assets/icon/postgresql.jpeg
     name: postgresql
     type: application
@@ -288,9 +328,9 @@ entries:
     version: 0.0.3
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-08-18T11:30:40.834729565-07:00"
+    created: "2024-08-18T14:35:46.38244342-07:00"
     description: PostgreSQL deployed as a single server or a cluster.
-    digest: 4c13ba51723fb26ff5965a92007ace9d037401871cfcc024263be75646035161
+    digest: 92c65a2653cdd43be70eba341ad3cef081173b86ebb22c103ca1c695cc2aa576
     icon: file://./assets/icon/postgresql.jpeg
     name: postgresql
     type: application
@@ -299,7 +339,7 @@ entries:
     version: 0.0.3
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-08-18T11:30:40.797970308-07:00"
+    created: "2024-08-18T14:35:46.332666018-07:00"
     description: A Helm chart for Kubernetes
     digest: 12f79bce72cd559f2d5c62855ed4f7530c923c4157832f834f1d3100837b4ee5
     icon: file://./assets/icon/postgresql.jpeg
@@ -311,7 +351,29 @@ entries:
   redis:
   - apiVersion: v2
     appVersion: 7.4.0
-    created: "2024-08-18T11:30:40.807974674-07:00"
+    created: "2024-08-18T14:35:46.345378482-07:00"
+    description: A Helm chart that will deploy Redis to a Kubernetes cluster.
+    digest: 5cfd66a0b9b6bbb2bd7ecf6cef4e6b75d21c4e0799fd4d9ce57ff0d95cab7029
+    icon: https://edwardtheharris.github.io/helm-redis/_static/redis.png
+    name: redis
+    type: application
+    urls:
+    - redis-0.0.4.tgz
+    version: 0.0.4
+  - apiVersion: v2
+    appVersion: 7.4.0
+    created: "2024-08-18T14:35:46.393101209-07:00"
+    description: A Helm chart that will deploy Redis to a Kubernetes cluster.
+    digest: 5cfd66a0b9b6bbb2bd7ecf6cef4e6b75d21c4e0799fd4d9ce57ff0d95cab7029
+    icon: https://edwardtheharris.github.io/helm-redis/_static/redis.png
+    name: redis
+    type: application
+    urls:
+    - charts/redis-0.0.4.tgz
+    version: 0.0.4
+  - apiVersion: v2
+    appVersion: 7.4.0
+    created: "2024-08-18T14:35:46.344169942-07:00"
     description: A Helm chart that will deploy Redis to a Kubernetes cluster.
     digest: b9b803780fec0333f5b15f9179c3ede493203154c4eeeaa4044d468e6bbb3470
     icon: https://edwardtheharris.github.io/helm-redis/_static/redis.png
@@ -321,11 +383,11 @@ entries:
     - redis-0.0.3.tgz
     version: 0.0.3
   - apiVersion: v2
-    appVersion: 1.16.0
-    created: "2024-08-18T11:30:40.84008237-07:00"
-    description: A Redis Helm chart for Kubernetes
-    digest: 3011d577211bf0fe71c7d96e369dd2d43293183caaa47b0b91840aa3fdb2bf0e
-    icon: file://./_static/img/redis.jpg
+    appVersion: 7.4.0
+    created: "2024-08-18T14:35:46.39102552-07:00"
+    description: A Helm chart that will deploy Redis to a Kubernetes cluster.
+    digest: b9b803780fec0333f5b15f9179c3ede493203154c4eeeaa4044d468e6bbb3470
+    icon: https://edwardtheharris.github.io/helm-redis/_static/redis.png
     name: redis
     type: application
     urls:
@@ -333,7 +395,7 @@ entries:
     version: 0.0.3
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-08-18T11:30:40.80430441-07:00"
+    created: "2024-08-18T14:35:46.337762831-07:00"
     description: A Redis Helm chart for Kubernetes
     digest: 02a0b25aba644c79549e6f815a9a7140cbda3ceb4131f1a307e34168e39d1f98
     icon: file://./_static/img/redis.jpg
@@ -344,7 +406,7 @@ entries:
     version: 0.0.2
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-08-18T11:30:40.837925095-07:00"
+    created: "2024-08-18T14:35:46.385615636-07:00"
     description: A Redis Helm chart for Kubernetes
     digest: 02a0b25aba644c79549e6f815a9a7140cbda3ceb4131f1a307e34168e39d1f98
     icon: file://./_static/img/redis.jpg
@@ -355,7 +417,7 @@ entries:
     version: 0.0.2
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-08-18T11:30:40.801753316-07:00"
+    created: "2024-08-18T14:35:46.335605727-07:00"
     description: A Redis Helm chart for Kubernetes
     digest: b92ad7757535b6dd154b728853ab14529fbbfc052d221b2f28d54f03f016e7ec
     icon: file://./assets/icon/redis.jpg
@@ -366,7 +428,7 @@ entries:
     version: 0.0.1
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-08-18T11:30:40.83590466-07:00"
+    created: "2024-08-18T14:35:46.383566357-07:00"
     description: A Redis Helm chart for Kubernetes
     digest: b92ad7757535b6dd154b728853ab14529fbbfc052d221b2f28d54f03f016e7ec
     icon: file://./assets/icon/redis.jpg
@@ -375,4 +437,4 @@ entries:
     urls:
     - charts/redis-0.0.1.tgz
     version: 0.0.1
-generated: "2024-08-18T11:30:40.760985963-07:00"
+generated: "2024-08-18T14:35:46.292606148-07:00"
