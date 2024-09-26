@@ -8,5 +8,8 @@ myst-parser = {extras = ["linkify"], version = "*"}
 pipenv = "*"
 sphinx = "*"
 sphinx-autobuild = "*"
+sphinx-book-theme = "*"
+version-query = "*"
 
 [dev-packages]
+sphinxcontrib-autoyaml = "*"

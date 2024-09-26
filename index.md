@@ -17,6 +17,7 @@ publicly in case someone else has similar purposes.
 ```{toctree}
 :caption: meta
 
+charts/grafana/index
 license
 readme
 ```
@@ -46,4 +47,13 @@ To uninstall the chart:
 
 ```shell
 helm delete ${chart_name}
+```
+
+## Glossary
+
+```{glossary}
+Helm
+   This is a simple program that allows for easy maintenance of Kubernetes
+   resources. More information is available at [helm.sh](https://helm.sh),
+   or the [helm repo](https://helm.sh/docs/helm/helm_repo/).
 ```
