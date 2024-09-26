@@ -2,3 +2,4 @@
 .venv/
 _build/
 reflog
+secrets/
