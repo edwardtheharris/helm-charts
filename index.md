@@ -15,8 +15,15 @@ A small index of Helm charts intended to serve the author's purposes and shared
 publicly in case someone else has similar purposes.
 
 ```{toctree}
+:caption: contents
+
+charts/prometheus/index
+```
+
+```{toctree}
 :caption: meta
 
+charts/grafana/index
 license
 readme
 ```
@@ -47,3 +54,119 @@ To uninstall the chart:
 ```shell
 helm delete ${chart_name}
 ```
+
+## Glossary
+
+````{glossary}
+alertingRules
+   Definition of alerts that Prometheus should send when adverse conditions
+   are detected. Alerts configuration information available
+   [here](https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/).
+
+   ```{code-block} yaml
+   alerting_rules.yml:
+     groups:
+       - name: Instances
+         rules:
+           - alert: InstanceDown
+             expr: up == 0
+             for: 5m
+             labels:
+               severity: page
+             annotations:
+               description: '{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 5 minutes.'
+               summary: 'Instance {{ $labels.instance }} down'
+   ```
+
+examplars
+   A Prometheus feature. Must be enabled via
+   `--enable-feature=exemplar-storage`{l=shell}
+   More information available
+   [here](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#exemplars)
+
+   ```{code-block} yaml
+   :caption: example exemplars
+
+   exemplars:
+      max_exemplars: 100000
+   ```
+
+liveness
+   Whether or not a service is alive. Learn more
+   [here](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/).
+
+podAntiAffinityTopologyKey
+   If anti-affinity is enabled sets the topologyKey to use for anti-affinity.
+    This can be changed to, for example, failure-domain.beta.kubernetes.io/zone
+
+podDisruptionBudget
+  PodDisruptionBudget settings. More information available
+  [here](https://kubernetes.io/docs/concepts/workloads/pods/disruptions/).
+
+podSecurityPolicy
+   Specify pod annotations, for example:
+   - [apparmor](https://kubernetes.io/docs/concepts/policy/pod-security-policy/#apparmor)
+   - [seccomp](https://kubernetes.io/docs/concepts/policy/pod-security-policy/#seccomp)
+   - [sysctl](https://kubernetes.io/docs/concepts/policy/pod-security-policy/#sysctl)
+
+   ```{code-block} yaml
+   podSecurityPolicy:
+      annotations:
+        seccomp.security.alpha.kubernetes.io/allowedProfileNames: '*'
+        seccomp.security.alpha.kubernetes.io/defaultProfileName: 'docker/default'
+        apparmor.security.beta.kubernetes.io/defaultProfileName: 'runtime/default'
+   ```
+
+readiness
+   Whether or not a service is ready to use. Learn more
+   [here](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)
+
+remoteRead
+   Information available
+   [here](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#remote_read)
+
+remoteWrite
+   Information available
+   [here](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#remote_write).
+
+resources
+   A method for requesting and limiting resources available to a workload.
+   Learn more
+   [here](http://kubernetes.io/docs/user-guide/compute-resources/).
+
+retentionSize
+   Prometheus' data retention size.
+   Supported units: `B`, `KB`, `MB`, `GB`, `TB`, `PB`, `EB`.
+
+serverFiles
+   Prometheus configuration files as defined in `values.yaml`.
+
+   Records configuration, more information available
+   [here](https://prometheus.io/docs/prometheus/latest/configuration/recording_rules/).
+
+storagePath
+   The data directory used by prometheus to set `--storage.tsdb.path`{l=shell}
+   When empty `server.persistentVolume.mountPath`{l=yaml} is used instead.
+
+topologySpreadConstraints
+  Pod topology spread constraints. More information available
+  [here](https://kubernetes.io/docs/concepts/scheduling-eviction/topology-spread-constraints/)
+
+tsdb
+   Time Series Database, more information available
+   [here](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#tsdb).
+
+   ```{code-block} yaml
+   :caption: tsdb example
+
+   tsdb:
+      out_of_order_time_window: 0s
+   ```
+
+unhealthyPodEvictionPolicy
+   `unhealthyPodEvictionPolicy`{l=yaml} is available since 1.27.0 (beta) More
+   information is available
+   [here](https://kubernetes.io/docs/tasks/run-application/configure-pdb/#unhealthy-pod-eviction-policy).
+
+   `unhealthyPodEvictionPolicy: IfHealthyBudget`{l=yaml}
+````
