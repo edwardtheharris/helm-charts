@@ -59,7 +59,8 @@ ingress:
   #   - secretName: nextcloud-tls
   #     hosts:
   #       - nextcloud.kube.home
-  labels: {}
+  labels:
+    app.kubernetes.io/name: nextcloud
   path: /
   pathType: Prefix
 
