@@ -4,9 +4,12 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-myst-parser = {extras = ["linkify"], version = "*"}
 pipenv = "*"
-sphinx = "*"
-sphinx-autobuild = "*"
 
 [dev-packages]
+myst-parser = {extras = ["linkify"], version = "*"}
+sphinx = "*"
+sphinx-autobuild = "*"
+sphinx-book-theme = "*"
+sphinxcontrib-autoyaml = "*"
+version-query = "*"
