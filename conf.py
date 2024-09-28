@@ -1,11 +1,11 @@
 """Helm Charts Site configuration.
-# Configuration file for the Sphinx documentation builder.
-#
-# For the full list of built-in configuration values, see the documentation:
-# https://www.sphinx-doc.org/en/master/usage/configuration.html
+Configuration file for the Sphinx documentation builder.
 
-# -- Project information -----------------------------------------------------
-# https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
+For the full list of built-in configuration values, see the documentation:
+https://www.sphinx-doc.org/en/master/usage/configuration.html
+
+-- Project information -----------------------------------------------------
+https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 """
 # pylint: disable=invalid-name,redefined-builtin
 from pathlib import Path
@@ -65,9 +65,11 @@ extensions = [
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 html_extra_path = get_html_extra_paths()
+html_favicon = '_static/img/logo/helm.png'
+html_logo = '_static/img/logo/helm.png'
 html_static_path = ['_static']
 html_theme = 'sphinx_book_theme'
-myst_dmath_double_inline=True
+myst_dmath_double_inline = True
 myst_enable_extensions = [
     "amsmath",
     "attrs_block",
@@ -88,4 +90,8 @@ myst_enable_extensions = [
 myst_title_to_header = True
 release = get_release()
 project = 'Charts'
+source_suffix = {
+    '.md': 'markdown',
+    '.rst': 'restructuredText',
+}
 templates_path = ['_templates']
