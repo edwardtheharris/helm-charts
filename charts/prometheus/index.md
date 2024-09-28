@@ -49,7 +49,7 @@ If you need to update the JSON schema, follow these steps.
 
    ```{code-block} shell
    kubectl create ns prometheus
-   helm -n prometheus upgrade --install prometheus-community/prometheus -f values.yaml
+   helm -n prometheus upgrade --install prometheus prometheus-community/prometheus -f values.yaml
    ```
 
 ### Values

@@ -9,7 +9,7 @@ image:
   tag:
   pullPolicy: IfNotPresent
   # pullSecrets:
-  #   - myRegistryKeySecretName
+  #   - myRegistrKeySecretName
 
 nameOverride: ""
 fullnameOverride: ""
@@ -59,7 +59,8 @@ ingress:
   #   - secretName: nextcloud-tls
   #     hosts:
   #       - nextcloud.kube.home
-  labels: {}
+  labels:
+    app.kubernetes.io/name: nextcloud
   path: /
   pathType: Prefix
 
@@ -625,11 +626,11 @@ metrics:
     apps: false
 
   image:
-    repository: experimental/nextcloud-exporter
+    repository: xperimental/nextcloud-exporter
     tag: 0.6.2
     pullPolicy: IfNotPresent
     # pullSecrets:
-    #   - myRegistryKeySecretName
+    #   - myRegistrKeySecretName
 
   ## Metrics exporter resource requests and limits
   ## ref: http://kubernetes.io/docs/user-guide/compute-resources/
