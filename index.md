@@ -17,13 +17,15 @@ publicly in case someone else has similar purposes.
 ```{toctree}
 :caption: contents
 
+charts/grafana/index
+charts/loki/index
+charts/nextcloud/index
 charts/prometheus/index
 ```
 
 ```{toctree}
 :caption: meta
 
-charts/grafana/index
 license
 readme
 ```
@@ -78,7 +80,12 @@ alertingRules
                summary: 'Instance {{ $labels.instance }} down'
    ```
 
-examplars
+deployment strategy
+   Strategy used when deploying new versions of resources. More information
+   is available
+   [here](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#strategy).
+
+exemplars
    A Prometheus feature. Must be enabled via
    `--enable-feature=exemplar-storage`{l=shell}
    More information available
@@ -90,6 +97,15 @@ examplars
    exemplars:
       max_exemplars: 100000
    ```
+
+ingress
+   Any method for allowing traffic into a Kubernetes cluster. More information
+   is available [here](https://kubernetes.io/docs/concepts/services-networking/ingress/)
+
+lifecycle events
+   An event during the lifecycle of a workload that can be used to trigger
+   an action in the cluster. More information is available
+   [here](https://kubernetes.io/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/).
 
 liveness
    Whether or not a service is alive. Learn more
