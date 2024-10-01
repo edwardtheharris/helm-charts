@@ -4,3 +4,4 @@ _build/
 reflog
 secrets/
 test.yaml
+.vscode/
