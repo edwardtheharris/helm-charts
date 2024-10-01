@@ -34,10 +34,11 @@ rbac:
   #   verbs: []
 serviceAccount:
   create: true
-  name:
-  nameTest:
+  name: grafana
+  nameTest: grafana-test
   ## ServiceAccount labels.
-  labels: {}
+  labels:
+    app.kubernetes.io/name: grafana
   ## Service account annotations. Can be templated.
   #  annotations:
   #    eks.amazonaws.com/role-arn: arn:aws:iam::123456789000:role/iam-role-name-here
@@ -158,13 +159,13 @@ createConfigmap: true
 
 # Extra configmaps to mount in grafana pods
 # Values are templated.
-extraConfigmapMounts: []
-# - name: certs-configmap
-#   mountPath: /etc/grafana/ssl/
-#   subPath: certificates.crt # (optional)
-#   configMap: certs-configmap
-#   readOnly: true
-#   optional: false
+extraConfigmapMounts:
+- name: certs-configmap
+  mountPath: /etc/grafana/ssl/
+  subPath: certificates.crt # (optional)
+  configMap: certs-configmap
+  readOnly: true
+  optional: false
 
 
 extraEmptyDirMounts: []
@@ -225,7 +226,6 @@ gossipPortName: gossip
 service:
   enabled: true
   externalIPs:
-  - 192.168.5.5
   - 192.168.5.14
   type: LoadBalancer
   # Set the ip family policy to configure dual-stack see [Configure dual-stack](https://kubernetes.io/docs/concepts/services-networking/dual-stack/#services)
@@ -245,7 +245,7 @@ service:
     app.kubernetes.io/name: grafana
   portName: service
   # Adds the appProtocol field to the service. This allows to work with istio protocol selection. Ex: "http" or "tcp"
-  appProtocol: ""
+  appProtocol: tcp
 
 serviceMonitor:
   ## If true, a ServiceMonitor CR is created for a prometheus operator
@@ -284,7 +284,8 @@ ingress:
   annotations:
     kubernetes.io/ingress.class: nginx
   # kubernetes.io/tls-acme: "true"
-  labels: {}
+  labels:
+    app.kubernetes.io/name: grafana
   path: /
   # pathType is only for k8s >= 1.1=
   pathType: Prefix

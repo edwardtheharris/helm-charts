@@ -88,6 +88,8 @@ jobs:
       id-token: write
     steps:
       - uses: actions/checkout@main
+        with:
+          fetch-depth: 0
       - uses: actions/setup-python@main
         with:
           python-version: 3.11
