@@ -57,42 +57,42 @@ ingress:
   enabled: true
   className: nginx
   annotations:
-    nginx.ingress.kubernetes.io/enable-cors: "true"
+    cert-manager.io/cluster-issuer: nextcloud
+    cert-manager.io/common-name: nextcloud.breeze-blocks.net
+    # nginx.ingress.kubernetes.io/enable-cors: "true"
     nginx.ingress.kubernetes.io/cors-allow-headers: "X-Forwarded-For"
     nginx.ingress.kubernetes.io/proxy-body-size: 4G
-    nginx.ingress.kubernetes.io/server-snippet: |-
-      server_tokens off;
-      proxy_hide_header X-Powered-By;
-      rewrite ^/.well-known/webfinger /index.php/.well-known/webfinger last;
-      rewrite ^/.well-known/nodeinfo /index.php/.well-known/nodeinfo last;
-      rewrite ^/.well-known/host-meta /public.php?service=host-meta last;
-      rewrite ^/.well-known/host-meta.json /public.php?service=host-meta-json;
-      location = /.well-known/carddav {
-        return 301 $scheme://$host/remote.php/dav;
-      }
-      location = /.well-known/caldav {
-        return 301 $scheme://$host/remote.php/dav;
-      }
-      location = /robots.txt {
-        allow all;
-        log_not_found off;
-        access_log off;
-      }
-      location ~ ^/(?:build|tests|config|lib|3rdparty|templates|data)/ {
-        deny all;
-      }
-      location ~ ^/(?:autotest|occ|issue|indie|db_|console) {
-        deny all;
-      }
+    # nginx.ingress.kubernetes.io/server-snippet: |-
+    #   server_tokens off;
+    #   proxy_hide_header X-Powered-By;
+    #   rewrite ^/.well-known/webfinger /index.php/.well-known/webfinger last;
+    #   rewrite ^/.well-known/nodeinfo /index.php/.well-known/nodeinfo last;
+    #   rewrite ^/.well-known/host-meta /public.php?service=host-meta last;
+    #   rewrite ^/.well-known/host-meta.json /public.php?service=host-meta-json;
+    #   location = /.well-known/carddav {
+    #     return 301 $scheme://$host/remote.php/dav;
+    #   }
+    #   location = /.well-known/caldav {
+    #     return 301 $scheme://$host/remote.php/dav;
+    #   }
+    #   location = /robots.txt {
+    #     allow all;
+    #     log_not_found off;
+    #     access_log off;
+    #   }
+    #   location ~ ^/(?:build|tests|config|lib|3rdparty|templates|data)/ {
+    #     deny all;
+    #   }
+    #   location ~ ^/(?:autotest|occ|issue|indie|db_|console) {
+    #     deny all;
+    #   }
   # Define TLS configuration for ingress, with secretName and hosts.
   # tls:
-  #   - secretName: nextcloud-tls
-  #     hosts:
-  #       - nextcloud.kube.home
+  # - secretName: nextcloud-cert
+  #   hosts:
+  #   - nextcloud.breeze-blocks.net
   labels:
     app.kubernetes.io/name: nextcloud
-  hosts:
-  - nextcloud.breeze-blocks.net
   path: /
   pathType: Prefix
 
@@ -138,7 +138,7 @@ lifecycle: {}
 # preStopCommand: []
 # PHP HTTPS Configuration
 phpClientHttpsFix:
-  enabled: false
+  enabled: true
   protocol: https
 
 ###
@@ -153,12 +153,12 @@ phpClientHttpsFix:
 # :end-before: "###\n"
 # ```
 nextcloud:
-  host: nextcloud.kube.home
+  host: nextcloud.breeze-blocks.net
   username: admin
   password: changeme
   # Option to use an existing secret for Nextcloud credentials.
   existingSecret:
-    enabled: false
+    enabled: true
     # Secret name containing Nextcloud credentials.
     secretName: nextcloud-login
     usernameKey: nextcloud-username
@@ -184,10 +184,13 @@ nextcloud:
 # :end-before: "###\n"
 # ```
 persistence:
+  enabled: true
+  existingClaim: nextcloud-nextcloud
   subPath: ""
   nextcloudData:
     enabled: true
-    subPath: "/data"
+    subPath: ""
+    existingClaim: nextcloud-nextcloud-data
     accessMode: ReadWriteMany
     size: 50Gi
     storageClass: csi-lvm-linear
@@ -285,7 +288,7 @@ defaultConfigs:
   autoconfig.php: true
   redis.config.php: true
   reverse-proxy.config.php: true
-  s3.config.php: true
+  s3.config.php: false
   smtp.config.php: true
   swift.config.php: true
   upgrade-disable-web.config.php: true
@@ -379,12 +382,14 @@ redis:
 service:
   type: LoadBalancer
   port: 80
-  loadBalancerIP: 192.168.5.20
+  loadBalancerIP: 192.168.5.5
   externalIPs:
-  - 192.168.5.20
+  - 192.168.5.16
   nodePort:
   annotations:
     app.kubernetes.io/hostname: nextcloud.breeze-blocks.net
+nginx:
+  enabled: true
 
 ###
 # ```{rubric} Liveness, Readiness, and Startup Probes
@@ -398,11 +403,11 @@ service:
 # :end-before: "###\n"
 # ```
 livenessProbe:
-  enabled: true
+  enabled: false
   initialDelaySeconds: 10
   periodSeconds: 10
 readinessProbe:
-  enabled: true
+  enabled: false
   initialDelaySeconds: 10
   periodSeconds: 10
 startupProbe:
@@ -448,7 +453,7 @@ serviceMonitor:
   interval: 30s
 # RBAC configuration for Nextcloud.
 rbac:
-  enabled: false
+  enabled: true
   serviceaccount:
     create: true
     name: nextcloud

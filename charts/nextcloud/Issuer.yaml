@@ -2,7 +2,7 @@ apiVersion: cert-manager.io/v1
 kind: Issuer
 metadata:
   name: breeze-blocks-int
-  namespace: cert-manager
+  namespace: nextcloud
 spec:
   ca:
     secretName: breeze-blocks-ca
@@ -10,16 +10,16 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: breeze-blocks-int
-  namespace: cert-manager
+  name: nextcloud
+  namespace: nextcloud
 spec:
-  isCA: true
-  commonName: int.breeze-blocks.net
+  isCA: false
+  commonName: nextcloud.breeze-blocks.net
   secretName: breeze-blocks-int
   privateKey:
     algorithm: ECDSA
     size: 256
   issuerRef:
     name: breeze-blocks-int
-    kind: ClusterIssuer
+    kind: Issuer
     group: cert-manager.io

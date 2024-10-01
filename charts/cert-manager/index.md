@@ -107,7 +107,12 @@ on how that works is available
    kubectl -n cert-manager apply -f manifests/IssueCACert.yaml
    ```
 
+   This is described [here](https://cert-manager.io/docs/configuration/ca/).
+
 3. Start securing resources.
+
+   This process is described
+   [here](https://cert-manager.io/docs/usage/ingress/).
 
 ### Values
 
