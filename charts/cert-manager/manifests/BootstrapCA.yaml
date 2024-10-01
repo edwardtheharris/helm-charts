@@ -6,33 +6,31 @@ metadata:
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
-  name: bootstrap-issuer
+  name: breeze-blocks
 spec:
-  selfSigned:
-    crlDistributionPoints:
-    - "http://breeze-blocks.net"
+  selfSigned: {}
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: root-ca
+  name: breeze-blocks-ca
   namespace: cert-manager
 spec:
   isCA: true
-  commonName: root-ca
-  secretName: root-secret
+  commonName: ca.breeze-blocks.net
+  secretName: breeze-blocks-ca
   privateKey:
     algorithm: ECDSA
     size: 256
   issuerRef:
-    name: bootstrap-issuer
+    name: breeze-blocks
     kind: ClusterIssuer
     group: cert-manager.io
 ---
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
-  name: root-ca
+  name: breeze-blocks-ca
 spec:
   ca:
-    secretName: root-secret
+    secretName: breeze-blocks-ca

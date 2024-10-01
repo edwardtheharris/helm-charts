@@ -1,2 +1,7 @@
+###
+# ```{rubric} CRDs
+# ```
+# ---
+# Enable required Custom Resource Definitions.
 crds:
   enabled: true
