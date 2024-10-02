@@ -17,6 +17,7 @@ publicly in case someone else has similar purposes.
 ```{toctree}
 :caption: contents
 
+charts/cert-manager/index
 charts/grafana/index
 charts/loki/index
 charts/nextcloud/index
