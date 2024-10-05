@@ -20,6 +20,6 @@ spec:
     algorithm: ECDSA
     size: 256
   issuerRef:
-    name: breeze-blocks-int
+    name: breeze-blocks-ca
     kind: ClusterIssuer
     group: cert-manager.io
