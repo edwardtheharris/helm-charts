@@ -13,17 +13,33 @@ loki:
   tracing:
     enabled: true
   querier:
-    # Default is 4, if you have enough memory and CPU you can increase, reduce if OOMing
+    # Default is 4, if you have enough memory and CPU
+    # you can increase, reduce if OOMing
     max_concurrent: 4
 
 gateway:
   ingress:
+    annotations:
+      cert-manager.io/cluster-issuer: breeze-blocks-ca
     enabled: true
     hosts:
     - host: loki.breeze-blocks.net
       paths:
       - path: /
         pathType: Prefix
+        backend:
+          service:
+            name: loki-gateway
+            port:
+              number: 8080
+  tls:
+  - hosts:
+    - hosts:
+      - loki.breeze-blocks.net
+      secretName: loki-gateway-cert
+  service:
+    loadBalancerIP: 192.168.5.5
+    type: LoadBalancer
 
 deploymentMode: SimpleScalable
 
