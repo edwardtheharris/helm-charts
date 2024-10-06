@@ -28,6 +28,7 @@ charts/prometheus/index
 ```{toctree}
 :caption: meta
 
+charts/grafana/index
 license
 readme
 ```
