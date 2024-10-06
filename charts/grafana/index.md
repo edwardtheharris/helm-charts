@@ -73,3 +73,9 @@ for details.
 
 ```{sectionauthor} Xander Harris <xandertheharris@gmail.com>
 ```
+
+## Data Sources
+
+The PostgreSQL data source requires read-only access.
+
+You can find more information about that [here](https://serverfault.com/questions/60508/grant-select-to-all-tables-in-postgresql).
