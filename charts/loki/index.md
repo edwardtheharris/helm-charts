@@ -20,7 +20,7 @@ title: Loki Helm Chart Values
 3. Deploy the service.
 
    ```{code-block} shell
-   helm upgrade --install --force loki grafana/loki -f values.yaml
+   helm -n loki upgrade --install --force loki grafana/loki -f values.yaml
    ```
 
 4. Create some test data.
@@ -32,7 +32,7 @@ title: Loki Helm Chart Values
 5. Run a test pod.
 
    ```{code-block} shell
-   kubectl run -it --image alpine:latest -- sh
+   kubectl run -n loki -it --image alpine:latest loki-test -- sh
    ---
    apk add httpie
    ```
