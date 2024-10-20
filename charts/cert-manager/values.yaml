@@ -20,7 +20,6 @@ global:
   # For example, secretTemplate in CertificateSpec
   # For more information, see the [cert-manager documentation](https://cert-manager.io/docs/reference/api-docs/#cert-manager.io/v1.CertificateSpec).
   commonLabels: {}
-  # app.kubernetes.io/name: cert-manager
 
   # The number of old ReplicaSets to retain to allow rollback (if not set, the default Kubernetes value is set to 10).
   # +docs:property
@@ -50,7 +49,7 @@ global:
     # Override the namespace used for the leader election lease.
     namespace: "kube-system"
 
-    # The duration that non-leader candidates will wait after observing af
+    # The duration that non-leader candidates will wait after observing a
     # leadership renewal until attempting to acquire leadership of a led but
     # unrenewed leader slot. This is effectively the maximum duration that a
     # leader can be stopped before it is replaced by another candidate.
@@ -160,7 +159,7 @@ image:
 # Override the namespace used to store DNS provider credentials etc. for ClusterIssuer
 # resources. By default, the same namespace as cert-manager is deployed within is
 # used. This namespace will not be automatically created by the Helm chart.
-clusterResourceNamespace: ""
+clusterResourceNamespace: cert-manager
 
 # This namespace allows you to define where the services are installed into.
 # If not set then they use the namespace of the release.
@@ -236,7 +235,7 @@ config: {}
 # For more information, see the [cert-manager documentation](https://cert-manager.io/docs/configuration/acme/dns01/#setting-nameservers-for-dns01-self-check).
 
 # A comma-separated string with the host and port of the recursive nameservers cert-manager should query.
-dns01RecursiveNameservers: ""
+dns01RecursiveNameservers: "192.168.5.6:53,192.168.5.7:53"
 
 # Forces cert-manager to use only the recursive nameservers for verification.
 # Enabling this option could cause the DNS01 self check to take longer owing to caching performed by the recursive nameservers.
@@ -1338,7 +1337,6 @@ startupapicheck:
   # links.
   enableServiceLinks: false
 
-###
 # Create dynamic manifests via values.
 #
 # For example:
