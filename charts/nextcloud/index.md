@@ -696,14 +696,16 @@ nextcloud:
       memory_limit=512M
 ```
 
-> [!Note]
-> Be sure to prefix your file name with `zz` to ensure it is loaded at the end.
+```{note}
+Be sure to prefix your file name with `zz` to ensure it is loaded at the end.
+```
 
 
 ## Running `occ` commands
+
 Sometimes you need to run an [occ](https://docs.nextcloud.com/server/latest/admin_manual/configuration_server/occ_command.html) command on the Nextcloud container directly. You can do that by running commands as the user `www-data` via the `kubectl exec` command.
 
-```bash
+```{code-block} bash
 # $NEXTCLOUD_POD should be the name of *your* nextcloud pod :)
 kubectl exec $NEXTCLOUD_POD -- su -s /bin/sh www-data -c "php occ myocccomand"
 ```
@@ -812,3 +814,4 @@ Remember to anonymize your logs and snippets from your pod before sharing
 them with the internet. Kubernetes secrets, even Sealed ones, live in
 plaintext `env` variables on your running containers, and log messages can
 include other information that should stay safely with you.
+
