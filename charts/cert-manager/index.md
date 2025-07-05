@@ -107,9 +107,50 @@ on how that works is available
    kubectl -n cert-manager apply -f manifests/IssueCACert.yaml
    ```
 
+   This is described [here](https://cert-manager.io/docs/configuration/ca/).
+
 3. Start securing resources.
+
+   This process is described
+   [here](https://cert-manager.io/docs/usage/ingress/).
 
 ### Values
 
 ```{autoyaml} charts/cert-manager/values.yaml
+```
+
+## Example Ingress
+
+This was sourced directly from the Cert Manager
+[docs](https://cert-manager.io/docs/usage/ingress/).
+
+```{code-block} yaml
+:caption: myIngress
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    # add an annotation indicating the issuer to use.
+    cert-manager.io/cluster-issuer: nameOfClusterIssuer
+  name: myIngress
+  namespace: myIngress
+spec:
+  rules:
+  - host: example.com
+    http:
+      paths:
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: myservice
+            port:
+              number: 80
+  # < placing a host in the TLS config will determine
+  # what ends up in the cert's subjectAltNames
+  tls:
+  - hosts:
+    - example.com
+    secretName: myingress-cert # < cert-manager will store the created certificate in this secret.
 ```

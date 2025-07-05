@@ -5,3 +5,4 @@ reflog
 secrets/
 test.yaml
 .vscode/
+secret*
