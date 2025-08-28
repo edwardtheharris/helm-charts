@@ -45,7 +45,7 @@ If you need to update the JSON schema, follow these steps.
    ```
 
 2. Edit the `values.yaml` as you need.
-3. Create the namesapce.
+3. Create the namespace.
 
    ```{code-block} shell
    kubectl create ns cert-manager
@@ -116,7 +116,8 @@ on how that works is available
 
 ### Values
 
-```{autoyaml} charts/cert-manager/values.yaml
+```{literalinclude} /charts/cert-manager/values.yaml
+:language: yaml
 ```
 
 ## Example Ingress
