@@ -93,7 +93,7 @@ https://cert-manager.io/docs/usage/ingress/
 
 We'll be self-signing things since this is intended to run locally. Information
 on how that works is available
-[here](https://cert-manager.io/docs/configuration/selfsigned/).
+[in the cert-manager self-signed CA guide](https://cert-manager.io/docs/configuration/selfsigned/).
 
 1. Bootstrap an in-cluster issuer.
 
@@ -107,12 +107,12 @@ on how that works is available
    kubectl -n cert-manager apply -f manifests/IssueCACert.yaml
    ```
 
-   This is described [here](https://cert-manager.io/docs/configuration/ca/).
+   This is described [in the root CA issuance guide](https://cert-manager.io/docs/configuration/ca/).
 
 3. Start securing resources.
 
    This process is described
-   [here](https://cert-manager.io/docs/usage/ingress/).
+   [cert-manager ingress guide](https://cert-manager.io/docs/usage/ingress/).
 
 ### Values
 
