@@ -18,7 +18,7 @@ publicly in case someone else has similar purposes.
 :caption: contents
 
 charts/cert-manager/index
-
+charts/flannel/index
 charts/grafana/index
 charts/loki/index
 charts/nextcloud/index
