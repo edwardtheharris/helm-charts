@@ -18,7 +18,7 @@ publicly in case someone else has similar purposes.
 :caption: contents
 
 charts/cert-manager/index
-
+charts/flannel/index
 charts/grafana/index
 charts/loki/index
 charts/nextcloud/index
@@ -99,6 +99,9 @@ exemplars
    exemplars:
       max_exemplars: 100000
    ```
+
+Helm
+  [Helm](https://helm.sh) is the package manager for Kubernetes
 
 ingress
    Any method for allowing traffic into a Kubernetes cluster. More information
