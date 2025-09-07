@@ -28,6 +28,7 @@ charts/prometheus/index
 ```{toctree}
 :caption: meta
 
+changelog
 license
 readme
 ```
