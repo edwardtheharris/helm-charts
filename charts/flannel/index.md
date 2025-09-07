@@ -9,7 +9,7 @@ title: Flannel Helm Configuration
 
 ## Flannel Chart Usage
 
-For basic installations this is a simple process.
+For basic installations this is a simple process[^flannel-helm-docs].
 
 1. Create the namespace.
 
