@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites tests="1" failures="1" errors="0" skipped="0">
-  <testsuite name="markdownlint-cli2-formatter-junit" time="0" tests="1" failures="1" errors="0" skipped="0">
-    <testcase classname="charts/flannel/index.md" name="MD053/link-image-reference-definitions" time="0">
-      <failure message="Link and image reference definitions should be needed"><![CDATA[Line 40, Column 1, Unused link or image reference definition: "^flannel-helm-docs", Context: "[^flannel-helm-docs]: All info..."]]></failure>
-    </testcase>
+<testsuites tests="1" failures="0" errors="0" skipped="0">
+  <testsuite name="markdownlint-cli2-formatter-junit" time="0" tests="1" failures="0" errors="0" skipped="0">
+    <testcase name="markdownlint-cli2-formatter-junit" time="0"/>
   </testsuite>
 </testsuites>
