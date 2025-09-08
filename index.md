@@ -22,6 +22,7 @@ charts/flannel/index
 charts/grafana/index
 charts/loki/index
 charts/nextcloud/index
+charts/nginx/index
 charts/prometheus/index
 ```
 

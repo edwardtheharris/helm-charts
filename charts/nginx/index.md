@@ -19,16 +19,10 @@ For basic installations this is a simple process[^nginx-helm-docs].
    kubectl create ns nginx
    ```
 
-2. Label the namespace.
+2. Deploy the chart.
 
    ```{code-block} shell
-   kubectl label --overwrite ns kube-flannel pod-security.kubernetes.io/enforce=privileged
-   ```
-
-3. Deploy the chart.
-
-   ```{code-block} shell
-   helm install my-release oci://ghcr.io/nginx/charts/nginx-ingress --version 2.2.2
+   helm install nginx-ingress --namespace nginx oci://ghcr.io/nginx/charts/nginx-ingress --version 2.2.2
    ```
 
 [^nginx-helm-docs]: All information provided here was taken from the much
