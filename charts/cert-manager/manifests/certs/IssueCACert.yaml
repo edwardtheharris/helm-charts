@@ -1,0 +1,25 @@
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: breeze-blocks-int
+  namespace: cert-manager
+spec:
+  ca:
+    secretName: breeze-blocks-ca
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: breeze-blocks-int
+  namespace: cert-manager
+spec:
+  isCA: true
+  commonName: int.breeze-blocks.net
+  secretName: breeze-blocks-int
+  privateKey:
+    algorithm: ECDSA
+    size: 256
+  issuerRef:
+    name: breeze-blocks-ca
+    kind: ClusterIssuer
+    group: cert-manager.io

@@ -1,0 +1,25 @@
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: communications-services-int
+  namespace: cert-manager
+spec:
+  ca:
+    secretName: communications-services-ca
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: communications-services-int
+  namespace: cert-manager
+spec:
+  isCA: true
+  commonName: int.communications-services.net
+  secretName: communications-services-int
+  privateKey:
+    algorithm: ECDSA
+    size: 256
+  issuerRef:
+    name: communications-services-ca
+    kind: ClusterIssuer
+    group: cert-manager.io
