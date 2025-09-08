@@ -76,7 +76,7 @@ for details.
 
 ## Data Sources
 
-The PostgreSQL data source requires read-only access.
+The {term}`PostgreSQL` data source requires read-only access.
 
 You can find more information about that
 [in this helpful serverfault post](https://serverfault.com/questions/60508/grant-select-to-all-tables-in-postgresql).
