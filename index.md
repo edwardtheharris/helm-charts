@@ -21,6 +21,7 @@ charts/cert-manager/index
 charts/flannel/index
 charts/grafana/index
 charts/loki/index
+charts/nautobot/index
 charts/nextcloud/index
 charts/nginx/index
 charts/prometheus/index
@@ -64,6 +65,7 @@ helm delete ${chart_name}
 ## Glossary
 
 ````{glossary}
+:sorted:
 alertingRules
    Definition of alerts that Prometheus should send when adverse conditions
    are detected. Alerts configuration information available
