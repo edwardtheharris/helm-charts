@@ -38,9 +38,6 @@
                 }
             }
         },
-        "commonMetaLabels": {
-            "type": "object"
-        },
         "configmapReload": {
             "type": "object",
             "properties": {
@@ -50,12 +47,6 @@
                 "prometheus": {
                     "type": "object",
                     "properties": {
-                        "containerPort": {
-                            "type": "integer"
-                        },
-                        "containerPortName": {
-                            "type": "string"
-                        },
                         "containerSecurityContext": {
                             "type": "object"
                         },
@@ -91,83 +82,11 @@
                                 }
                             }
                         },
-                        "livenessProbe": {
-                            "type": "object",
-                            "properties": {
-                                "httpGet": {
-                                    "type": "object",
-                                    "properties": {
-                                        "path": {
-                                            "type": "string"
-                                        },
-                                        "port": {
-                                            "type": "string"
-                                        },
-                                        "scheme": {
-                                            "type": "string"
-                                        }
-                                    }
-                                },
-                                "initialDelaySeconds": {
-                                    "type": "integer"
-                                },
-                                "periodSeconds": {
-                                    "type": "integer"
-                                }
-                            }
-                        },
                         "name": {
                             "type": "string"
                         },
-                        "readinessProbe": {
-                            "type": "object",
-                            "properties": {
-                                "httpGet": {
-                                    "type": "object",
-                                    "properties": {
-                                        "path": {
-                                            "type": "string"
-                                        },
-                                        "port": {
-                                            "type": "string"
-                                        },
-                                        "scheme": {
-                                            "type": "string"
-                                        }
-                                    }
-                                },
-                                "periodSeconds": {
-                                    "type": "integer"
-                                }
-                            }
-                        },
                         "resources": {
                             "type": "object"
-                        },
-                        "startupProbe": {
-                            "type": "object",
-                            "properties": {
-                                "enabled": {
-                                    "type": "boolean"
-                                },
-                                "httpGet": {
-                                    "type": "object",
-                                    "properties": {
-                                        "path": {
-                                            "type": "string"
-                                        },
-                                        "port": {
-                                            "type": "string"
-                                        },
-                                        "scheme": {
-                                            "type": "string"
-                                        }
-                                    }
-                                },
-                                "periodSeconds": {
-                                    "type": "integer"
-                                }
-                            }
                         }
                     }
                 },
@@ -197,14 +116,6 @@
             }
         },
         "networkPolicy": {
-            "type": "object",
-            "properties": {
-                "enabled": {
-                    "type": "boolean"
-                }
-            }
-        },
-        "podSecurityPolicy": {
             "type": "object",
             "properties": {
                 "enabled": {
@@ -262,9 +173,6 @@
         },
         "ruleFiles": {
             "type": "object"
-        },
-        "scrapeConfigFiles": {
-            "type": "array"
         },
         "server": {
             "type": "object",
@@ -484,7 +392,9 @@
                     "type": "object"
                 },
                 "podAntiAffinity": {
-                    "type": "string"
+                    "type": "string",
+                    "enum": ["", "soft", "hard"],
+                    "default": ""
                 },
                 "podAntiAffinityTopologyKey": {
                     "type": "string"
@@ -496,20 +406,15 @@
                             "type": "boolean"
                         },
                         "maxUnavailable": {
-                            "type": "integer"
+                            "type": [
+                                "string",
+                                "integer"
+                            ]
                         }
                     }
                 },
                 "podLabels": {
                     "type": "object"
-                },
-                "podSecurityPolicy": {
-                    "type": "object",
-                    "properties": {
-                        "annotations": {
-                            "type": "object"
-                        }
-                    }
                 },
                 "portName": {
                     "type": "string"
@@ -518,6 +423,9 @@
                     "type": "string"
                 },
                 "priorityClassName": {
+                    "type": "string"
+                },
+                "runtimeClassName": {
                     "type": "string"
                 },
                 "probeHeaders": {
@@ -749,6 +657,9 @@
                 }
             }
         },
+        "scrapeConfigFiles": {
+            "type": "array"
+        },
         "serverFiles": {
             "type": "object",
             "properties": {
@@ -816,6 +727,9 @@
                         },
                         "name": {
                             "type": "string"
+                        },
+                        "automountServiceAccountToken": {
+                            "type": "boolean"
                         }
                     }
                 }
