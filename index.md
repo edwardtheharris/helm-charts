@@ -16,6 +16,7 @@ publicly in case someone else has similar purposes.
 
 ```{toctree}
 :caption: contents
+:maxdepth: 2
 
 charts/cert-manager/index
 charts/flannel/index
@@ -37,12 +38,12 @@ readme
 
 ## Usage
 
-[Helm](https://helm.sh) must be installed to use the charts.  Please refer to
-Helm's [documentation](https://helm.sh/docs) to get started.
+{term}`Helm` must be installed to use the charts.  Please refer to
+{term}`Helm`'s [documentation](https://helm.sh/docs) to get started.
 
 Once Helm has been set up correctly, add the repo as follows:
 
-```shell
+```{code-block} shell
 helm repo add eth https://edwardtheharris.github.io/helm-charts
 ```
 
@@ -52,13 +53,13 @@ eth` to see the charts.
 
 To install the `${chart_name}` chart:
 
-```shell
+```{code-block} shell
 helm install ${chart_name} ${eth}/${chart_name}
 ```
 
 To uninstall the chart:
 
-```shell
+```{code-block} shell
 helm delete ${chart_name}
 ```
 
@@ -66,6 +67,7 @@ helm delete ${chart_name}
 
 ````{glossary}
 :sorted:
+
 alertingRules
    Definition of alerts that Prometheus should send when adverse conditions
    are detected. Alerts configuration information available
@@ -141,6 +143,12 @@ podSecurityPolicy
         seccomp.security.alpha.kubernetes.io/defaultProfileName: 'docker/default'
         apparmor.security.beta.kubernetes.io/defaultProfileName: 'runtime/default'
    ```
+
+PostgreSQL
+  [PostgreSQL](https://postgresql.org) is a powerful, open source
+  object-relational database system with over 35 years of active development
+  that has earned it a strong reputation for reliability, feature robustness,
+  and performance.
 
 readiness
    Whether or not a service is ready to use. Learn more
