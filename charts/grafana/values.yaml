@@ -1,6 +1,6 @@
 global:
   # -- Overrides the Docker registry globally for all images
-  imageRegistry: ''
+  imageRegistry: ""
 
   # To help compatibility with other charts which use global.imagePullSecrets.
   # Allow either an array of {name: pullSecret} maps (k8s-style), or an array of strings (more common helm-style).
@@ -176,7 +176,7 @@ downloadDashboards:
 service:
   enabled: true
   externalIPs:
-  - 192.168.5.14
+    - 192.168.5.14
   type: LoadBalancer
   loadBalancerIP: 192.168.5.5
   port: 3000
@@ -208,19 +208,19 @@ ingress:
   path: /
   pathType: Prefix
   hosts:
-  - grafana.breeze-blocks.net
-  extraPaths:
-  - path: /*
-    pathType: Prefix
-    backend:
-      service:
-        name: ssl-redirect
-        port:
-          name: use-annotation
-  tls:
-  - hosts:
     - grafana.breeze-blocks.net
-    secretName: grafana-cert
+  extraPaths:
+    - path: /*
+      pathType: Prefix
+      backend:
+        service:
+          name: ssl-redirect
+          port:
+            name: use-annotation
+  tls:
+    - hosts:
+        - grafana.breeze-blocks.net
+      secretName: grafana-cert
 
 ###
 #  limits:
@@ -236,7 +236,7 @@ resources: {}
 ## ref: https://kubernetes.io/docs/user-guide/node-selection/
 #
 nodeSelector:
-  kubernetes.io/hostname: k8s04.breeze-blocks.net
+  kubernetes.io/os: linux
 
 ###
 ## Enable persistence using Persistent Volume Claims
@@ -247,11 +247,11 @@ persistence:
   enabled: true
   storageClassName: csi-lvm-linear
   accessModes:
-  - ReadWriteMany
+    - ReadWriteMany
   size: 20Gi
   # annotations: {}
   finalizers:
-  - kubernetes.io/pvc-protection
+    - kubernetes.io/pvc-protection
   # selectorLabels: {}
   ## Sub-directory of the PV to mount. Can be templated.
   # subPath: ""
@@ -309,7 +309,7 @@ initChownData:
       type: RuntimeDefault
     capabilities:
       add:
-      - CHOWN
+        - CHOWN
 
 # Administrator credentials when not using an existing secret (see below)
 adminUser: admin
@@ -330,8 +330,8 @@ admin:
 # - "'cap_net_bind_service=+ep'"
 # - "/usr/sbin/grafana-server &&"
 command:
-- "sh"
-- "/run.sh"
+  - "sh"
+  - "/run.sh"
 
 ## Optionally define args if command is used
 ## Needed if using `hashicorp/envconsul` to manage secrets
