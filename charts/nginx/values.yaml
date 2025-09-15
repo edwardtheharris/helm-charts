@@ -1,8 +1,0 @@
-controller:
-  fullname: nginx
-  enableCustomResources: true
-  ingressClass:
-    name: nginx
-  service:
-    externalIPs:
-      - 192.168.5.50
