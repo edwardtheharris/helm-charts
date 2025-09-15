@@ -30,7 +30,7 @@ commonMetaLabels:
 configmapReload:
   ## URL for configmap-reload to use for reloads
   ##
-  reloadUrl: "prometheus.breeze-blocks.net:8080"
+  reloadUrl: "http://prometheus.breeze-blocks.net:8080"
 
   ## env sets environment variables to pass to the container. Can be set as name/value pairs,
   ## read from secrets or configmaps.
@@ -221,7 +221,7 @@ server:
 
   ## External URL which can access prometheus
   ## Maybe same with Ingress host name
-  baseURL: "prometheus.breeze-blocks.net"
+  baseURL: "https://prometheus.breeze-blocks.net"
 
   ## Additional server container environment variables
   ##
@@ -637,7 +637,7 @@ server:
     ## If true, use a statefulset instead of a deployment for pod management.
     ## This allows to scale replicas to more than 1 pod
     ##
-    enabled: true
+    enabled: false
 
     annotations: {}
     labels: {}
@@ -1305,7 +1305,6 @@ serverFiles:
           - source_labels: [__meta_kubernetes_pod_node_name]
             action: replace
             target_label: node
-
 # adds additional scrape configs to prometheus.yml
 # must be a string so you have to add a | after extraScrapeConfigs:
 # example adds prometheus-blackbox-exporter scrape config
@@ -1325,7 +1324,6 @@ extraScrapeConfigs:
   #       target_label: instance
   #     - target_label: __address__
   #       replacement: prometheus-blackbox-exporter:9115
-
 # Adds option to add alert_relabel_configs to avoid duplicate alerts in alertmanager
 # useful in H/A prometheus with different external labels but the same alerts
 alertRelabelConfigs: {}
@@ -1333,15 +1331,12 @@ alertRelabelConfigs: {}
   # - source_labels: [dc]
   #   regex: (.+)\d+
   #   target_label: dc
-
 networkPolicy:
   ## Enable creation of NetworkPolicy resources.
   ##
   enabled: false
-
 # Force namespace of namespaced resources
 forceNamespace: ""
-
 # Extra manifests to deploy as an array
 extraManifests: []
   # - |
@@ -1352,9 +1347,7 @@ extraManifests: []
   #     name: prometheus-extra
   #   data:
   #     extra-data: "value"
-
 # Configuration of subcharts defined in Chart.yaml
-
 ## alertmanager sub-chart configurable values
 ## Please see https://github.com/prometheus-community/helm-charts/tree/main/charts/alertmanager
 ##
@@ -1362,21 +1355,17 @@ alertmanager:
   ## If false, alertmanager will not be installed
   ##
   enabled: false
-
   persistence:
     # If true, storage will create or use Persistence Volume
     ## If false, storage will use emptyDir
     ##
     enabled: true
-
     ## Custom annotations for the PVC created by the alertmanager StatefulSet.
     ## Useful for configuring storage provider options such as disk type, KMS encryption keys, or custom volume name prefixes.
     annotations: {}
-
     ## Custom labels for the PVC created by the alertmanager StatefulSet.
     ## Useful for selecting, grouping, and organizing so that they can be queried or targeted in deployments, policies, etc.
     labels: {}
-
     ## Persistent Volume Storage Class
     ## If defined, storageClassName: <storageClass>
     ## If set to "-", storageClassName: "", which disables dynamic provisioning
@@ -1387,17 +1376,14 @@ alertmanager:
     accessModes:
       - ReadWriteOnce
     size: 20Gi
-
     ## Configure emptyDir volume
     ##
     emptyDir: {}
-
   podSecurityContext:
     runAsUser: 65534
     runAsNonRoot: true
     runAsGroup: 65534
     fsGroup: 65534
-
 ## kube-state-metrics sub-chart configurable values
 ## Please see https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-state-metrics
 ##
