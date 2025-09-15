@@ -1,4 +1,10 @@
 controller:
+  autoscaling:
+    enable: false
+  config:
+    name: nginx-ingress-config
+  globalConfiguration:
+    create: false
   fullname: nginx
   enableCustomResources: true
   ingressClass:
@@ -8,6 +14,23 @@ controller:
     externalIPs:
       - 192.168.5.50
   wildcardTLS:
-    secret: nginx-tls
+    secret: cms-wildcard-tls
+  defaultTLS:
+    secret: cms-wildcard-tls
+  podDisruptionBudget:
+    enable: false
   nodeSelector:
     kuberenetes.io/os: linux
+  serviceAccount:
+    name: nginx-controller
+  reportIngressStatus:
+    enable: false
+nginxAgent:
+  enable: false
+prometheus:
+  serviceMonitor:
+    create: false
+rbac:
+  create: false
+serviceAccount:
+  name: nginx
