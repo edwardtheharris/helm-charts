@@ -9,6 +9,8 @@ title: Breeze Blocks Helm Repository Changelog
 
 ## [unreleased]
 
+<!--markdownlint-disable-->
+
 ### 💼 Other
 
 - Merge branch 'main' into 77-bump-jinja2-from-314-to-315-in-the-pip-group-across-1-directory
