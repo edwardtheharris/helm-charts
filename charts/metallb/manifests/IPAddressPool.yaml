@@ -1,0 +1,7 @@
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: comms-external
+spec:
+  addresses:
+    - 198.168.5.52/30
