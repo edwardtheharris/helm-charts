@@ -22,21 +22,13 @@ For basic installations this is a simple process[^flannel-helm-docs].
 2. Label the namespace.
 
    ```{code-block} shell
-   kubectl label --overwrite ns networking pod-security.kubernetes.io/enforce=privileged
+   kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.13.2/deploy/static/provider/baremetal/deploy.yaml
    ```
 
-3. Update your local repositories.
+3. Consider the 
+   [bare metal considerations](https://kubernetes.github.io/ingress-nginx/deploy/baremetal/).
 
-   ```{code-block} shell
-   helm repo add flannel https://flannel-io.github.io/flannel/
-   ```
-
-4. Deploy the chart.
-
-   ```{code-block} shell
-   helm install flannel -f values.yaml --namespace networking flannel/flannel
-   ```
-
-[^flannel-helm-docs]: All information provided here was taken from the much
+[^ingress-nginx-docs]: All information provided here was taken from the much
     more reliable
-    [actual documentation](https://github.com/flannel-io/flannel?tab=readme-ov-file#deploying-flannel-with-helm).
+    [actual documentation](https://kubernetes.github.io/ingress-nginx/deploy/#bare-metal-clusters).
+
