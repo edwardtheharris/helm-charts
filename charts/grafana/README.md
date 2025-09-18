@@ -1,5 +1,7 @@
 # Grafana Helm Chart
 
+<!--markdownlint-disable-->
+
 * Installs the web dashboarding system [Grafana](http://grafana.org/)
 
 ## Get Repo Info
