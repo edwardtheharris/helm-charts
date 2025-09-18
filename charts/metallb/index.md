@@ -15,3 +15,21 @@ title: Index for MetalLB L2 deployment to bare metal.
 ```{toctree}
 README
 ```
+
+---
+
+## MetalLB deployment
+
+1. Create `networking`{l=yaml} namespace.
+
+   ```{code-block} shell
+   kubectl create ns networking
+   ```
+
+2. Update the values file for your environment.
+
+3. Deploy the L2 version to your cluster.
+
+   ```{code-block} shell
+   helm install --namespace networking metallb . -f values.yaml
+   ```
