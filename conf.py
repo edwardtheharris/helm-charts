@@ -39,7 +39,7 @@ autoyaml_doc_delimiter = "###"
 autoyaml_comment = "#"
 autoyaml_level = 10
 autoyaml_safe_loader = True
-copyright = "2024-2025, Xander Harris. All rights reserved."
+copyright = "2024, Xander Harris"
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -51,7 +51,6 @@ exclude_patterns = [
     ".venv",
     "Thumbs.db",
     "charts/storage-classes/*",
-    "charts/nautobot/*",
     "charts/postgresql/*",
     "charts/redis/*",
     "charts/calico/*",
@@ -60,15 +59,15 @@ extensions = [
     "myst_parser",
     "sphinx.ext.autodoc",
     "sphinx.ext.githubpages",
-    "sphinx_copybutton",
     "sphinxcontrib.autoyaml",
+    "sphinx_copybutton",
 ]
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 html_extra_path = get_html_extra_paths()
-html_favicon = "_static/img/logo/postfix.png"
-html_logo = "_static/img/logo/postfix.png"
+html_favicon = "_static/img/logo/helm.png"
+html_logo = "_static/img/logo/helm.png"
 html_static_path = ["_static"]
 html_theme = "sphinx_book_theme"
 myst_dmath_double_inline = True
