@@ -146,10 +146,10 @@ dnsConfig: {}
   #   - name: edns0
 
 securityContext:
-  runAsNonRoot: false
-  runAsUser: 0
-  runAsGroup: 0
-  fsGroup: 0
+  runAsNonRoot: true
+  runAsUser: 472
+  runAsGroup: 472
+  fsGroup: 472
 
 containerSecurityContext:
   allowPrivilegeEscalation: false
@@ -206,12 +206,6 @@ downloadDashboards:
   #    configMapKeyRef:
   #      name: configmap-name
   #      key: value_key
-command:
-  - "setcap"
-  - "'cap_net_bind_service=+ep'"
-  - "/usr/sbin/grafana-server &&"
-  - "sh"
-  - "/run.sh"
 
 ## Pod Annotations
 # podAnnotations: {}
@@ -234,23 +228,22 @@ gossipPortName: gossip
 ##
 service:
   enabled: true
-  type: LoadBalancer
+  type: ClusterIP
   # Set the ip family policy to configure dual-stack see [Configure dual-stack](https://kubernetes.io/docs/concepts/services-networking/dual-stack/#services)
   ipFamilyPolicy: ""
   # Sets the families that should be supported and the order in which they should be applied to ClusterIP as well. Can be IPv4 and/or IPv6.
   ipFamilies: []
-  externalIPs:
-    - 192.168.5.50
+  loadBalancerIP: ""
   loadBalancerClass: ""
   loadBalancerSourceRanges: []
-  port: 3000
+  port: 80
   targetPort:
     3000
     # targetPort: 4181 To be used with a proxy extraContainer
   ## Service annotations. Can be templated.
   annotations: {}
   labels: {}
-  portName: grafana
+  portName: service
   # Adds the appProtocol field to the service. This allows to work with istio protocol selection. Ex: "http" or "tcp"
   appProtocol: ""
   sessionAffinity: ""
@@ -261,7 +254,7 @@ serviceMonitor:
   ##
   enabled: false
   path: /metrics
-  #  namespace: monitoring  (defaults to use the namespace this chart is deployed to)
+  namespace: monitoring # (defaults to use the namespace this chart is deployed to)
   labels: {}
   interval: 30s
   scheme: http
@@ -284,55 +277,41 @@ hostAliases: []
   #     - "my.host.com"
 
 ingress:
-  enabled: true
+  enabled: false
   # For Kubernetes >= 1.18 you should specify the ingress-controller via the field ingressClassName
   # See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#specifying-the-class-of-an-ingress
   # ingressClassName: nginx
   # Values can be templated
-  ingressClassName: nginx
-  annotations:
-    kubernetes.io/ingress.class: nginx
-    cert.manager.io/issuer: communications-services-int
-    cert-manager.io/cluster-issuer: communications-services-ca
-    # ingress.kubernetes.io/ssl-redirect: "true"
-    # ingress.kubernetes.io/redirect-to-https: "true"
-    # nginx.ingress.kubernetes.io/backend-protocol: "https"
-    # nginx.ingress.kubernetes.io/ssl-passthrough: "true"
-    # nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
-  labels:
-    kubernetes.io/ingress.class: nginx
-    cert.manager.io/issuer: communications-services-int
-    cert-manager.io/cluster-issuer: communications-services-ca
-    # ingress.kubernetes.io/ssl-redirect: "true"
-    # ingress.kubernetes.io/redirect-to-https: "true"
-    # nginx.ingress.kubernetes.io/backend-protocol: "https"
-    # nginx.ingress.kubernetes.io/ssl-passthrough: "true"
-    # nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+  labels: {}
   path: /
+
   # pathType is only for k8s >= 1.1=
   pathType: Prefix
-  hosts:
-    - grafana.breeze-blocks.net
-  ## Extra paths to prepend to every host configuration. This is useful when working with annotation based services.
-  extraPaths:
-    # - path: /*
-    #   backend:
-    #     serviceName: ssl-redirect
-    #     servicePort: use-annotation
-    ## Or for k8s > 1.19
-    # - path: /*
-    #   pathType: Prefix
-    #   backend:
-    #     service:
-    #       name: ssl-redirect
-    #       port:
-    #         name: grafana
 
-  tls:
-    - secretName: grafana-tls
-      hosts:
-        - grafana.breeze-blocks.net
+  hosts:
+    - chart-example.local
+  ## Extra paths to prepend to every host configuration. This is useful when working with annotation based services.
+  extraPaths: []
+  # - path: /*
+  #   backend:
+  #     serviceName: ssl-redirect
+  #     servicePort: use-annotation
+  ## Or for k8s > 1.19
+  # - path: /*
+  #   pathType: Prefix
+  #   backend:
+  #     service:
+  #       name: ssl-redirect
+  #       port:
+  #         name: use-annotation
+
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
 
 # -- BETA: Configure the gateway routes for the chart here.
 # More routes can be added by adding a dictionary key like the 'main' route.
@@ -381,8 +360,7 @@ resources: {}
 ## Node labels for pod assignment
 ## ref: https://kubernetes.io/docs/user-guide/node-selection/
 #
-nodeSelector:
-  kubernetes.io/os: linux
+nodeSelector: {}
 
 ## Tolerations for pod assignment
 ## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
@@ -435,19 +413,19 @@ extraContainerVolumes: []
 ##
 persistence:
   type: pvc
-  enabled: true
-  storageClassName: csi-lvm-linear
+  enabled: false
+  # storageClassName: default
   ## (Optional) Use this to bind the claim to an existing PersistentVolume (PV) by name.
-  volumeName: grafana
+  volumeName: ""
   accessModes:
     - ReadWriteOnce
   size: 10Gi
   # annotations: {}
-  # finalizers:
-  #   - kubernetes.io/pvc-protection
+  finalizers:
+    - kubernetes.io/pvc-protection
   # selectorLabels: {}
   ## Sub-directory of the PV to mount. Can be templated.
-  # subPath: "lib/"
+  # subPath: ""
   ## Name of an existing PVC. Can be templated.
   # existingClaim:
   ## Extra labels to apply to a PVC.
@@ -473,7 +451,7 @@ initChownData:
   ## If false, data ownership will not be reset at startup
   ## This allows the grafana-server to be run with an arbitrary user
   ##
-  enabled: false
+  enabled: true
 
   ## initChownData container image
   ##
@@ -515,8 +493,8 @@ adminUser: admin
 admin:
   ## Name of the secret. Can be templated.
   existingSecret: ""
-  userKey: grafana-admin
-  passwordKey: grafana-password
+  userKey: admin-user
+  passwordKey: admin-password
 
 ## Define command to be executed at startup by grafana container
 ## Needed if using `vault-env` to manage secrets (ref: https://banzaicloud.com/blog/inject-secrets-into-pods-vault/)
@@ -589,7 +567,7 @@ envFromSecrets: []
 ##   prefix: prefix
 ##   optional: true
 
-## The names of conifgmaps in the same kubernetes namespace which contain values to be added to the environment
+## The names of configmaps in the same kubernetes namespace which contain values to be added to the environment
 ## Each entry should contain a name key, and can optionally specify whether the configmap must be defined with an optional key.
 ## Name is templated.
 ## ref: https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.23/#configmapenvsource-v1-core
@@ -638,38 +616,30 @@ extraSecretMounts: []
 
 ## Additional grafana server volume mounts
 # Defines additional volume mounts.
-extraVolumeMounts:
-#   - name: log
-#     mountPath: /var/log/grafana
-#   - name: provisioning
-#     mountPath: /etc/grafana/provisioning
+extraVolumeMounts: []
+  # - name: extra-volume-0
+  #   mountPath: /mnt/volume0
+  #   readOnly: true
+  # - name: extra-volume-1
+  #   mountPath: /mnt/volume1
+  #   readOnly: true
+  # - name: grafana-secrets
+  #   mountPath: /mnt/volume2
 
 ## Additional Grafana server volumes
-extraVolumes:
-#   - name: log
-#     csi:
-#       driver: lvm.csi.metal-stack.io
-#       readOnly: false
-#       volumeAttributes:
-#         size: "10G"
-#   - name: provisioning
-#     csi:
-#       driver: lvm.csi.metal-stack.io
-#       readOnly: false
-#       volumeAttributes:
-#         size: "10G"
-# - name: extra-volume-0
-#   existingClaim: volume-claim
-# - name: extra-volume-1
-#   hostPath:
-#     path: /usr/shared/
-#     type: ""
-# - name: grafana-secrets
-#   csi:
-#     driver: secrets-store.csi.k8s.io
-#     readOnly: true
-#     volumeAttributes:
-#       secretProviderClass: "grafana-env-spc"
+extraVolumes: []
+  # - name: extra-volume-0
+  #   existingClaim: volume-claim
+  # - name: extra-volume-1
+  #   hostPath:
+  #     path: /usr/shared/
+  #     type: ""
+  # - name: grafana-secrets
+  #   csi:
+  #     driver: secrets-store.csi.k8s.io
+  #     readOnly: true
+  #     volumeAttributes:
+  #       secretProviderClass: "grafana-env-spc"
 
 ## Container Lifecycle Hooks. Execute a specific bash command or make an HTTP request
 lifecycleHooks: {}
@@ -914,11 +884,11 @@ grafana.ini:
   grafana_net:
     url: https://grafana.net
   server:
-    domain: grafana.breeze-blocks.net
-    ## grafana Authentication can be enabled with the following values on grafana.ini
-    # server:
-    # The full public facing url you use in browser, used for redirects and emails
-    root_url: https://grafana.breeze-blocks.net
+    domain: "{{ if (and .Values.ingress.enabled .Values.ingress.hosts) }}{{ tpl (.Values.ingress.hosts | first) . }}{{ else }}''{{ end }}"
+## grafana Authentication can be enabled with the following values on grafana.ini
+# server:
+# The full public facing url you use in browser, used for redirects and emails
+#    root_url:
 # https://grafana.com/docs/grafana/latest/auth/github/#enable-github-in-grafana
 # auth.github:
 #    enabled: false
@@ -1547,8 +1517,7 @@ imageRenderer:
   ## Node labels for pod assignment
   ## ref: https://kubernetes.io/docs/user-guide/node-selection/
   #
-  nodeSelector:
-    kubernetes.io/os: linux
+  nodeSelector: {}
 
   ## Tolerations for pod assignment
   ## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
@@ -1644,7 +1613,7 @@ networkPolicy:
 
 # Enable backward compatibility of kubernetes where version below 1.13 doesn't have the enableServiceLinks option
 enableKubeBackwardCompatibility: false
-useStatefulSet: true
+useStatefulSet: false
 
 # extraObjects could be utilized to add dynamic manifests via values
 extraObjects: []
