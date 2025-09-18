@@ -33,3 +33,26 @@ README
    ```{code-block} shell
    helm install --namespace networking metallb . -f values.yaml
    ```
+
+4. Define a simple `IPAddressPool`{l=yaml}.
+
+   ```{code-block} yaml
+   :caption: IPAddressPool.yaml
+
+   apiVersion: metallb.io/v1beta1
+   kind: IPAddressPool
+   metadata:
+     name: example
+     namespace: metallb-system
+   spec:
+     addresses:
+     - 192.168.10.0/24
+     - 192.168.9.1-192.168.9.5
+     - fc00:f853:0ccd:e799::/124
+   ```
+
+5. Apply a simple `IPAddressPool`{l=yaml}
+
+   ```{code-block} shell
+   kubectl apply --namespace metallb-system -f IPAddressPool.yaml
+   ```
