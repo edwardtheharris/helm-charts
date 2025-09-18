@@ -59,3 +59,24 @@ README
    ```{code-block} shell
    kubectl apply --namespace metallb-system -f IPAddressPool.yaml
    ```
+
+6. Define an `L2Advertisement`{l=yaml}.
+
+   ```{code-block} yaml
+   :caption: L2Advertisement.yaml
+
+   apiVersion: metallb.io/v1beta1
+   kind: L2Advertisement
+   metadata:
+     name: example
+     namespace: metallb-system
+   ```
+
+7. Apply the `L2Advertisement`{l=yaml}
+
+   ```{code-block} shell
+   kubectl --namespace metallb-system -f L2Advertisement.yaml
+   ```
+
+   More information is available from the
+   [metallb documentation](https://metallb.universe.tf/configuration/#layer-2-configuration).
