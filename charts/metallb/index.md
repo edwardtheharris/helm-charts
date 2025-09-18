@@ -51,7 +51,10 @@ README
      - fc00:f853:0ccd:e799::/124
    ```
 
-5. Apply a simple `IPAddressPool`{l=yaml}
+   You can see this example and more,
+   [in the metallb helm repostory](https://github.com/metallb/metallb/blob/v0.15.2/configsamples/ipaddresspool_simple.yaml).
+
+5. Apply a simple `IPAddressPool`{l=yaml}.
 
    ```{code-block} shell
    kubectl apply --namespace metallb-system -f IPAddressPool.yaml
