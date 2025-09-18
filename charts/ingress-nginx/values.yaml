@@ -1,0 +1,45 @@
+controller:
+  autoscaling:
+    enable: false
+  config:
+    name: nginx-config
+    entries:
+      client-max-body-size: 20m
+      redirect-to-ssl: "true"
+      proxy-protocol: "true"
+      # resolver-addresses: 192.168.5.3,192.168.5.4
+  defaultTLS:
+    secret: cms-wildcard-tls
+  globalConfiguration:
+    create: false
+  enableCustomResources: true
+  fullname: nginx
+  ingressClass:
+    name: nginx
+  name: nginx
+  nginxDebug: true
+  podDisruptionBudget:
+    enable: false
+  nodeSelector:
+    kuberenetes.io/os: linux
+  reportIngressStatus:
+    enable: true
+  serviceAccount:
+    name: nginx-controller
+  service:
+    externalIPs:
+      - 192.168.5.50
+      - 192.168.5.51
+      - 192.168.5.52
+  type: daemonset
+  wildcardTLS:
+    secret: cms-wildcard-tls
+nginxAgent:
+  enable: false
+prometheus:
+  serviceMonitor:
+    create: false
+rbac:
+  create: false
+serviceAccount:
+  name: nginx
