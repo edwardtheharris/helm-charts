@@ -9,7 +9,7 @@ title: Ingress NGINX Helm Configuration
 
 ## Ingress NGINX Chart Usage
 
-For basic installations this is a simple process[^flannel-helm-docs].
+For basic installations this is a simple process[^ingress-nginx-docs].
 
 1. Create the namespace.
 
@@ -25,10 +25,9 @@ For basic installations this is a simple process[^flannel-helm-docs].
    kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.13.2/deploy/static/provider/baremetal/deploy.yaml
    ```
 
-3. Consider the 
+3. Consider the
    [bare metal considerations](https://kubernetes.github.io/ingress-nginx/deploy/baremetal/).
 
 [^ingress-nginx-docs]: All information provided here was taken from the much
     more reliable
     [actual documentation](https://kubernetes.github.io/ingress-nginx/deploy/#bare-metal-clusters).
-
