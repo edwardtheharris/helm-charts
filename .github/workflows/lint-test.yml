@@ -20,6 +20,8 @@ jobs:
         with:
           python-version: "3.12"
           check-latest: true
+      - name: Add missing repositories
+        run: helm repo add https://metallb.github.io/frr-k8s
       - name: Set up chart-testing
         uses: helm/chart-testing-action@main
       - name: Run chart-testing (list-changed)
