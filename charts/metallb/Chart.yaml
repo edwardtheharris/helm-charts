@@ -3,7 +3,7 @@ appVersion: v0.15.2
 dependencies:
   - condition: crds.enabled
     name: crds
-    repository: file:///./
+    repository: ""
     version: 0.15.2
   - condition: frrk8s.enabled
     name: frr-k8s
