@@ -21,6 +21,7 @@ charts/cert-manager/index
 charts/flannel/index
 charts/grafana/index
 charts/loki/index
+charts/metallb/index
 charts/nextcloud/index
 charts/nginx/index
 charts/prometheus/index
