@@ -24,6 +24,7 @@ jobs:
         run: |
           helm repo add frr https://metallb.github.io/frr-k8s
           helm repo update
+          helm lint $(find . -type f | dirname $(grep Chart.yaml))
       - name: Set up chart-testing
         uses: helm/chart-testing-action@main
       - name: Run chart-testing (list-changed)
