@@ -80,3 +80,12 @@ README
 
    More information is available from the
    [metallb documentation](https://metallb.universe.tf/configuration/#layer-2-configuration).
+
+### MetalLB SubCharts
+
+```{toctree}
+charts/crds/README
+charts/frr-k8s/README
+charts/frr-k8s/charts/crds/README
+README
+```

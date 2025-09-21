@@ -13,12 +13,6 @@ title: Grafana Helm Chart Values
 ```{contents}
 ```
 
-```{toctree}
-:caption: Chart Docs
-
-chart/index
-```
-
 ```{admonition} This is a copy
 The following information is copied from the
 [GitHub repo](https://github.com/grafana/helm-charts), which should be
@@ -83,3 +77,10 @@ You can find more information about that
 
 You may find [the actual readme](https://github.com/grafana/helm-charts/blob/main/charts/grafana/README.md)
 helpful as well.
+
+---
+
+```{toctree}
+:caption: official readme
+README
+```

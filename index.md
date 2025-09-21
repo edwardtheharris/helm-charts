@@ -16,15 +16,15 @@ publicly in case someone else has similar purposes.
 
 ```{toctree}
 :caption: contents
+:glob:
 :maxdepth: 2
 
+charts/ingress-nginx/index
 charts/cert-manager/index
 charts/flannel/index
 charts/grafana/index
 charts/loki/index
-charts/nautobot/index
-charts/nextcloud/index
-charts/nginx/index
+charts/metallb/index
 charts/prometheus/index
 ```
 
