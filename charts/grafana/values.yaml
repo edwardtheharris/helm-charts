@@ -136,7 +136,7 @@ testFramework:
   #    memory: 128Mi
 
 # dns configuration for pod
-dnsPolicy: ~
+dnsPolicy: ClusterFirst
 # dnsConfig:
 #   nameservers:
 #     - 8.8.8.8
@@ -249,7 +249,7 @@ service:
     kubernetes.io/part-of: grafana
   portName: grafana
   # Adds the appProtocol field to the service. This allows to work with istio protocol selection. Ex: "http" or "tcp"
-  appProtocol: tcp
+  appProtocol: http
   sessionAffinity: ""
 
 serviceMonitor:
@@ -360,7 +360,8 @@ resources: {}
 ## Node labels for pod assignment
 ## ref: https://kubernetes.io/docs/user-guide/node-selection/
 #
-nodeSelector: {}
+nodeSelector:
+  kubernetes.io/os: linux
 
 ## Tolerations for pod assignment
 ## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
@@ -420,7 +421,8 @@ persistence:
   accessModes:
     - ReadWriteOnce
   size: 10Gi
-  # annotations: {}
+  annotations:
+    pvc.kubernetes.io/name: grafana
   finalizers:
     - kubernetes.io/pvc-protection
   # selectorLabels: {}
@@ -443,10 +445,9 @@ persistence:
     ##
     # sizeLimit: 300Mi
 
-  ## If 'lookupVolumeName' is set to true, Helm will attempt to retrieve
-  ## the current value of 'spec.volumeName' and incorporate it into the template.
-  lookupVolumeName: true
-
+    ## If 'lookupVolumeName' is set to true, Helm will attempt to retrieve
+    ## the current value of 'spec.volumeName' and incorporate it into the template.
+    lookupVolumeName: true
 initChownData:
   ## If false, data ownership will not be reset at startup
   ## This allows the grafana-server to be run with an arbitrary user
@@ -616,30 +617,27 @@ extraSecretMounts: []
 
 ## Additional grafana server volume mounts
 # Defines additional volume mounts.
-extraVolumeMounts: []
+extraVolumeMounts:
+  - name: grafana-log
+    mountPath: /var/log/grafana
   # - name: extra-volume-0
   #   mountPath: /mnt/volume0
   #   readOnly: true
   # - name: extra-volume-1
   #   mountPath: /mnt/volume1
   #   readOnly: true
-  # - name: grafana-secrets
-  #   mountPath: /mnt/volume2
 
 ## Additional Grafana server volumes
-extraVolumes: []
+extraVolumes:
+  - name: grafana-log
+    csi:
+      driver: lvm.csi.metal-stack.io
   # - name: extra-volume-0
   #   existingClaim: volume-claim
-  # - name: extra-volume-1
+  #  - name: extra-volume-1
   #   hostPath:
   #     path: /usr/shared/
   #     type: ""
-  # - name: grafana-secrets
-  #   csi:
-  #     driver: secrets-store.csi.k8s.io
-  #     readOnly: true
-  #     volumeAttributes:
-  #       secretProviderClass: "grafana-env-spc"
 
 ## Container Lifecycle Hooks. Execute a specific bash command or make an HTTP request
 lifecycleHooks: {}
@@ -884,7 +882,15 @@ grafana.ini:
   grafana_net:
     url: https://grafana.net
   server:
-    domain: "{{ if (and .Values.ingress.enabled .Values.ingress.hosts) }}{{ tpl (.Values.ingress.hosts | first) . }}{{ else }}''{{ end }}"
+    domain: grafana.breeze-blocks.net
+    http_port: 3000
+    protocol: http
+    enforce_domain: true
+  database:
+    type: postgres
+    host: postgres.postgres.k8s.svc.local:5432
+    name: grafana
+    user: grafana
 ## grafana Authentication can be enabled with the following values on grafana.ini
 # server:
 # The full public facing url you use in browser, used for redirects and emails

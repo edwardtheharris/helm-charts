@@ -42,7 +42,28 @@ spec:
   - apiVersion: v1
     kind: PersistentVolumeClaim
     metadata:
-      name: {{ .Values.persistence.volumeName }}
+      name: {{ .Chart.Name }}
+    spec:
+      accessModes:
+        {{- range .Values.persistence.accessModes }}
+        - {{ . | quote }}
+        {{- end }}
+      storageClassName: {{ .Values.persistence.storageClassName }}
+      {{- with .Values.persistence.volumeName }}
+      volumeName: {{ . | quote }}
+      {{- end }}
+      resources:
+        requests:
+          storage: {{ .Values.persistence.size }}
+      {{- with .Values.persistence.selectorLabels }}
+      selector:
+        matchLabels:
+          {{- toYaml . | nindent 10 }}
+      {{- end }}
+  - apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
+      name: {{ .Chart.Name }}-log
     spec:
       accessModes:
         {{- range .Values.persistence.accessModes }}
