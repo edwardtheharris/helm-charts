@@ -146,10 +146,10 @@ dnsConfig: {}
   #   - name: edns0
 
 securityContext:
-  runAsNonRoot: true
-  runAsUser: 472
-  runAsGroup: 472
-  fsGroup: 472
+  runAsNonRoot: false
+  runAsUser: 0
+  runAsGroup: 0
+  fsGroup: 0
 
 containerSecurityContext:
   allowPrivilegeEscalation: false
@@ -492,7 +492,7 @@ adminUser: admin
 # Use an existing secret for the admin user.
 admin:
   ## Name of the secret. Can be templated.
-  existingSecret: ""
+  existingSecret: "grafana-admin"
   userKey: admin-user
   passwordKey: admin-password
 
