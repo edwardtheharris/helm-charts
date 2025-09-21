@@ -9,9 +9,7 @@ title: Breeze Blocks Helm Repository Changelog
 
 ## [unreleased]
 
-<!--markdownlint-disable-->
-
-### 💼 Other
+### 💼 Other - 
 
 - Merge branch 'main' into 77-bump-jinja2-from-314-to-315-in-the-pip-group-across-1-directory
 - Merge pull request #78 from edwardtheharris/77-bump-jinja2-from-314-to-315-in-the-pip-group-across-1-directory
@@ -57,34 +55,32 @@ title: Breeze Blocks Helm Repository Changelog
 - - [Release notes](https://github.com/urllib3/urllib3/releases)
 - - [Changelog](https://github.com/urllib3/urllib3/blob/main/CHANGES.rst)
 - - [Commits](https://github.com/urllib3/urllib3/compare/2.2.3...2.5.0)
-
 - ---
-
 - Updated-dependencies:
 - - dependency-name: setuptools
-- dependency-version: 78.1.1
-- dependency-type: indirect
-- dependency-group: pip
+-   dependency-version: 78.1.1
+-   dependency-type: indirect
+-   dependency-group: pip
 - - dependency-name: h11
-- dependency-version: 0.16.0
-- dependency-type: indirect
-- dependency-group: pip
+-   dependency-version: 0.16.0
+-   dependency-type: indirect
+-   dependency-group: pip
 - - dependency-name: jinja2
-- dependency-version: 3.1.6
-- dependency-type: indirect
-- dependency-group: pip
+-   dependency-version: 3.1.6
+-   dependency-type: indirect
+-   dependency-group: pip
 - - dependency-name: requests
-- dependency-version: 2.32.4
-- dependency-type: indirect
-- dependency-group: pip
+-   dependency-version: 2.32.4
+-   dependency-type: indirect
+-   dependency-group: pip
 - - dependency-name: starlette
-- dependency-version: 0.47.2
-- dependency-type: indirect
-- dependency-group: pip
+-   dependency-version: 0.47.2
+-   dependency-type: indirect
+-   dependency-group: pip
 - - dependency-name: urllib3
-- dependency-version: 2.5.0
-- dependency-type: indirect
-- dependency-group: pip
+-   dependency-version: 2.5.0
+-   dependency-type: indirect
+-   dependency-group: pip
 - ...
 - Dependabot[bot] <support@github.com>
 - Merge pull request #82 from edwardtheharris/dependabot/pip/pip-57b176594f
@@ -138,6 +134,30 @@ title: Breeze Blocks Helm Repository Changelog
 - Merge pull request #94 from edwardtheharris/92-make-a-working-grafana-deployment
 - Update grafana values
 - Closes #92
+- Update values for grafana
+- Closes #92
+- Update index
+- Closes #92
+- Almost working
+- Closes #92
+- Grr, ingress
+- Closes #92
+- Update grafana values
+- Closes #92
+- Update docs
+- Closes #92
+- Update prometheus values
+- Closes #96
+- Pull from repo
+- Closes #96
+- Add generic values
+- Closes #96
+- Add ingress nginx
+- Closes #99
+- Add docs
+- Closes #99
+- Add slightly to docs
+- Closes #99
 - Add metallb chart
 - Closes #98
 - Add docs to toctrees
@@ -158,10 +178,79 @@ title: Breeze Blocks Helm Repository Changelog
 - Closes #98
 - Fixes for readme
 - Closes #98
-
+- Update changelog
+- Closes #98
+- Fix lint errors
+- Closes #98
+- Update lint test
+- Closes #98
+- Update lint process
+- Closes #98
+- Update repos
+- Closes #98
+- Fix workflow
+- Closes #98
+- Add repo
+- Closes #98
+- Update workflow
+- Closes #98
+- Update chart
+- Closes #98
+- Drop broken steps
+- Closes #98
+- Merge pull request #101 from edwardtheharris/98-add-metallb
+- Add metallb chart
+- Closes #98
+- Merge branch 'main' of
+- Edwardtheharris/helm-charts
+- Into 99-add-nginx-ingress
+- Closes #99
+- Merge branch 'main' into 99-add-nginx-ingress
+- Merge branch '99-add-nginx-ingress' of
+- Edwardtheharris/helm-charts
+- Into 99-add-nginx-ingress
+- Closes #99
+- Add ingress nginx
+- Closes #99
+- Update values
+- Closes #99
+- Fix changelog
+- Closes #99
+- Fix ip address pool
+- Closes #99
+- Drop old values
+- Closes #99
+- Merge pull request #100 from edwardtheharris/99-add-nginx-ingress
+- 99 add nginx ingress
+- Closes #99
+- Merge branch 'main' into 99-add-nginx-ingress
+- Merge pull request #102 from edwardtheharris/99-add-nginx-ingress
+- 99 add nginx ingress
+- Closes #99
+- Merge branch 'main' into 96-make-a-working-prometheus-deployment
+- Fix docs
+- Closes #96
+- Fix docs
+- Closes #96
+- Merge pull request #97 from edwardtheharris/96-make-a-working-prometheus-deployment
+- Make a working prometheus deployment
+- Closes #96
+- Merge branch 'main' of
+- Edwardtheharris/helm-charts
+- Into 92-make-a-working-grafana-deployment
+- Closes #92
+- Update grafana values
+- Closes #92
+- Update docs
+- Closes #92
+- Update metallb address pool
+- Closes #92
+- Add working grafana deployment.
+- Closes 92
+- Add grafana cert
+- Closes #92
 ## [0.0.2] - 2025-09-07
-
-### 💼 Other
+### 💼 Other - 1757261211
 
 - Add apparently working loki
 - Closes #69
@@ -179,13 +268,11 @@ title: Breeze Blocks Helm Repository Changelog
 - - [Release notes](https://github.com/encode/starlette/releases)
 - - [Changelog](https://github.com/encode/starlette/blob/master/docs/release-notes.md)
 - - [Commits](https://github.com/encode/starlette/compare/0.39.1...0.40.0)
-
 - ---
-
 - Updated-dependencies:
 - - dependency-name: starlette
-- dependency-type: indirect
-- dependency-group: pip
+-   dependency-type: indirect
+-   dependency-group: pip
 - ...
 - Dependabot[bot] <support@github.com>
 - Merge pull request #73 from edwardtheharris/dependabot/pip/pip-f0796b5709
@@ -212,13 +299,11 @@ title: Breeze Blocks Helm Repository Changelog
 - - [Release notes](https://github.com/pallets/jinja/releases)
 - - [Changelog](https://github.com/pallets/jinja/blob/main/CHANGES.rst)
 - - [Commits](https://github.com/pallets/jinja/compare/3.1.4...3.1.5)
-
 - ---
-
 - Updated-dependencies:
 - - dependency-name: jinja2
-- dependency-type: indirect
-- dependency-group: pip
+-   dependency-type: indirect
+-   dependency-group: pip
 - ...
 - Dependabot[bot] <support@github.com>
 - Merge pull request #76 from edwardtheharris/dependabot/pip/pip-e49d2f513e
@@ -248,10 +333,8 @@ title: Breeze Blocks Helm Repository Changelog
 - Merge pull request #84 from edwardtheharris/83-add-flannel
 - 83 add flannel
 - Closes #83
-
 ## [redis-0.0.4] - 2024-10-05
-
-### 💼 Other
+### 💼 Other - 1728166786
 
 - Update index.yaml
 - Edwardtheharris <edwardtheharris@users.noreply.github.com>
@@ -335,10 +418,8 @@ title: Breeze Blocks Helm Repository Changelog
 - Merge pull request #68 from edwardtheharris/67-deploy-working-cert-manager
 - Provide working values for cert manager
 - Closes #67
-
 ## [nautobot-0.0.2] - 2024-08-16
-
-### 💼 Other
+### 💼 Other - 1723827621
 
 - Add 0.0.2 charts
 - Closes #39
@@ -353,10 +434,8 @@ title: Breeze Blocks Helm Repository Changelog
 - Merge pull request #42 from edwardtheharris/41-003
 - Add 0.0.3 modules
 - Closes #41
-
 ## [nautobot-0.0.1] - 2024-08-16
-
-### 💼 Other
+### 💼 Other - 1723826382
 
 - Update index.yaml
 - Edwardtheharris <edwardtheharris@users.noreply.github.com>
@@ -437,10 +516,8 @@ title: Breeze Blocks Helm Repository Changelog
 - Merge pull request #38 from edwardtheharris/37-nautobot-001
 - Add nautobot chart
 - Closes #37
-
 ## [storage-0.0.2] - 2024-07-28
-
-### 💼 Other
+### 💼 Other - 1722190704
 
 - Update index.yaml
 - Edwardtheharris <edwardtheharris@users.noreply.github.com>
@@ -464,10 +541,8 @@ title: Breeze Blocks Helm Repository Changelog
 - Merge pull request #14 from edwardtheharris/12-fix-release-stages
 - Run only on PRs
 - Closes #12
-
 ## [storage-0.0.1] - 2024-07-27
-
-### 💼 Other
+### 💼 Other - 1722107953
 
 - Initial commit
 - Add workflows
