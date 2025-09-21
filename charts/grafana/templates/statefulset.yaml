@@ -42,7 +42,7 @@ spec:
   - apiVersion: v1
     kind: PersistentVolumeClaim
     metadata:
-      name: storage
+      name: {{ .Values.persistence.volumeName }}
     spec:
       accessModes:
         {{- range .Values.persistence.accessModes }}
