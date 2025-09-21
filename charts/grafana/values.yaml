@@ -34,8 +34,8 @@ rbac:
   #   verbs: []
 serviceAccount:
   create: true
-  name:
-  nameTest:
+  name: grafana
+  nameTest: grafana-test
   ## ServiceAccount labels.
   labels: {}
   ## Service account annotations. Can be templated.
@@ -44,7 +44,7 @@ serviceAccount:
 
   ## autoMount is deprecated in favor of automountServiceAccountToken
   # autoMount: false
-  automountServiceAccountToken: false
+  automountServiceAccountToken: true
 
 replicas: 1
 
@@ -137,13 +137,13 @@ testFramework:
 
 # dns configuration for pod
 dnsPolicy: ~
-dnsConfig: {}
-  # nameservers:
-  #   - 8.8.8.8
-  #   options:
-  #   - name: ndots
-  #     value: "2"
-  #   - name: edns0
+# dnsConfig:
+#   nameservers:
+#     - 8.8.8.8
+#   options:
+#     - name: ndots
+#       value: "2"
+#     - name: edns0
 
 securityContext:
   runAsNonRoot: false
@@ -241,11 +241,15 @@ service:
     3000
     # targetPort: 4181 To be used with a proxy extraContainer
   ## Service annotations. Can be templated.
-  annotations: {}
-  labels: {}
-  portName: service
+  annotations:
+    kubernetes.io/name: grafana
+  labels:
+    app.kubernetes.io/component: grafana
+    app.kubernetes.io/instance: grafana
+    kubernetes.io/part-of: grafana
+  portName: grafana
   # Adds the appProtocol field to the service. This allows to work with istio protocol selection. Ex: "http" or "tcp"
-  appProtocol: ""
+  appProtocol: tcp
   sessionAffinity: ""
 
 serviceMonitor:
@@ -287,10 +291,8 @@ ingress:
     # kubernetes.io/tls-acme: "true"
   labels: {}
   path: /
-
   # pathType is only for k8s >= 1.1=
   pathType: Prefix
-
   hosts:
     - grafana.breeze-blocks.net
   ## Extra paths to prepend to every host configuration. This is useful when working with annotation based services.
@@ -307,12 +309,10 @@ ingress:
   #       name: ssl-redirect
   #       port:
   #         name: use-annotation
-
   tls:
     - secretName: grafana-tls
       hosts:
         - grafana.breeze-blocks.net
-
 # -- BETA: Configure the gateway routes for the chart here.
 # More routes can be added by adding a dictionary key like the 'main' route.
 # Be aware that this is an early beta of this feature,
@@ -451,7 +451,7 @@ initChownData:
   ## If false, data ownership will not be reset at startup
   ## This allows the grafana-server to be run with an arbitrary user
   ##
-  enabled: true
+  enabled: false
 
   ## initChownData container image
   ##
