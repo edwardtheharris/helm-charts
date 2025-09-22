@@ -1,7 +1,7 @@
 ---
 abstract: All notable changes to this project will be documented in this file.
 authors:
-- name: Xander Harris
+  - name: Xander Harris
 email: xandertheharris@gmail.com
 date: 2025-09-07
 title: Breeze Blocks Helm Repository Changelog
@@ -9,7 +9,7 @@ title: Breeze Blocks Helm Repository Changelog
 
 ## [unreleased]
 
-### 💼 Other - 
+### 💼 Other - [unreleased]
 
 - Merge branch 'main' into 77-bump-jinja2-from-314-to-315-in-the-pip-group-across-1-directory
 - Merge pull request #78 from edwardtheharris/77-bump-jinja2-from-314-to-315-in-the-pip-group-across-1-directory
@@ -55,32 +55,34 @@ title: Breeze Blocks Helm Repository Changelog
 - - [Release notes](https://github.com/urllib3/urllib3/releases)
 - - [Changelog](https://github.com/urllib3/urllib3/blob/main/CHANGES.rst)
 - - [Commits](https://github.com/urllib3/urllib3/compare/2.2.3...2.5.0)
-- ---
+
+---
+
 - Updated-dependencies:
 - - dependency-name: setuptools
--   dependency-version: 78.1.1
--   dependency-type: indirect
--   dependency-group: pip
+- dependency-version: 78.1.1
+- dependency-type: indirect
+- dependency-group: pip
 - - dependency-name: h11
--   dependency-version: 0.16.0
--   dependency-type: indirect
--   dependency-group: pip
+- dependency-version: 0.16.0
+- dependency-type: indirect
+- dependency-group: pip
 - - dependency-name: jinja2
--   dependency-version: 3.1.6
--   dependency-type: indirect
--   dependency-group: pip
+- dependency-version: 3.1.6
+- dependency-type: indirect
+- dependency-group: pip
 - - dependency-name: requests
--   dependency-version: 2.32.4
--   dependency-type: indirect
--   dependency-group: pip
+- dependency-version: 2.32.4
+- dependency-type: indirect
+- dependency-group: pip
 - - dependency-name: starlette
--   dependency-version: 0.47.2
--   dependency-type: indirect
--   dependency-group: pip
+- dependency-version: 0.47.2
+- dependency-type: indirect
+- dependency-group: pip
 - - dependency-name: urllib3
--   dependency-version: 2.5.0
--   dependency-type: indirect
--   dependency-group: pip
+- dependency-version: 2.5.0
+- dependency-type: indirect
+- dependency-group: pip
 - ...
 - Dependabot[bot] <support@github.com>
 - Merge pull request #82 from edwardtheharris/dependabot/pip/pip-57b176594f
@@ -249,8 +251,22 @@ title: Breeze Blocks Helm Repository Changelog
 - Closes 92
 - Add grafana cert
 - Closes #92
+- Add changelog
+- Closes #92
+- Adjust docs
+- Closes #92
+- Fix ingress
+- Closes #92
+- Update template storage name
+- Closes #92
+- Update some templates
+- Closes #92
+- Add working grafana
+- Closes #92
+
 ## [0.0.2] - 2025-09-07
-### 💼 Other - 1757261211
+
+### 💼 Other - 0.0.2
 
 - Add apparently working loki
 - Closes #69
@@ -268,11 +284,13 @@ title: Breeze Blocks Helm Repository Changelog
 - - [Release notes](https://github.com/encode/starlette/releases)
 - - [Changelog](https://github.com/encode/starlette/blob/master/docs/release-notes.md)
 - - [Commits](https://github.com/encode/starlette/compare/0.39.1...0.40.0)
-- ---
+
+---
+
 - Updated-dependencies:
 - - dependency-name: starlette
--   dependency-type: indirect
--   dependency-group: pip
+- dependency-type: indirect
+- dependency-group: pip
 - ...
 - Dependabot[bot] <support@github.com>
 - Merge pull request #73 from edwardtheharris/dependabot/pip/pip-f0796b5709
@@ -299,11 +317,13 @@ title: Breeze Blocks Helm Repository Changelog
 - - [Release notes](https://github.com/pallets/jinja/releases)
 - - [Changelog](https://github.com/pallets/jinja/blob/main/CHANGES.rst)
 - - [Commits](https://github.com/pallets/jinja/compare/3.1.4...3.1.5)
-- ---
+
+---
+
 - Updated-dependencies:
 - - dependency-name: jinja2
--   dependency-type: indirect
--   dependency-group: pip
+- dependency-type: indirect
+- dependency-group: pip
 - ...
 - Dependabot[bot] <support@github.com>
 - Merge pull request #76 from edwardtheharris/dependabot/pip/pip-e49d2f513e
@@ -333,8 +353,10 @@ title: Breeze Blocks Helm Repository Changelog
 - Merge pull request #84 from edwardtheharris/83-add-flannel
 - 83 add flannel
 - Closes #83
+
 ## [redis-0.0.4] - 2024-10-05
-### 💼 Other - 1728166786
+
+### 💼 Other - redis-0.0.4
 
 - Update index.yaml
 - Edwardtheharris <edwardtheharris@users.noreply.github.com>
@@ -418,8 +440,10 @@ title: Breeze Blocks Helm Repository Changelog
 - Merge pull request #68 from edwardtheharris/67-deploy-working-cert-manager
 - Provide working values for cert manager
 - Closes #67
+
 ## [nautobot-0.0.2] - 2024-08-16
-### 💼 Other - 1723827621
+
+### 💼 Other - nautobot-0.0.2
 
 - Add 0.0.2 charts
 - Closes #39
@@ -434,8 +458,10 @@ title: Breeze Blocks Helm Repository Changelog
 - Merge pull request #42 from edwardtheharris/41-003
 - Add 0.0.3 modules
 - Closes #41
+
 ## [nautobot-0.0.1] - 2024-08-16
-### 💼 Other - 1723826382
+
+### 💼 Other - nautobot-0.0.1
 
 - Update index.yaml
 - Edwardtheharris <edwardtheharris@users.noreply.github.com>
@@ -516,8 +542,10 @@ title: Breeze Blocks Helm Repository Changelog
 - Merge pull request #38 from edwardtheharris/37-nautobot-001
 - Add nautobot chart
 - Closes #37
+
 ## [storage-0.0.2] - 2024-07-28
-### 💼 Other - 1722190704
+
+### 💼 Other - storage-0.0.2
 
 - Update index.yaml
 - Edwardtheharris <edwardtheharris@users.noreply.github.com>
@@ -541,8 +569,10 @@ title: Breeze Blocks Helm Repository Changelog
 - Merge pull request #14 from edwardtheharris/12-fix-release-stages
 - Run only on PRs
 - Closes #12
+
 ## [storage-0.0.1] - 2024-07-27
-### 💼 Other - 1722107953
+
+### 💼 Other - storage-0.0.1
 
 - Initial commit
 - Add workflows
