@@ -19,12 +19,12 @@ title: Breeze Blocks Helm Repository Changelog
 # See https://keats.github.io/tera/docs/#introduction
 body = """
 {% if version %}\
-## [{{ version | trim_start_matches(pat="v") }}] - {{ timestamp | date(format="%Y-%m-%d") }}
+## [{{ version | trim_start_matches(pat="v") }}] - {{ timestamp | date(format="%Y-%m-%d") }}\
 {% else %}\
 ## [unreleased]
 {% endif %}\
-{% for group, commits in commits | group_by(attribute="group") %}
-### {{ group | striptags | trim | upper_first }}
+{% for group, commits in commits | group_by(attribute="group") %}\n
+### {{ group | striptags | trim | upper_first }} - {% if version %}{{ version }}{% else %}[unreleased]{% endif %}\n
     {% for commit in commits %}
         - {% if commit.scope %}*({{ commit.scope }})* {% endif %}\
             {% if commit.breaking %}[**breaking**] {% endif %}\

@@ -1,7 +1,7 @@
 ---
 abstract: All notable changes to this project will be documented in this file.
 authors:
-- name: Xander Harris
+  - name: Xander Harris
 email: xandertheharris@gmail.com
 date: 2025-09-07
 title: Breeze Blocks Helm Repository Changelog
@@ -9,9 +9,7 @@ title: Breeze Blocks Helm Repository Changelog
 
 ## [unreleased]
 
-<!--markdownlint-disable-->
-
-### 💼 Other
+### 💼 Other - [unreleased]
 
 - Merge branch 'main' into 77-bump-jinja2-from-314-to-315-in-the-pip-group-across-1-directory
 - Merge pull request #78 from edwardtheharris/77-bump-jinja2-from-314-to-315-in-the-pip-group-across-1-directory
@@ -58,7 +56,7 @@ title: Breeze Blocks Helm Repository Changelog
 - - [Changelog](https://github.com/urllib3/urllib3/blob/main/CHANGES.rst)
 - - [Commits](https://github.com/urllib3/urllib3/compare/2.2.3...2.5.0)
 
-- ---
+---
 
 - Updated-dependencies:
 - - dependency-name: setuptools
@@ -138,6 +136,30 @@ title: Breeze Blocks Helm Repository Changelog
 - Merge pull request #94 from edwardtheharris/92-make-a-working-grafana-deployment
 - Update grafana values
 - Closes #92
+- Update values for grafana
+- Closes #92
+- Update index
+- Closes #92
+- Almost working
+- Closes #92
+- Grr, ingress
+- Closes #92
+- Update grafana values
+- Closes #92
+- Update docs
+- Closes #92
+- Update prometheus values
+- Closes #96
+- Pull from repo
+- Closes #96
+- Add generic values
+- Closes #96
+- Add ingress nginx
+- Closes #99
+- Add docs
+- Closes #99
+- Add slightly to docs
+- Closes #99
 - Add metallb chart
 - Closes #98
 - Add docs to toctrees
@@ -158,10 +180,93 @@ title: Breeze Blocks Helm Repository Changelog
 - Closes #98
 - Fixes for readme
 - Closes #98
+- Update changelog
+- Closes #98
+- Fix lint errors
+- Closes #98
+- Update lint test
+- Closes #98
+- Update lint process
+- Closes #98
+- Update repos
+- Closes #98
+- Fix workflow
+- Closes #98
+- Add repo
+- Closes #98
+- Update workflow
+- Closes #98
+- Update chart
+- Closes #98
+- Drop broken steps
+- Closes #98
+- Merge pull request #101 from edwardtheharris/98-add-metallb
+- Add metallb chart
+- Closes #98
+- Merge branch 'main' of
+- Edwardtheharris/helm-charts
+- Into 99-add-nginx-ingress
+- Closes #99
+- Merge branch 'main' into 99-add-nginx-ingress
+- Merge branch '99-add-nginx-ingress' of
+- Edwardtheharris/helm-charts
+- Into 99-add-nginx-ingress
+- Closes #99
+- Add ingress nginx
+- Closes #99
+- Update values
+- Closes #99
+- Fix changelog
+- Closes #99
+- Fix ip address pool
+- Closes #99
+- Drop old values
+- Closes #99
+- Merge pull request #100 from edwardtheharris/99-add-nginx-ingress
+- 99 add nginx ingress
+- Closes #99
+- Merge branch 'main' into 99-add-nginx-ingress
+- Merge pull request #102 from edwardtheharris/99-add-nginx-ingress
+- 99 add nginx ingress
+- Closes #99
+- Merge branch 'main' into 96-make-a-working-prometheus-deployment
+- Fix docs
+- Closes #96
+- Fix docs
+- Closes #96
+- Merge pull request #97 from edwardtheharris/96-make-a-working-prometheus-deployment
+- Make a working prometheus deployment
+- Closes #96
+- Merge branch 'main' of
+- Edwardtheharris/helm-charts
+- Into 92-make-a-working-grafana-deployment
+- Closes #92
+- Update grafana values
+- Closes #92
+- Update docs
+- Closes #92
+- Update metallb address pool
+- Closes #92
+- Add working grafana deployment.
+- Closes 92
+- Add grafana cert
+- Closes #92
+- Add changelog
+- Closes #92
+- Adjust docs
+- Closes #92
+- Fix ingress
+- Closes #92
+- Update template storage name
+- Closes #92
+- Update some templates
+- Closes #92
+- Add working grafana
+- Closes #92
 
 ## [0.0.2] - 2025-09-07
 
-### 💼 Other
+### 💼 Other - 0.0.2
 
 - Add apparently working loki
 - Closes #69
@@ -180,7 +285,7 @@ title: Breeze Blocks Helm Repository Changelog
 - - [Changelog](https://github.com/encode/starlette/blob/master/docs/release-notes.md)
 - - [Commits](https://github.com/encode/starlette/compare/0.39.1...0.40.0)
 
-- ---
+---
 
 - Updated-dependencies:
 - - dependency-name: starlette
@@ -213,7 +318,7 @@ title: Breeze Blocks Helm Repository Changelog
 - - [Changelog](https://github.com/pallets/jinja/blob/main/CHANGES.rst)
 - - [Commits](https://github.com/pallets/jinja/compare/3.1.4...3.1.5)
 
-- ---
+---
 
 - Updated-dependencies:
 - - dependency-name: jinja2
@@ -251,7 +356,7 @@ title: Breeze Blocks Helm Repository Changelog
 
 ## [redis-0.0.4] - 2024-10-05
 
-### 💼 Other
+### 💼 Other - redis-0.0.4
 
 - Update index.yaml
 - Edwardtheharris <edwardtheharris@users.noreply.github.com>
@@ -338,7 +443,7 @@ title: Breeze Blocks Helm Repository Changelog
 
 ## [nautobot-0.0.2] - 2024-08-16
 
-### 💼 Other
+### 💼 Other - nautobot-0.0.2
 
 - Add 0.0.2 charts
 - Closes #39
@@ -356,7 +461,7 @@ title: Breeze Blocks Helm Repository Changelog
 
 ## [nautobot-0.0.1] - 2024-08-16
 
-### 💼 Other
+### 💼 Other - nautobot-0.0.1
 
 - Update index.yaml
 - Edwardtheharris <edwardtheharris@users.noreply.github.com>
@@ -440,7 +545,7 @@ title: Breeze Blocks Helm Repository Changelog
 
 ## [storage-0.0.2] - 2024-07-28
 
-### 💼 Other
+### 💼 Other - storage-0.0.2
 
 - Update index.yaml
 - Edwardtheharris <edwardtheharris@users.noreply.github.com>
@@ -467,7 +572,7 @@ title: Breeze Blocks Helm Repository Changelog
 
 ## [storage-0.0.1] - 2024-07-27
 
-### 💼 Other
+### 💼 Other - storage-0.0.1
 
 - Initial commit
 - Add workflows

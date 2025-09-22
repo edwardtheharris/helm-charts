@@ -1,12 +1,12 @@
 ---
 abstract: >-
-   Charts documentation master file, created by
-   sphinx-quickstart on Tue Jul 30 10:32:33 2024.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+  Charts documentation master file, created by
+  sphinx-quickstart on Tue Jul 30 10:32:33 2024.
+  You can adapt this file completely to your liking, but it should at least
+  contain the root `toctree` directive.
 authors:
-   - name: Xander Harris
-     email: xandertheharris@gmail.com
+  - name: Xander Harris
+    email: xandertheharris@gmail.com
 date: 2024-07-30
 title: Charts Index
 ---
@@ -16,14 +16,15 @@ publicly in case someone else has similar purposes.
 
 ```{toctree}
 :caption: contents
+:glob:
+:maxdepth: 2
 
+charts/ingress-nginx/index
 charts/cert-manager/index
 charts/flannel/index
 charts/grafana/index
 charts/loki/index
 charts/metallb/index
-charts/nextcloud/index
-charts/nginx/index
 charts/prometheus/index
 ```
 
@@ -37,34 +38,36 @@ readme
 
 ## Usage
 
-[Helm](https://helm.sh) must be installed to use the charts.  Please refer to
-Helm's [documentation](https://helm.sh/docs) to get started.
+{term}`Helm` must be installed to use the charts. Please refer to
+{term}`Helm`'s [documentation](https://helm.sh/docs) to get started.
 
 Once Helm has been set up correctly, add the repo as follows:
 
-```shell
+```{code-block} shell
 helm repo add eth https://edwardtheharris.github.io/helm-charts
 ```
 
 If you had already added this repo earlier, run `helm repo update` to retrieve
-the latest versions of the packages.  You can then run `helm search repo
+the latest versions of the packages. You can then run `helm search repo
 eth` to see the charts.
 
 To install the `${chart_name}` chart:
 
-```shell
+```{code-block} shell
 helm install ${chart_name} ${eth}/${chart_name}
 ```
 
 To uninstall the chart:
 
-```shell
+```{code-block} shell
 helm delete ${chart_name}
 ```
 
 ## Glossary
 
 ````{glossary}
+:sorted:
+
 alertingRules
    Definition of alerts that Prometheus should send when adverse conditions
    are detected. Alerts configuration information available
@@ -140,6 +143,12 @@ podSecurityPolicy
         seccomp.security.alpha.kubernetes.io/defaultProfileName: 'docker/default'
         apparmor.security.beta.kubernetes.io/defaultProfileName: 'runtime/default'
    ```
+
+PostgreSQL
+  [PostgreSQL](https://postgresql.org) is a powerful, open source
+  object-relational database system with over 35 years of active development
+  that has earned it a strong reputation for reliability, feature robustness,
+  and performance.
 
 readiness
    Whether or not a service is ready to use. Learn more
