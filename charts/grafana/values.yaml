@@ -34,8 +34,8 @@ rbac:
   #   verbs: []
 serviceAccount:
   create: true
-  name:
-  nameTest:
+  name: grafana
+  nameTest: grafana-test
   ## ServiceAccount labels.
   labels: {}
   ## Service account annotations. Can be templated.
@@ -44,7 +44,7 @@ serviceAccount:
 
   ## autoMount is deprecated in favor of automountServiceAccountToken
   # autoMount: false
-  automountServiceAccountToken: false
+  automountServiceAccountToken: true
 
 replicas: 1
 
@@ -136,20 +136,21 @@ testFramework:
   #    memory: 128Mi
 
 # dns configuration for pod
-dnsPolicy: ~
-dnsConfig: {}
-  # nameservers:
-  #   - 8.8.8.8
-  #   options:
-  #   - name: ndots
-  #     value: "2"
-  #   - name: edns0
+dnsPolicy: ClusterFirst
+dnsConfig:
+  nameservers:
+    - 192.168.5.3
+    - 192.168.5.4
+  options:
+    - name: ndots
+      value: "2"
+    - name: edns0
 
 securityContext:
-  runAsNonRoot: true
-  runAsUser: 472
-  runAsGroup: 472
-  fsGroup: 472
+  runAsNonRoot: false
+  runAsUser: 0
+  runAsGroup: 0
+  fsGroup: 0
 
 containerSecurityContext:
   allowPrivilegeEscalation: false
@@ -229,25 +230,20 @@ gossipPortName: gossip
 service:
   enabled: true
   type: LoadBalancer
-  # Set the ip family policy to configure dual-stack see [Configure dual-stack](https://kubernetes.io/docs/concepts/services-networking/dual-stack/#services)
-  ipFamilyPolicy: ""
-  # Sets the families that should be supported and the order in which they should be applied to ClusterIP as well. Can be IPv4 and/or IPv6.
-  ipFamilies: []
-  loadBalancerIP: ""
-  loadBalancerClass: ""
-  loadBalancerSourceRanges: []
-  externalIPs:
-    - 192.168.5.50
   port: 3000
   targetPort:
     3000
     # targetPort: 4181 To be used with a proxy extraContainer
   ## Service annotations. Can be templated.
-  annotations: {}
-  labels: {}
-  portName: service
+  annotations:
+    kubernetes.io/name: grafana
+  labels:
+    app.kubernetes.io/component: grafana
+    app.kubernetes.io/instance: grafana
+    kubernetes.io/part-of: grafana
+  portName: grafana
   # Adds the appProtocol field to the service. This allows to work with istio protocol selection. Ex: "http" or "tcp"
-  appProtocol: ""
+  appProtocol: http
   sessionAffinity: ""
 
 serviceMonitor:
@@ -256,7 +252,7 @@ serviceMonitor:
   ##
   enabled: false
   path: /metrics
-  #  namespace: monitoring  (defaults to use the namespace this chart is deployed to)
+  namespace: monitoring # (defaults to use the namespace this chart is deployed to)
   labels: {}
   interval: 30s
   scheme: http
@@ -289,10 +285,8 @@ ingress:
     # kubernetes.io/tls-acme: "true"
   labels: {}
   path: /
-
   # pathType is only for k8s >= 1.1=
   pathType: Prefix
-
   hosts:
     - grafana.breeze-blocks.net
   ## Extra paths to prepend to every host configuration. This is useful when working with annotation based services.
@@ -309,12 +303,10 @@ ingress:
   #       name: ssl-redirect
   #       port:
   #         name: use-annotation
-
   tls:
     - secretName: grafana-tls
       hosts:
         - grafana.breeze-blocks.net
-
 # -- BETA: Configure the gateway routes for the chart here.
 # More routes can be added by adding a dictionary key like the 'main' route.
 # Be aware that this is an early beta of this feature,
@@ -415,15 +407,14 @@ extraContainerVolumes: []
 ## ref: https://kubernetes.io/docs/concepts/storage/persistent-volumes/
 ##
 persistence:
-  type: pvc
+  type: sts
   enabled: true
   storageClassName: csi-lvm-linear
   ## (Optional) Use this to bind the claim to an existing PersistentVolume (PV) by name.
-  volumeName: prometheus
+  volumeName: ""
   accessModes:
     - ReadWriteOnce
-  size: 20Gi
-  # annotations: {}
+  size: 10Gi
   finalizers:
     - kubernetes.io/pvc-protection
   # selectorLabels: {}
@@ -446,15 +437,15 @@ persistence:
     ##
     # sizeLimit: 300Mi
 
-  ## If 'lookupVolumeName' is set to true, Helm will attempt to retrieve
-  ## the current value of 'spec.volumeName' and incorporate it into the template.
-  lookupVolumeName: true
+    ## If 'lookupVolumeName' is set to true, Helm will attempt to retrieve
+    ## the current value of 'spec.volumeName' and incorporate it into the template.
+    lookupVolumeName: false
 
 initChownData:
   ## If false, data ownership will not be reset at startup
   ## This allows the grafana-server to be run with an arbitrary user
   ##
-  enabled: true
+  enabled: false
 
   ## initChownData container image
   ##
@@ -495,7 +486,7 @@ adminUser: admin
 # Use an existing secret for the admin user.
 admin:
   ## Name of the secret. Can be templated.
-  existingSecret: grafana-admin
+  existingSecret: "grafana-admin"
   userKey: admin-user
   passwordKey: admin-password
 
@@ -503,8 +494,9 @@ admin:
 ## Needed if using `vault-env` to manage secrets (ref: https://banzaicloud.com/blog/inject-secrets-into-pods-vault/)
 ## Default is "run.sh" as defined in grafana's Dockerfile
 # command:
-# - "sh"
-# - "/run.sh"
+#   - "/bin/sh"
+#   - "-c"
+#   - "--"
 
 ## Optionally define args if command is used
 ## Needed if using `hashicorp/envconsul` to manage secrets
@@ -585,13 +577,14 @@ enableServiceLinks: true
 
 ## Additional grafana server secret mounts
 # Defines additional mounts with secrets. Secrets must be manually created in the namespace.
-extraSecretMounts: []
-  # - name: secret-files
-  #   mountPath: /etc/secrets
-  #   secretName: grafana-secret-files
-  #   readOnly: true
-  #   optional: false
-  #   subPath: ""
+extraSecretMounts:
+  - name: postgresql
+    mountPath: /etc/secrets
+    defaultMode: 0440
+    secretName: postgresql-grafana
+    readOnly: true
+    optional: false
+    subPath: ""
   #
   # for AWS EKS (cloudwatch) use the following (see also instruction in env: above)
   # - name: aws-iam-token
@@ -620,29 +613,26 @@ extraSecretMounts: []
 ## Additional grafana server volume mounts
 # Defines additional volume mounts.
 extraVolumeMounts: []
+  # - name: grafana-log
+  #   mountPath: /var/log/grafana
   # - name: extra-volume-0
   #   mountPath: /mnt/volume0
   #   readOnly: true
   # - name: extra-volume-1
   #   mountPath: /mnt/volume1
   #   readOnly: true
-  # - name: grafana-secrets
-  #   mountPath: /mnt/volume2
 
 ## Additional Grafana server volumes
 extraVolumes: []
-  # - name: extra-volume-0
+  # - name: grafana-log
+  #   csi:
+  #     driver: lvm.csi.metal-stack.io
+  # # - name: extra-volume-0
   #   existingClaim: volume-claim
-  # - name: extra-volume-1
+  #  - name: extra-volume-1
   #   hostPath:
   #     path: /usr/shared/
   #     type: ""
-  # - name: grafana-secrets
-  #   csi:
-  #     driver: secrets-store.csi.k8s.io
-  #     readOnly: true
-  #     volumeAttributes:
-  #       secretProviderClass: "grafana-env-spc"
 
 ## Container Lifecycle Hooks. Execute a specific bash command or make an HTTP request
 lifecycleHooks: {}
@@ -887,7 +877,17 @@ grafana.ini:
   grafana_net:
     url: https://grafana.net
   server:
-    domain: "grafana.breeze-blocks.net"
+    domain: grafana.breeze-blocks.net
+    http_addr: 0.0.0.0
+    http_port: 3000
+    protocol: http
+    enforce_domain: true
+  database:
+    type: postgres
+    host: postgresql.postgresql:5432
+    name: grafana
+    user: grafana
+    password: $__file{/etc/secrets/password}
 ## grafana Authentication can be enabled with the following values on grafana.ini
 # server:
 # The full public facing url you use in browser, used for redirects and emails
@@ -1616,7 +1616,7 @@ networkPolicy:
 
 # Enable backward compatibility of kubernetes where version below 1.13 doesn't have the enableServiceLinks option
 enableKubeBackwardCompatibility: false
-useStatefulSet: false
+useStatefulSet: true
 
 # extraObjects could be utilized to add dynamic manifests via values
 extraObjects: []

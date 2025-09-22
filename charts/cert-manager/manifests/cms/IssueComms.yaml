@@ -23,22 +23,3 @@ spec:
     name: communications-services-ca
     kind: ClusterIssuer
     group: cert-manager.io
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: cms-wildcard
-  namespace: cert-manager
-  annotations:
-    reflector.v1.k8s.emberstack.com/reflection-allowed: "true"
-spec:
-  isCA: false
-  commonName: "*.breeze-blocks.net"
-  secretName: wildcard-tls
-  privateKey:
-    algorithm: ECDSA
-    size: 256
-  issuerRef:
-    name: breeze-blocks-ca
-    kind: ClusterIssuer
-    group: cert-manager.io

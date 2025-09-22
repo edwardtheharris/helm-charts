@@ -1,5 +1,7 @@
 # kube-state-metrics Helm Chart
 
+<!--markdownlint-disable-->
+
 Installs the [kube-state-metrics agent](https://github.com/kubernetes/kube-state-metrics).
 
 ## Usage

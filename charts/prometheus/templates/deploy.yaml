@@ -111,7 +111,7 @@ spec:
             {{- toYaml . | nindent 12 }}
           {{- end }}
           args:
-            - --watched-dir=/etc/prometheus
+            - --watched-dir=/etc/config
           {{- $default_url := (printf "http://127.0.0.1:%s/-/reload" (include "prometheus.port" .)) }}
           {{- with .Values.server.prefixURL }}
           {{- $default_url = printf "http://127.0.0.1:%s%s/-/reload" (include "prometheus.port" .) . }}
@@ -160,7 +160,7 @@ spec:
           {{- end }}
           volumeMounts:
             - name: config-volume
-              mountPath: /etc/prometheus
+              mountPath: /etc/config
               readOnly: true
           {{- range .Values.configmapReload.prometheus.extraConfigmapMounts }}
             - name: {{ $.Values.configmapReload.prometheus.name }}-{{ .name }}
@@ -298,7 +298,7 @@ spec:
           {{- $storageVolumeName := ternary .Values.server.persistentVolume.statefulSetNameOverride "storage-volume" (and .Values.server.persistentVolume.enabled .Values.server.statefulSet.enabled (not (empty .Values.server.persistentVolume.statefulSetNameOverride))) }}
           volumeMounts:
             - name: config-volume
-              mountPath: /etc/prometheus
+              mountPath: /etc/config
             - name: {{ $storageVolumeName }}
               mountPath: {{ .Values.server.persistentVolume.mountPath }}
               subPath: "{{ .Values.server.persistentVolume.subPath }}"

@@ -1,58 +1,90 @@
 ---
 abstract: >-
-   Documentation for the Prometheus Helm Chart values.
+   Values for the official Prometheus Helm Chart.
 authors:
-   - name: Xander Harris
-     email: xandertheharris@gmail.com
-date: 2024-07-30
+  - name: Xander Harris
+    email: xandertheharris@gmail.com
+date: 2024-09-26
 title: Prometheus Helm Chart Values
 ---
 
-This folder contains a values file to deploy the Prometheus Community Helm
-Chart along with a JSON schema file generated from that values file.
+## Repository Contents
 
-```{admonition} This is a copy
-Any documentation here was originally sourced from the Prometheus Community
-Helm Chart's
-[ArtifactHub](https://artifacthub.io/packages/helm/prometheus-community/prometheus).
-In the event of conflicts between this information and the source repository,
-the source repository should be considered the truth.
+```{contents}
 ```
 
-## Schema Generation
+```{admonition} This is a copy
+The following information is copied from the
+[GitHub repo](https://github.com/grafana/helm-charts), which should be
+considered the source of truth regarding the use of this chart.
 
-If you need to update the JSON schema, follow these steps.
+In the event of differences between the two sets of information, the
+GitHub repo should always be considered as the source of truth.
+```
 
-1. Make sure the Helm `schema-gen` plugin is installed.
+## Prometheus Community Kubernetes Helm Charts
 
-   ```{code-block} shell
-   helm plugin install https://github.com/karuppiah7890/helm-schema-gen
-   ```
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/grafana)](https://artifacthub.io/packages/search?repo=grafana)
 
-2. Use the plugin to generate the new schema.
+The code is provided as-is with no warranties.
 
-   ```{code-block} shell
-   helm schema-gen values.yaml
-   ```
+### Usage
 
-## Usage
+{term}`Helm` must be installed to use the charts.
+Please refer to Helm's [documentation](https://helm.sh/docs/) to get started.
 
-1. Add the repository to Helm.
+Once Helm is set up properly, add the repo as follows:
 
-   ```{code-block} shell
-   helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
-   helm repo update
-   ```
+```{code-block} shell
+:caption: add the repository
 
-2. Edit the `values.yaml` as you need.
-3. Deploy the chart.
+helm repo add grafana https://grafana.github.io/helm-charts
+helm repo update
+```
 
-   ```{code-block} shell
-   kubectl create ns prometheus
-   helm -n prometheus upgrade --install prometheus prometheus-community/prometheus -f values.yaml
-   ```
+You can then run `helm search repo grafana` to see the charts.
+
+Chart documentation is available in
+[grafana directory](https://github.com/grafana/helm-charts/blob/main/charts/grafana/README.md).
+
+### Contributing
+
+We'd love to have you contribute! Please refer to our
+[contribution guidelines](https://github.com/grafana/helm-charts/blob/main/CONTRIBUTING.md)
+for details.
+
+### License
+
+[Apache 2.0 License](https://github.com/grafana/helm-charts/blob/main/LICENSE).
+
+---
 
 ### Values
 
-```{autoyaml} charts/prometheus/values.yaml
+```{autoyaml} charts/grafana/values.yaml
+```
+
+```{sectionauthor} Xander Harris <xandertheharris@gmail.com>
+```
+
+## Data Sources
+
+The {term}`PostgreSQL` data source requires read-only access.
+
+You can find more information about that
+[in this helpful serverfault post](https://serverfault.com/questions/60508/grant-select-to-all-tables-in-postgresql).
+
+You may find [the actual readme](https://github.com/grafana/helm-charts/blob/main/charts/grafana/README.md)
+helpful as well.
+
+---
+
+```{toctree}
+:caption: official readme
+README
+charts/alertmanager/README
+charts/kube-state-metrics/README
+charts/prometheus-node-exporter/README
+charts/prometheus-pushgateway/README
 ```

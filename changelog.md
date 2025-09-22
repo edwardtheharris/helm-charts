@@ -2,14 +2,271 @@
 abstract: All notable changes to this project will be documented in this file.
 authors:
   - name: Xander Harris
-    email: xandertheharris@gmail.com
+email: xandertheharris@gmail.com
 date: 2025-09-07
 title: Breeze Blocks Helm Repository Changelog
 ---
 
+## [unreleased]
+
+### 💼 Other - [unreleased]
+
+- Merge branch 'main' into 77-bump-jinja2-from-314-to-315-in-the-pip-group-across-1-directory
+- Merge pull request #78 from edwardtheharris/77-bump-jinja2-from-314-to-315-in-the-pip-group-across-1-directory
+- 77 bump jinja2 from 314 to 315 in the pip group across 1 directory
+- Closes #77
+- Add changelog
+- Closes #85
+- Update toc
+- Closes #85
+- Fix errors
+- Closes #85
+- Merge pull request #86 from edwardtheharris/85-add-changelog
+- 85 add changelog
+- Closes #85
+- Bump the pip group across 1 directory with 6 updates
+- Bumps the pip group with 5 updates in the / directory:
+- | Package | From | To |
+- | --- | --- | --- |
+- | [setuptools](https://github.com/pypa/setuptools) | `75.1.0` | `78.1.1` |
+- | [h11](https://github.com/python-hyper/h11) | `0.14.0` | `0.16.0` |
+- | [jinja2](https://github.com/pallets/jinja) | `3.1.4` | `3.1.6` |
+- | [requests](https://github.com/psf/requests) | `2.32.3` | `2.32.4` |
+- | [starlette](https://github.com/encode/starlette) | `0.40.0` | `0.47.2` |
+- Updates `setuptools` from 75.1.0 to 78.1.1
+- - [Release notes](https://github.com/pypa/setuptools/releases)
+- - [Changelog](https://github.com/pypa/setuptools/blob/main/NEWS.rst)
+- - [Commits](https://github.com/pypa/setuptools/compare/v75.1.0...v78.1.1)
+- Updates `h11` from 0.14.0 to 0.16.0
+- - [Commits](https://github.com/python-hyper/h11/compare/v0.14.0...v0.16.0)
+- Updates `jinja2` from 3.1.4 to 3.1.6
+- - [Release notes](https://github.com/pallets/jinja/releases)
+- - [Changelog](https://github.com/pallets/jinja/blob/main/CHANGES.rst)
+- - [Commits](https://github.com/pallets/jinja/compare/3.1.4...3.1.6)
+- Updates `requests` from 2.32.3 to 2.32.4
+- - [Release notes](https://github.com/psf/requests/releases)
+- - [Changelog](https://github.com/psf/requests/blob/main/HISTORY.md)
+- - [Commits](https://github.com/psf/requests/compare/v2.32.3...v2.32.4)
+- Updates `starlette` from 0.40.0 to 0.47.2
+- - [Release notes](https://github.com/encode/starlette/releases)
+- - [Changelog](https://github.com/encode/starlette/blob/master/docs/release-notes.md)
+- - [Commits](https://github.com/encode/starlette/compare/0.40.0...0.47.2)
+- Updates `urllib3` from 2.2.3 to 2.5.0
+- - [Release notes](https://github.com/urllib3/urllib3/releases)
+- - [Changelog](https://github.com/urllib3/urllib3/blob/main/CHANGES.rst)
+- - [Commits](https://github.com/urllib3/urllib3/compare/2.2.3...2.5.0)
+
+---
+
+- Updated-dependencies:
+- - dependency-name: setuptools
+- dependency-version: 78.1.1
+- dependency-type: indirect
+- dependency-group: pip
+- - dependency-name: h11
+- dependency-version: 0.16.0
+- dependency-type: indirect
+- dependency-group: pip
+- - dependency-name: jinja2
+- dependency-version: 3.1.6
+- dependency-type: indirect
+- dependency-group: pip
+- - dependency-name: requests
+- dependency-version: 2.32.4
+- dependency-type: indirect
+- dependency-group: pip
+- - dependency-name: starlette
+- dependency-version: 0.47.2
+- dependency-type: indirect
+- dependency-group: pip
+- - dependency-name: urllib3
+- dependency-version: 2.5.0
+- dependency-type: indirect
+- dependency-group: pip
+- ...
+- Dependabot[bot] <support@github.com>
+- Merge pull request #82 from edwardtheharris/dependabot/pip/pip-57b176594f
+- Bump the pip group across 1 directory with 6 updates
+- Closes #87
+- Merge pull request #88 from edwardtheharris/87-bump-the-pip-group-across-1-directory-with-6-updates-82
+- 87 bump the pip group across 1 directory with 6 updates 82
+- Closes #87
+- Add new CAs and certs
+- Closes #89
+- Merge pull request #90 from edwardtheharris/89-update-cert-manager-for-new-deployments
+- Add new CAs and certs
+- Closes #89
+- Merge branch 'main' into 63-nextcloud
+- Merge branch '63-nextcloud' of
+- Edwardtheharris/helm-charts into 63-nextcloud
+- Closes #63
+- Fix index md
+- Closes #63
+- Update chart
+- Closes #63
+- Fix index
+- Closes #63
+- Merge pull request #75 from edwardtheharris/63-nextcloud
+- 63 nextcloud
+- Closes #63
+- Merge branch 'main' into 63-nextcloud
+- Merge pull request #91 from edwardtheharris/63-nextcloud
+- 63 nextcloud
+- Closes #63
+- Update grafana values
+- Closes #92
+- Add Grafana and Loki charts usage
+- Closes #55
+- Merge branch 'main' of
+- Edwardtheharris/helm-charts
+- Into 55-add-grafanaloki
+- See #55
+- Merge branch 'main' into 55-add-grafanaloki
+- Merge branch 'main' of
+- Edwardtheharris/helm-charts into 55-add-grafanaloki
+- Closes #55
+- Merge pull request #65 from edwardtheharris/55-add-grafanaloki
+- 55 add grafana
+- Closes #55
+- Closes #92
+- Merge pull request #93 from edwardtheharris/92-make-a-working-grafana-deployment
+- 92 make a working grafana deployment
+- Closes #92
+- Merge branch 'main' into 92-make-a-working-grafana-deployment
+- Merge pull request #94 from edwardtheharris/92-make-a-working-grafana-deployment
+- Update grafana values
+- Closes #92
+- Update values for grafana
+- Closes #92
+- Update index
+- Closes #92
+- Almost working
+- Closes #92
+- Grr, ingress
+- Closes #92
+- Update grafana values
+- Closes #92
+- Update docs
+- Closes #92
+- Update prometheus values
+- Closes #96
+- Pull from repo
+- Closes #96
+- Add generic values
+- Closes #96
+- Add ingress nginx
+- Closes #99
+- Add docs
+- Closes #99
+- Add slightly to docs
+- Closes #99
+- Add metallb chart
+- Closes #98
+- Add docs to toctrees
+- Closes #98
+- Add usage
+- Closes #98
+- Adjust logo
+- Closes #98
+- Add IP Address Pool
+- Closes #98
+- Update usage
+- Closes #98
+- Add to usage
+- Closes #98
+- Add L2Advertisement
+- Closes #98
+- Update usage info
+- Closes #98
+- Fixes for readme
+- Closes #98
+- Update changelog
+- Closes #98
+- Fix lint errors
+- Closes #98
+- Update lint test
+- Closes #98
+- Update lint process
+- Closes #98
+- Update repos
+- Closes #98
+- Fix workflow
+- Closes #98
+- Add repo
+- Closes #98
+- Update workflow
+- Closes #98
+- Update chart
+- Closes #98
+- Drop broken steps
+- Closes #98
+- Merge pull request #101 from edwardtheharris/98-add-metallb
+- Add metallb chart
+- Closes #98
+- Merge branch 'main' of
+- Edwardtheharris/helm-charts
+- Into 99-add-nginx-ingress
+- Closes #99
+- Merge branch 'main' into 99-add-nginx-ingress
+- Merge branch '99-add-nginx-ingress' of
+- Edwardtheharris/helm-charts
+- Into 99-add-nginx-ingress
+- Closes #99
+- Add ingress nginx
+- Closes #99
+- Update values
+- Closes #99
+- Fix changelog
+- Closes #99
+- Fix ip address pool
+- Closes #99
+- Drop old values
+- Closes #99
+- Merge pull request #100 from edwardtheharris/99-add-nginx-ingress
+- 99 add nginx ingress
+- Closes #99
+- Merge branch 'main' into 99-add-nginx-ingress
+- Merge pull request #102 from edwardtheharris/99-add-nginx-ingress
+- 99 add nginx ingress
+- Closes #99
+- Merge branch 'main' into 96-make-a-working-prometheus-deployment
+- Fix docs
+- Closes #96
+- Fix docs
+- Closes #96
+- Merge pull request #97 from edwardtheharris/96-make-a-working-prometheus-deployment
+- Make a working prometheus deployment
+- Closes #96
+- Merge branch 'main' of
+- Edwardtheharris/helm-charts
+- Into 92-make-a-working-grafana-deployment
+- Closes #92
+- Update grafana values
+- Closes #92
+- Update docs
+- Closes #92
+- Update metallb address pool
+- Closes #92
+- Add working grafana deployment.
+- Closes 92
+- Add grafana cert
+- Closes #92
+- Add changelog
+- Closes #92
+- Adjust docs
+- Closes #92
+- Fix ingress
+- Closes #92
+- Update template storage name
+- Closes #92
+- Update some templates
+- Closes #92
+- Add working grafana
+- Closes #92
+
 ## [0.0.2] - 2025-09-07
 
-### Other 💼
+### 💼 Other - 0.0.2
 
 - Add apparently working loki
 - Closes #69
@@ -38,6 +295,40 @@ title: Breeze Blocks Helm Repository Changelog
 - Dependabot[bot] <support@github.com>
 - Merge pull request #73 from edwardtheharris/dependabot/pip/pip-f0796b5709
 - Bump starlette from 0.39.1 to 0.40.0 in the pip group across 1 directory
+- Merge branch 'main' of
+- Edwardtheharris/helm-charts
+- Into 63-nextcloud
+- Closes #63
+- Add nextcloud charts
+- Closes #63
+- Add some things that did not work
+- See #63
+- Drop nextcloud
+- Closes #63
+- Add nginx ingress controller
+- Closes #63
+- Fix cert manager values
+- Closes #63
+- Update lint issues
+- Closes #63
+- Bump jinja2 from 3.1.4 to 3.1.5 in the pip group across 1 directory
+- Bumps the pip group with 1 update in the / directory: [jinja2](https://github.com/pallets/jinja).
+- Updates `jinja2` from 3.1.4 to 3.1.5
+- - [Release notes](https://github.com/pallets/jinja/releases)
+- - [Changelog](https://github.com/pallets/jinja/blob/main/CHANGES.rst)
+- - [Commits](https://github.com/pallets/jinja/compare/3.1.4...3.1.5)
+
+---
+
+- Updated-dependencies:
+- - dependency-name: jinja2
+- dependency-type: indirect
+- dependency-group: pip
+- ...
+- Dependabot[bot] <support@github.com>
+- Merge pull request #76 from edwardtheharris/dependabot/pip/pip-e49d2f513e
+- Bump jinja2 from 3.1.4 to 3.1.5 in the pip group across 1 directory
+- See #77
 - Add manifests for hard way cluster
 - Closes #80
 - Add updated values file
@@ -65,7 +356,7 @@ title: Breeze Blocks Helm Repository Changelog
 
 ## [redis-0.0.4] - 2024-10-05
 
-### redis 0.0.4 - Other
+### 💼 Other - redis-0.0.4
 
 - Update index.yaml
 - Edwardtheharris <edwardtheharris@users.noreply.github.com>
@@ -142,6 +433,8 @@ title: Breeze Blocks Helm Repository Changelog
 - Merge pull request #66 from edwardtheharris/63-nextcloud
 - The front page loads anyway
 - Closes #63
+- Add resources for cert manager
+- Closes #63
 - Provide working values for cert manager
 - Closes #67
 - Merge pull request #68 from edwardtheharris/67-deploy-working-cert-manager
@@ -150,7 +443,7 @@ title: Breeze Blocks Helm Repository Changelog
 
 ## [nautobot-0.0.2] - 2024-08-16
 
-### nautobot 0.0.2 - Other
+### 💼 Other - nautobot-0.0.2
 
 - Add 0.0.2 charts
 - Closes #39
@@ -168,7 +461,7 @@ title: Breeze Blocks Helm Repository Changelog
 
 ## [nautobot-0.0.1] - 2024-08-16
 
-### nautobot 0.0.1 - Other
+### 💼 Other - nautobot-0.0.1
 
 - Update index.yaml
 - Edwardtheharris <edwardtheharris@users.noreply.github.com>
@@ -252,7 +545,7 @@ title: Breeze Blocks Helm Repository Changelog
 
 ## [storage-0.0.2] - 2024-07-28
 
-### storage 0.0.2 - 💼 Other
+### 💼 Other - storage-0.0.2
 
 - Update index.yaml
 - Edwardtheharris <edwardtheharris@users.noreply.github.com>
@@ -279,7 +572,7 @@ title: Breeze Blocks Helm Repository Changelog
 
 ## [storage-0.0.1] - 2024-07-27
 
-### storage 0.0.1 - 💼 Other
+### 💼 Other - storage-0.0.1
 
 - Initial commit
 - Add workflows
@@ -321,5 +614,4 @@ title: Breeze Blocks Helm Repository Changelog
 - Merge pull request #8 from edwardtheharris/5-add-workflow-dispatch-to-release
 - Update repos
 - Closes #5
-
 <!-- generated by git-cliff -->

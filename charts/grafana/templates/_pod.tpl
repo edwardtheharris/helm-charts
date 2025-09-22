@@ -95,8 +95,13 @@ initContainers:
       - name: config
         mountPath: "/etc/grafana/download_dashboards.sh"
         subPath: download_dashboards.sh
-      - name: storage
+      - name: {{ .Values.persistence.volumeName }}
         mountPath: "/var/lib/grafana"
+        {{- with .Values.persistence.subPath }}
+        subPath: {{ tpl . $root }}
+        {{- end }}
+      - name: {{ .Values.persistence.volumeName }}-log
+        mountPath: "/var/log/grafana"
         {{- with .Values.persistence.subPath }}
         subPath: {{ tpl . $root }}
         {{- end }}
@@ -1011,7 +1016,9 @@ containers:
         subPath: {{ tpl (.subPath | default "") $root }}
         readOnly: {{ .readOnly }}
       {{- end }}
-      - name: storage
+      - name: {{ .Chart.Name }}-log
+        mountPath: "/var/log/grafana"
+      - name: {{ .Chart.Name }}
         mountPath: "/var/lib/grafana"
         {{- with .Values.persistence.subPath }}
         subPath: {{ tpl . $root }}

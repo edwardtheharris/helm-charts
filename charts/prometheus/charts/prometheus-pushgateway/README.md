@@ -1,5 +1,7 @@
 # Prometheus Pushgateway
 
+<!--markdownlint-disable-->
+
 This chart bootstraps a Prometheus [Pushgateway](http://github.com/prometheus/pushgateway) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
 An optional prometheus `ServiceMonitor` can be enabled, should you wish to use this gateway with [Prometheus Operator](https://github.com/coreos/prometheus-operator).

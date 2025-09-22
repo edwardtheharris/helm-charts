@@ -1,5 +1,7 @@
 # Grafana Helm Chart
 
+<!--markdownlint-disable-->
+
 * Installs the web dashboarding system [Grafana](http://grafana.org/)
 
 ## Get Repo Info
@@ -52,6 +54,16 @@ For consistency with other Helm charts, the `global.image.registry` parameter wa
 to `global.imageRegistry`. If you were not previously setting `global.image.registry`, no action
 is required on upgrade. If you were previously setting `global.image.registry`, you will
 need to instead set `global.imageRegistry`.
+
+### To 10.0.0
+
+Static alerting resources now support Helm templating. This means that alerting resources loaded from external files (`alerting.*.files`) are now processed by the Helm template engine.
+
+If you already use template expressions intended for Alertmanager (for example, `{{ $labels.instance }}`), these must now be escaped to avoid unintended Helm evaluation. To escape them, wrap the braces with an extra layer like this:
+
+`{{ "{{" }} $labels.instance {{ "}}" }}`
+
+This ensures the expressions are preserved for Alertmanager instead of being rendered by Helm.
 
 ## Configuration
 
@@ -681,7 +693,7 @@ The two possibilities for static alerting resource provisioning are:
 * The format of the files is defined in the [Grafana documentation](https://grafana.com/docs/grafana/next/alerting/set-up/provision-alerting-resources/file-provisioning/) on file provisioning.
 * The chart supports importing YAML and JSON files.
 * The filename must be unique, otherwise one volume mount will overwrite the other.
-* In case of inlining, double curly braces that arise from the Grafana configuration format and are not intended as templates for the chart must be escaped.
+* Alerting configurations support Helm templating. Double curly braces that arise from the Grafana configuration format and are not intended as templates for the chart must be escaped.
 * The number of total files under `alerting:` is not limited. Each file will end up as a volume mount in the corresponding provisioning folder of the deployed Grafana instance.
 * The file size for each import is limited by what the function `.Files.Get` can handle, which suffices for most cases.
 

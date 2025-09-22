@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=values.schema.json
 # Default values for prometheus.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
@@ -13,16 +14,15 @@ imagePullSecrets: []
 serviceAccounts:
   server:
     create: true
-    name: prometheus
-    annotations:
-      sa.kubernetes.io/name: prometheus
+    name: ""
+    annotations: {}
+
     ## Opt out of automounting Kubernetes API credentials.
     ## It will be overriden by server.automountServiceAccountToken value, if set.
-    automountServiceAccountToken: true
+    # automountServiceAccountToken: false
 
 ## Additional labels to attach to all resources
-commonMetaLabels:
-  kubernetes.io/part-of: prometheus
+commonMetaLabels: {}
 
 ## Monitors ConfigMap changes and POSTs to a URL
 ## Ref: https://github.com/prometheus-operator/prometheus-operator/tree/main/cmd/prometheus-config-reloader
@@ -30,7 +30,7 @@ commonMetaLabels:
 configmapReload:
   ## URL for configmap-reload to use for reloads
   ##
-  reloadUrl: "http://prometheus.breeze-blocks.net:8080"
+  reloadUrl: ""
 
   ## env sets environment variables to pass to the container. Can be set as name/value pairs,
   ## read from secrets or configmaps.
@@ -126,11 +126,11 @@ configmapReload:
 server:
   ## Prometheus server container name
   ##
-  name: prometheus
+  name: server
 
   ## Opt out of automounting Kubernetes API credentials.
   ## If set it will override serviceAccounts.server.automountServiceAccountToken value for ServiceAccount.
-  automountServiceAccountToken: true
+  # automountServiceAccountToken: false
 
   ## Use a ClusterRole (and ClusterRoleBinding)
   ## - If set to false - we define a RoleBinding in the defined namespaces ONLY
@@ -144,7 +144,7 @@ server:
 
   ## If set it will override prometheus.server.fullname value for ClusterRole and ClusterRoleBinding
   ##
-  clusterRoleNameOverride: prometheus
+  clusterRoleNameOverride: ""
 
   # Enable only the release namespace for monitoring. By default all namespaces are monitored.
   # If releaseNamespace and namespaces are both set a merged list will be monitored.
@@ -221,7 +221,7 @@ server:
 
   ## External URL which can access prometheus
   ## Maybe same with Ingress host name
-  baseURL: "https://prometheus.breeze-blocks.net"
+  baseURL: ""
 
   ## Additional server container environment variables
   ##
@@ -243,14 +243,14 @@ server:
   # List of flags to override default parameters, e.g:
   # - --enable-feature=agent
   # - --storage.agent.retention.max-time=30m
-  # - --config.file=/etc/prometheus/prometheus.yml
+  # - --config.file=/etc/config/prometheus.yml
   defaultFlagsOverride: []
 
   extraFlags:
     - web.enable-lifecycle
     ## web.enable-admin-api flag controls access to the administrative HTTP API which includes functionality such as
     ## deleting time series. This is disabled by default.
-    - web.enable-admin-api
+    # - web.enable-admin-api
     ##
     ## storage.tsdb.no-lockfile flag controls BD locking
     # - storage.tsdb.no-lockfile
@@ -259,11 +259,11 @@ server:
     # - storage.tsdb.wal-compression
 
   ## Path to a configuration file on prometheus server container FS
-  configPath: /etc/prometheus/prometheus.yml
+  configPath: /etc/config/prometheus.yml
 
   ### The data directory used by prometheus to set --storage.tsdb.path
   ### When empty server.persistentVolume.mountPath is used instead
-  storagePath: "/var/lib/prometheus"
+  storagePath: ""
 
   global:
     ## How frequently to scrape targets by default
@@ -366,19 +366,19 @@ server:
   extraConfigmapLabels: {}
 
   ## Override the prometheus.server.fullname for all objects related to the Prometheus server
-  fullnameOverride: prometheus
+  fullnameOverride: ""
 
   ingress:
     ## If true, Prometheus server Ingress will be created
     ##
-    enabled: true
+    enabled: false
 
-    ingressClassName: nginx
+    ingressClassName: ""
 
     ## Prometheus server Ingress annotations
     ##
-    annotations:
-      # kubernetes.io/ingress.class: nginx
+    annotations: {}
+    #   kubernetes.io/ingress.class: nginx
     #   kubernetes.io/tls-acme: 'true'
 
     ## Prometheus server Ingress additional labels
@@ -386,13 +386,12 @@ server:
     extraLabels: {}
 
     ## Redirect ingress to an additional defined port on the service
-    servicePort: 9090
+    # servicePort: 8081
 
     ## Prometheus server Ingress hostnames with optional path (passed through tpl)
     ## Must be provided if Ingress is enabled
     ##
-    hosts:
-      - prometheus.breeze-blocks.net
+    hosts: []
     #   - prometheus.domain.com
     #   - domain.com/prometheus
 
@@ -402,22 +401,19 @@ server:
     pathType: Prefix
 
     ## Extra paths to prepend to every host configuration. This is useful when working with annotation based services. (passed through tpl)
-    extraPaths:
-    #   - path: /*
-    #     pathType: Prefix
-    #     backend:
-    #       service:
-    #         name: prometheus
-    #         port:
-    #           number: 9090
+    extraPaths: []
+    # - path: /*
+    #   backend:
+    #     serviceName: ssl-redirect
+    #     servicePort: use-annotation
 
     ## Prometheus server Ingress TLS configuration (hosts passed through tpl)
     ## Secrets must be manually created in the namespace
     ##
-    tls:
-      - secretName: prometheus-tls
-        hosts:
-          - prometheus.breeze-blocks.net
+    tls: []
+    #   - secretName: prometheus-server-tls
+    #     hosts:
+    #       - prometheus.domain.com
 
   ## route (map) allows configuration of HTTPRoute resources
   ## Requires Gateway API resources and suitable controller installed within the cluster
@@ -536,7 +532,7 @@ server:
     ## If set it will override the name of the created persistent volume claim
     ## generated by the stateful set.
     ##
-    statefulSetNameOverride: prometheus
+    statefulSetNameOverride: ""
 
     ## Prometheus server data Persistent Volume access modes
     ## Must match those of existing PV or dynamic provisioner
@@ -547,8 +543,7 @@ server:
 
     ## Prometheus server data Persistent Volume labels
     ##
-    labels:
-      pvc.kubernetes.io/name: prometheus
+    labels: {}
 
     ## Prometheus server data Persistent Volume annotations
     ##
@@ -561,11 +556,11 @@ server:
 
     ## Prometheus server data Persistent Volume mount root path
     ##
-    mountPath: /var/lib/prometheus
+    mountPath: /data
 
     ## Prometheus server data Persistent Volume size
     ##
-    size: 20Gi
+    size: 8Gi
 
     ## Prometheus server data Persistent Volume Storage Class
     ## If defined, storageClassName: <storageClass>
@@ -574,7 +569,7 @@ server:
     ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
     ##   GKE, AWS & OpenStack)
     ##
-    storageClass: csi-lvm-linear
+    # storageClass: "-"
 
     ## Subdirectory of Prometheus server data Persistent Volume to mount
     ## Useful if the volume's root directory is not empty
@@ -713,10 +708,10 @@ server:
   dnsPolicy: ClusterFirst
 
   # Use hostPort
-  hostPort: 9090
+  # hostPort: 9090
 
   # Use portName
-  portName: prometheus
+  portName: ""
 
   ## Vertical Pod Autoscaler config
   ## Ref: https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler
@@ -725,7 +720,7 @@ server:
     enabled: false
     # updateMode: "Auto"
     # containerPolicies:
-    # - containerName: 'prometheus'
+    # - containerName: 'prometheus-server'
 
   # Custom DNS configuration to be added to prometheus server pods
   dnsConfig: {}
@@ -756,22 +751,20 @@ server:
     ##
     enabled: true
 
-    annotations:
-      kubernetes.io/name: prometheus
+    annotations: {}
     labels: {}
     clusterIP: ""
 
     ## List of IP addresses at which the Prometheus server service is available
     ## Ref: https://kubernetes.io/docs/concepts/services-networking/service/#external-ips
     ##
-    externalIPs:
-      - 192.168.5.50
+    externalIPs: []
 
     loadBalancerIP: ""
     loadBalancerSourceRanges: []
     servicePort: 80
     sessionAffinity: None
-    type: LoadBalancer
+    type: ClusterIP
     ## externalTrafficPolicy is applicable to service with externally-facing addresses (NodePorts, ExternalIPs, and LoadBalancer IPs)
     externalTrafficPolicy: ""
 
@@ -789,10 +782,7 @@ server:
       replica: 0
 
     ## Additional port to define in the Service
-    additionalPorts:
-      - name: prometheus
-        port: 9090
-        targetPort: 9090
+    additionalPorts: []
     # additionalPorts:
     # - name: authenticated
     #   port: 8081
@@ -846,11 +836,11 @@ serverFiles:
 
   prometheus.yml:
     rule_files:
-      - /etc/prometheus/recording_rules.yml
-      - /etc/prometheus/alerting_rules.yml
+      - /etc/config/recording_rules.yml
+      - /etc/config/alerting_rules.yml
       ## Below two files are DEPRECATED will be removed from this default values file
-      - /etc/prometheus/rules
-      - /etc/prometheus/alerts
+      - /etc/config/rules
+      - /etc/config/alerts
 
     scrape_configs:
       - job_name: prometheus
@@ -1305,6 +1295,7 @@ serverFiles:
           - source_labels: [__meta_kubernetes_pod_node_name]
             action: replace
             target_label: node
+
 # adds additional scrape configs to prometheus.yml
 # must be a string so you have to add a | after extraScrapeConfigs:
 # example adds prometheus-blackbox-exporter scrape config
@@ -1324,6 +1315,7 @@ extraScrapeConfigs:
   #       target_label: instance
   #     - target_label: __address__
   #       replacement: prometheus-blackbox-exporter:9115
+
 # Adds option to add alert_relabel_configs to avoid duplicate alerts in alertmanager
 # useful in H/A prometheus with different external labels but the same alerts
 alertRelabelConfigs: {}
@@ -1331,12 +1323,15 @@ alertRelabelConfigs: {}
   # - source_labels: [dc]
   #   regex: (.+)\d+
   #   target_label: dc
+
 networkPolicy:
   ## Enable creation of NetworkPolicy resources.
   ##
   enabled: false
+
 # Force namespace of namespaced resources
 forceNamespace: ""
+
 # Extra manifests to deploy as an array
 extraManifests: []
   # - |
@@ -1347,43 +1342,52 @@ extraManifests: []
   #     name: prometheus-extra
   #   data:
   #     extra-data: "value"
+
 # Configuration of subcharts defined in Chart.yaml
+
 ## alertmanager sub-chart configurable values
 ## Please see https://github.com/prometheus-community/helm-charts/tree/main/charts/alertmanager
 ##
 alertmanager:
   ## If false, alertmanager will not be installed
   ##
-  enabled: false
+  enabled: true
+
   persistence:
-    # If true, storage will create or use Persistence Volume
+    ## If true, storage will create or use Persistence Volume
     ## If false, storage will use emptyDir
     ##
     enabled: true
+
     ## Custom annotations for the PVC created by the alertmanager StatefulSet.
     ## Useful for configuring storage provider options such as disk type, KMS encryption keys, or custom volume name prefixes.
     annotations: {}
+
     ## Custom labels for the PVC created by the alertmanager StatefulSet.
     ## Useful for selecting, grouping, and organizing so that they can be queried or targeted in deployments, policies, etc.
     labels: {}
+
     ## Persistent Volume Storage Class
     ## If defined, storageClassName: <storageClass>
     ## If set to "-", storageClassName: "", which disables dynamic provisioning
     ## If undefined (the default) or set to null, no storageClassName spec is
     ## set, choosing the default provisioner.
     ##
-    storageClass: "csi-lvm-linear"
+    # storageClass: "-"
     accessModes:
       - ReadWriteOnce
-    size: 20Gi
+    size: 2Gi
+
     ## Configure emptyDir volume
     ##
     emptyDir: {}
+
   podSecurityContext:
     runAsUser: 65534
     runAsNonRoot: true
     runAsGroup: 65534
     fsGroup: 65534
+
 ## kube-state-metrics sub-chart configurable values
 ## Please see https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-state-metrics
 ##
@@ -1404,7 +1408,7 @@ prometheus-node-exporter:
     pspEnabled: false
 
   containerSecurityContext:
-    allowPrivilegeEscalation: true
+    allowPrivilegeEscalation: false
 
 ## prometheus-pushgateway sub-chart configurable values
 ## Please see https://github.com/prometheus-community/helm-charts/tree/main/charts/prometheus-pushgateway
@@ -1412,7 +1416,7 @@ prometheus-node-exporter:
 prometheus-pushgateway:
   ## If false, pushgateway will not be installed
   ##
-  enabled: false
+  enabled: true
 
   # Optional service annotations
   serviceAnnotations:
