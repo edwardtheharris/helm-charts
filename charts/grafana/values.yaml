@@ -137,13 +137,14 @@ testFramework:
 
 # dns configuration for pod
 dnsPolicy: ClusterFirst
-# dnsConfig:
-#   nameservers:
-#     - 8.8.8.8
-#   options:
-#     - name: ndots
-#       value: "2"
-#     - name: edns0
+dnsConfig:
+  nameservers:
+    - 192.168.5.3
+    - 192.168.5.4
+  options:
+    - name: ndots
+      value: "2"
+    - name: edns0
 
 securityContext:
   runAsNonRoot: false
@@ -229,13 +230,6 @@ gossipPortName: gossip
 service:
   enabled: true
   type: LoadBalancer
-  # Set the ip family policy to configure dual-stack see [Configure dual-stack](https://kubernetes.io/docs/concepts/services-networking/dual-stack/#services)
-  ipFamilyPolicy: ""
-  # Sets the families that should be supported and the order in which they should be applied to ClusterIP as well. Can be IPv4 and/or IPv6.
-  ipFamilies: []
-  loadBalancerIP: ""
-  loadBalancerClass: ""
-  loadBalancerSourceRanges: []
   port: 3000
   targetPort:
     3000
@@ -413,7 +407,7 @@ extraContainerVolumes: []
 ## ref: https://kubernetes.io/docs/concepts/storage/persistent-volumes/
 ##
 persistence:
-  type: pvc
+  type: sts
   enabled: true
   storageClassName: csi-lvm-linear
   ## (Optional) Use this to bind the claim to an existing PersistentVolume (PV) by name.
@@ -421,8 +415,6 @@ persistence:
   accessModes:
     - ReadWriteOnce
   size: 10Gi
-  annotations:
-    pvc.kubernetes.io/name: grafana
   finalizers:
     - kubernetes.io/pvc-protection
   # selectorLabels: {}
@@ -447,7 +439,8 @@ persistence:
 
     ## If 'lookupVolumeName' is set to true, Helm will attempt to retrieve
     ## the current value of 'spec.volumeName' and incorporate it into the template.
-    lookupVolumeName: true
+    lookupVolumeName: false
+
 initChownData:
   ## If false, data ownership will not be reset at startup
   ## This allows the grafana-server to be run with an arbitrary user
@@ -501,8 +494,9 @@ admin:
 ## Needed if using `vault-env` to manage secrets (ref: https://banzaicloud.com/blog/inject-secrets-into-pods-vault/)
 ## Default is "run.sh" as defined in grafana's Dockerfile
 # command:
-# - "sh"
-# - "/run.sh"
+#   - "/bin/sh"
+#   - "-c"
+#   - "--"
 
 ## Optionally define args if command is used
 ## Needed if using `hashicorp/envconsul` to manage secrets
@@ -583,13 +577,14 @@ enableServiceLinks: true
 
 ## Additional grafana server secret mounts
 # Defines additional mounts with secrets. Secrets must be manually created in the namespace.
-extraSecretMounts: []
-  # - name: secret-files
-  #   mountPath: /etc/secrets
-  #   secretName: grafana-secret-files
-  #   readOnly: true
-  #   optional: false
-  #   subPath: ""
+extraSecretMounts:
+  - name: postgresql
+    mountPath: /etc/secrets
+    defaultMode: 0440
+    secretName: postgresql-grafana
+    readOnly: true
+    optional: false
+    subPath: ""
   #
   # for AWS EKS (cloudwatch) use the following (see also instruction in env: above)
   # - name: aws-iam-token
@@ -617,9 +612,9 @@ extraSecretMounts: []
 
 ## Additional grafana server volume mounts
 # Defines additional volume mounts.
-extraVolumeMounts:
-  - name: grafana-log
-    mountPath: /var/log/grafana
+extraVolumeMounts: []
+  # - name: grafana-log
+  #   mountPath: /var/log/grafana
   # - name: extra-volume-0
   #   mountPath: /mnt/volume0
   #   readOnly: true
@@ -628,11 +623,11 @@ extraVolumeMounts:
   #   readOnly: true
 
 ## Additional Grafana server volumes
-extraVolumes:
-  - name: grafana-log
-    csi:
-      driver: lvm.csi.metal-stack.io
-  # - name: extra-volume-0
+extraVolumes: []
+  # - name: grafana-log
+  #   csi:
+  #     driver: lvm.csi.metal-stack.io
+  # # - name: extra-volume-0
   #   existingClaim: volume-claim
   #  - name: extra-volume-1
   #   hostPath:
@@ -883,14 +878,16 @@ grafana.ini:
     url: https://grafana.net
   server:
     domain: grafana.breeze-blocks.net
+    http_addr: 0.0.0.0
     http_port: 3000
     protocol: http
     enforce_domain: true
   database:
     type: postgres
-    host: postgres.postgres.k8s.svc.local:5432
+    host: postgresql.postgresql:5432
     name: grafana
     user: grafana
+    password: $__file{/etc/secrets/password}
 ## grafana Authentication can be enabled with the following values on grafana.ini
 # server:
 # The full public facing url you use in browser, used for redirects and emails
