@@ -243,7 +243,7 @@ server:
   # List of flags to override default parameters, e.g:
   # - --enable-feature=agent
   # - --storage.agent.retention.max-time=30m
-  # - --config.file=/etc/config/prometheus.yml
+  # - --config.file=/etc/prometheus/prometheus.yml
   defaultFlagsOverride: []
 
   extraFlags:
@@ -259,7 +259,7 @@ server:
     # - storage.tsdb.wal-compression
 
   ## Path to a configuration file on prometheus server container FS
-  configPath: /etc/config/prometheus.yml
+  configPath: /etc/prometheus/prometheus.yml
 
   ### The data directory used by prometheus to set --storage.tsdb.path
   ### When empty server.persistentVolume.mountPath is used instead
@@ -836,12 +836,13 @@ serverFiles:
 
   prometheus.yml:
     rule_files:
-      - /etc/config/recording_rules.yml
-      - /etc/config/alerting_rules.yml
+      - /etc/prometheus/recording_rules.yml
+      - /etc/prometheus/alerting_rules.yml
       ## Below two files are DEPRECATED will be removed from this default values file
-      - /etc/config/rules
-      - /etc/config/alerts
-
+      - /etc/prometheus/rules
+      - /etc/prometheus/alerts
+    scrpe_files:
+      - /etc/prometheus/node-exporter.yaml
     scrape_configs:
       - job_name: prometheus
         static_configs:
