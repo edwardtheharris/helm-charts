@@ -14,8 +14,9 @@ imagePullSecrets: []
 serviceAccounts:
   server:
     create: true
-    name: ""
-    annotations: {}
+    name: prometheus
+    annotations:
+      sa.kubernetes.io/name: prometheus
 
     ## Opt out of automounting Kubernetes API credentials.
     ## It will be overriden by server.automountServiceAccountToken value, if set.
@@ -30,7 +31,7 @@ commonMetaLabels: {}
 configmapReload:
   ## URL for configmap-reload to use for reloads
   ##
-  reloadUrl: ""
+  reloadUrl: prometheus.monitoring:8080
 
   ## env sets environment variables to pass to the container. Can be set as name/value pairs,
   ## read from secrets or configmaps.
@@ -126,7 +127,7 @@ configmapReload:
 server:
   ## Prometheus server container name
   ##
-  name: server
+  name: prometheus
 
   ## Opt out of automounting Kubernetes API credentials.
   ## If set it will override serviceAccounts.server.automountServiceAccountToken value for ServiceAccount.
@@ -221,7 +222,7 @@ server:
 
   ## External URL which can access prometheus
   ## Maybe same with Ingress host name
-  baseURL: ""
+  baseURL: prometheus.breeze-blocks.net
 
   ## Additional server container environment variables
   ##
@@ -263,7 +264,7 @@ server:
 
   ### The data directory used by prometheus to set --storage.tsdb.path
   ### When empty server.persistentVolume.mountPath is used instead
-  storagePath: ""
+  storagePath: /var/lib/prometheus
 
   global:
     ## How frequently to scrape targets by default
@@ -366,14 +367,14 @@ server:
   extraConfigmapLabels: {}
 
   ## Override the prometheus.server.fullname for all objects related to the Prometheus server
-  fullnameOverride: ""
+  fullnameOverride: prometheus
 
   ingress:
     ## If true, Prometheus server Ingress will be created
     ##
-    enabled: false
+    enabled: true
 
-    ingressClassName: ""
+    ingressClassName: nginx
 
     ## Prometheus server Ingress annotations
     ##
@@ -391,7 +392,8 @@ server:
     ## Prometheus server Ingress hostnames with optional path (passed through tpl)
     ## Must be provided if Ingress is enabled
     ##
-    hosts: []
+    hosts:
+      - prometheus.breeze-blocks.net
     #   - prometheus.domain.com
     #   - domain.com/prometheus
 
@@ -410,7 +412,10 @@ server:
     ## Prometheus server Ingress TLS configuration (hosts passed through tpl)
     ## Secrets must be manually created in the namespace
     ##
-    tls: []
+    tls:
+      - secretName: prometheus-tls
+        hosts:
+          - prometheus.breeze-blocks.net
     #   - secretName: prometheus-server-tls
     #     hosts:
     #       - prometheus.domain.com
@@ -485,7 +490,8 @@ server:
   ## Node labels for Prometheus server pod assignment
   ## Ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/
   ##
-  nodeSelector: {}
+  nodeSelector:
+    kubernetes.io/os: linux
 
   ## Pod affinity
   ##
@@ -632,9 +638,10 @@ server:
     ## If true, use a statefulset instead of a deployment for pod management.
     ## This allows to scale replicas to more than 1 pod
     ##
-    enabled: false
+    enabled: true
 
-    annotations: {}
+    annotations:
+      ss.kubernetes.io/name: prometheus
     labels: {}
     podManagementPolicy: OrderedReady
 
@@ -762,9 +769,9 @@ server:
 
     loadBalancerIP: ""
     loadBalancerSourceRanges: []
-    servicePort: 80
+    servicePort: 9090
     sessionAffinity: None
-    type: ClusterIP
+    type: LoadBalancer
     ## externalTrafficPolicy is applicable to service with externally-facing addresses (NodePorts, ExternalIPs, and LoadBalancer IPs)
     externalTrafficPolicy: ""
 
@@ -794,7 +801,7 @@ server:
 
   ## Prometheus data retention period (default if not specified is 15 days)
   ##
-  retention: "15d"
+  retention: "15000d"
 
   ## Prometheus' data retention size. Supported units: B, KB, MB, GB, TB, PB, EB.
   ##
