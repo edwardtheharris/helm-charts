@@ -336,10 +336,10 @@ server:
     #   readOnly: true
 
   extraConfigmapMounts:
-    - name: prometheus-scrape-node-exporter
+    - name: prometheus-scrape-files
       mountPath: /etc/prometheus/scrape-configs
-      subPath: "scrape-configs"
-      configMap: prometheus-scrape-node-exporter
+      subPath: ""
+      configMap: prometheus-scrape-files
       readOnly: false
     # - name: certs-configmap
     #   mountPath: /prometheus
@@ -580,7 +580,7 @@ server:
     ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
     ##   GKE, AWS & OpenStack)
     ##
-    storageClass: "csi-driver-lvm"
+    storageClass: "csi-lvm-linear"
 
     ## Subdirectory of Prometheus server data Persistent Volume to mount
     ## Useful if the volume's root directory is not empty
@@ -647,6 +647,7 @@ server:
 
     annotations:
       ss.kubernetes.io/name: prometheus
+      pvc.kubernetes.io/name: prometheus
     labels: {}
     podManagementPolicy: OrderedReady
 
@@ -1122,17 +1123,17 @@ serverFiles:
             action: replace
             target_label: node
 
-      - job_name: "prometheus-pushgateway"
-        honor_labels: true
+      # - job_name: "prometheus-pushgateway"
+      #   honor_labels: true
 
-        kubernetes_sd_configs:
-          - role: service
+      #   kubernetes_sd_configs:
+      #     - role: service
 
-        relabel_configs:
-          - source_labels:
-              [__meta_kubernetes_service_annotation_prometheus_io_probe]
-            action: keep
-            regex: pushgateway
+      #   relabel_configs:
+      #     - source_labels:
+      #         [__meta_kubernetes_service_annotation_prometheus_io_probe]
+      #       action: keep
+      #       regex: pushgateway
 
       # Example scrape config for probing services via the Blackbox Exporter.
       #
@@ -1386,7 +1387,7 @@ alertmanager:
     ## If undefined (the default) or set to null, no storageClassName spec is
     ## set, choosing the default provisioner.
     ##
-    # storageClass: "-"
+    storageClass: "csi-lvm-linear"
     accessModes:
       - ReadWriteOnce
     size: 2Gi
@@ -1429,7 +1430,7 @@ prometheus-node-exporter:
 prometheus-pushgateway:
   ## If false, pushgateway will not be installed
   ##
-  enabled: true
+  enabled: false
 
   # Optional service annotations
   serviceAnnotations:
