@@ -335,7 +335,12 @@ server:
     #   hostPath: /etc/kubernetes/certs
     #   readOnly: true
 
-  extraConfigmapMounts: []
+  extraConfigmapMounts:
+    - name: prometheus-scrape-node-exporter
+      mountPath: /etc/prometheus/scrape-configs
+      subPath: "scrape-configs"
+      configMap: prometheus-scrape-node-exporter
+      readOnly: false
     # - name: certs-configmap
     #   mountPath: /prometheus
     #   subPath: ""
@@ -562,11 +567,11 @@ server:
 
     ## Prometheus server data Persistent Volume mount root path
     ##
-    mountPath: /data
+    mountPath: /var/lib/prometheus
 
     ## Prometheus server data Persistent Volume size
     ##
-    size: 8Gi
+    size: 50Gi
 
     ## Prometheus server data Persistent Volume Storage Class
     ## If defined, storageClassName: <storageClass>
@@ -575,12 +580,12 @@ server:
     ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
     ##   GKE, AWS & OpenStack)
     ##
-    # storageClass: "-"
+    storageClass: "csi-driver-lvm"
 
     ## Subdirectory of Prometheus server data Persistent Volume to mount
     ## Useful if the volume's root directory is not empty
     ##
-    subPath: ""
+    subPath: "data"
 
     ## Persistent Volume Claim Selector
     ## Useful if Persistent Volumes have been provisioned in advance

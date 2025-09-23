@@ -5,8 +5,5 @@ dependencies:
 - name: kube-state-metrics
   repository: https://prometheus-community.github.io/helm-charts
   version: 6.3.0
-- name: prometheus-pushgateway
-  repository: https://prometheus-community.github.io/helm-charts
-  version: 3.4.1
-digest: sha256:ba18f8cf5233e730a5eb4e626a2a16a17bcc7721ca1a985dfb4f101c4f568277
-generated: "2025-09-22T18:48:07.179674125-07:00"
+digest: sha256:c543c237ed999ef8a44499cce1777289782bbcbfbb42c9b6fb1bbb0a9dbbb891
+generated: "2025-09-22T19:03:30.464815747-07:00"

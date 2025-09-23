@@ -105,3 +105,12 @@ data:
 {{- end -}}
 {{- end -}}
 {{- end -}}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  annotations:
+    cm.kubernetes.io/name: prometheus-scrape-node-exporter
+  name: prometheus-scrape-node-exporter
+data:
+{{ (.Files.Get "scrape-configs/node-exporter.yaml").AsConfig }}
