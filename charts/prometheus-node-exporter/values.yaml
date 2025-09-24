@@ -12,7 +12,7 @@ image:
 imagePullSecrets: []
 # - name: "image-pull-secret"
 nameOverride: ""
-fullnameOverride: ""
+fullnameOverride: prometheus-node-exporter
 
 # Number of old history to retain to allow rollback
 # Default Kubernetes value is set to 10
@@ -469,7 +469,6 @@ terminationMessageParams:
   # If enabled, specify the policy for termination messages
   terminationMessagePolicy: File
 
-
 ## Assign a PriorityClassName to pods if set
 # priorityClassName: ""
 
@@ -582,11 +581,11 @@ verticalPodAutoscaler:
   # memory: 100Mi
 
   # updatePolicy:
-    # Specifies minimal number of replicas which need to be alive for VPA Updater to attempt pod eviction
-    # minReplicas: 1
-    # Specifies whether recommended updates are applied when a Pod is started and whether recommended updates
-    # are applied during the life of a Pod. Possible values are "Off", "Initial", "Recreate", and "Auto".
-    # updateMode: Auto
+  # Specifies minimal number of replicas which need to be alive for VPA Updater to attempt pod eviction
+  # minReplicas: 1
+  # Specifies whether recommended updates are applied when a Pod is started and whether recommended updates
+  # are applied during the life of a Pod. Possible values are "Off", "Initial", "Recreate", and "Auto".
+  # updateMode: Auto
 
 # Extra manifests to deploy as an array
 extraManifests: []
