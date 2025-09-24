@@ -159,8 +159,8 @@ spec:
             {{- toYaml . | nindent 12 }}
           {{- end }}
           volumeMounts:
-            - name: config-volume
-              mountPath: /etc/config
+            - name: prometheus   
+              mountPath: /etc/prometheus
               readOnly: true
           {{- range .Values.configmapReload.prometheus.extraConfigmapMounts }}
             - name: {{ $.Values.configmapReload.prometheus.name }}-{{ .name }}
@@ -297,8 +297,8 @@ spec:
           {{- end }}
           {{- $storageVolumeName := ternary .Values.server.persistentVolume.statefulSetNameOverride "storage-volume" (and .Values.server.persistentVolume.enabled .Values.server.statefulSet.enabled (not (empty .Values.server.persistentVolume.statefulSetNameOverride))) }}
           volumeMounts:
-            - name: config-volume
-              mountPath: /etc/config
+            - name: prometheus
+              mountPath: /etc/prometheus
             - name: {{ $storageVolumeName }}
               mountPath: {{ .Values.server.persistentVolume.mountPath }}
               subPath: "{{ .Values.server.persistentVolume.subPath }}"
@@ -396,7 +396,7 @@ spec:
     {{- end }}
       terminationGracePeriodSeconds: {{ .Values.server.terminationGracePeriodSeconds }}
       volumes:
-        - name: config-volume
+        - name: prometheus
         {{- if empty .Values.server.configFromSecret }}
           configMap:
             name: {{ if .Values.server.configMapOverrideName }}{{ .Release.Name }}-{{ .Values.server.configMapOverrideName }}{{- else }}{{ template "prometheus.server.fullname" . }}{{- end }}

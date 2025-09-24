@@ -37,10 +37,7 @@ maintainers:
     url: https://github.com/zeritti
 name: prometheus
 sources:
-  - https://github.com/prometheus/alertmanager
   - https://github.com/prometheus/prometheus
-  - https://github.com/prometheus/pushgateway
-  - https://github.com/prometheus/node_exporter
   - https://github.com/kubernetes/kube-state-metrics
 type: application
 version: 27.37.0

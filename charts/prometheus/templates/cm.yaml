@@ -110,7 +110,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   annotations:
-    cm.kubernetes.io/name: prometheus-scrape-files
-  name: prometheus-scrape-files
+    cm.kubernetes.io/name: prometheus-scrape-node-exporter
+  name: prometheus-scrape-node-exporter
 data:
 {{ (.Files.Glob "scrape-configs/*yaml").AsConfig | indent 2 }}
