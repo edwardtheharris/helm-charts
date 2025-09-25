@@ -336,9 +336,13 @@ server:
     #   readOnly: true
 
   extraConfigmapMounts:
-    - name: scrape-node-exporter
-      mountPath: /etc/prometheus/scrape-configs
-      configMap: prometheus-scrape-node-exporter
+    - name: scrapes
+      mountPath: /etc/prometheus/scrapes
+      configMap: prometheus-scrapes
+      readOnly: false
+    - name: config
+      mountPath: /etc/prometheus
+      configMap: prometheus-config
       readOnly: false
     # - name: certs-configmap
     #   mountPath: /prometheus
@@ -585,7 +589,7 @@ server:
     ## Subdirectory of Prometheus server data Persistent Volume to mount
     ## Useful if the volume's root directory is not empty
     ##
-    subPath: "data"
+    subPath: ""
 
     ## Persistent Volume Claim Selector
     ## Useful if Persistent Volumes have been provisioned in advance
@@ -854,8 +858,6 @@ serverFiles:
       ## Below two files are DEPRECATED will be removed from this default values file
       - /etc/prometheus/rules
       # - /etc/prometheus/alerts
-    scrape_files:
-      - /etc/prometheus/scrape-configs/node-exporter.yaml
     scrape_configs:
       - job_name: prometheus
         static_configs:
