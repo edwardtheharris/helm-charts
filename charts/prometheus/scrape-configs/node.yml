@@ -1,0 +1,199 @@
+scrape_configs:
+  - job_name: node
+    scrape_interval: 5s
+    static_configs:
+      - targets:
+          - "backup.breeze-blocks.net:9100"
+        labels:
+          host: backup.breeze-blocks.net
+          hostname: backup
+          ip: 192.168.5.60
+          job: node-exporter
+          port: "9100"
+          service: node-backup
+      - targets:
+          - "cms00.breeze-blocks.net:9100"
+        labels:
+          host: cms00.breeze-blocks.net
+          hostname: cms00
+          ip: 192.168.5.50
+          job: node-exporter
+          port: "9100"
+          service: node-cms00
+      - targets:
+          - "cms01.breeze-blocks.net:9100"
+        labels:
+          host: cms01.breeze-blocks.net
+          hostname: cms01
+          ip: 192.168.5.51
+          job: node-exporter
+          port: "9100"
+          service: node-cms01
+      - targets:
+          - "cms02.breeze-blocks.net:9100"
+        labels:
+          host: cms02.breeze-blocks.net
+          hostname: cms02
+          ip: 192.168.5.52
+          job: node-exporter
+          port: "9100"
+          service: node-cms02
+      - targets:
+          - "cody.breeze-blocks.net:9100"
+        labels:
+          host: cody.breeze-blocks.net
+          hostname: cody
+          ip: 192.168.5.35
+          job: node-exporter
+          port: "9100"
+          service: node-cody
+      - targets:
+          - "grafana.breeze-blocks.net:9100"
+        labels:
+          host: grafana.breeze-blocks.net
+          hostname: grafana
+          ip: 192.168.5.52
+          job: node-exporter
+          port: "9100"
+          service: node-grafana
+      - targets:
+          - "gitea.breeze-blocks.net:9100"
+        labels:
+          host: gitea.breeze-blocks.net
+          hostname: gitea
+          ip: 192.168.5.25
+          job: node-exporter
+          port: "9100"
+          service: node-gitea
+      - targets:
+          - "thw00.breeze-blocks.net:9100"
+        labels:
+          host: thw00.breeze-blocks.net
+          hostname: thw00
+          ip: 192.168.5.80
+          job: node-exporter
+          port: "9100"
+          service: node-thw00
+      - targets:
+          - "thw01.breeze-blocks.net:9100"
+        labels:
+          host: thw01.breeze-blocks.net
+          hostname: thw01
+          ip: 192.168.5.81
+          job: node-exporter
+          port: "9100"
+          service: node-thw01
+      - targets:
+          - "thw02.breeze-blocks.net:9100"
+        labels:
+          host: thw02.breeze-blocks.net
+          hostname: thw02
+          ip: 192.168.5.82
+          job: node-exporter
+          port: "9100"
+          service: node-thw02
+      - targets:
+          - "thw03.breeze-blocks.net:9100"
+        labels:
+          host: thw03.breeze-blocks.net
+          hostname: thw03
+          ip: 192.168.5.83
+          job: node-exporter
+          port: "9100"
+          service: node-thw03
+      - targets:
+          - "marius.breeze-blocks.net:9100"
+        labels:
+          host: marius.breeze-blocks.net
+          hostname: marius
+          ip: 192.168.5.45
+          job: node-exporter
+          port: "9100"
+          service: node-marius
+      - targets:
+          - "media.breeze-blocks.net:9100"
+        labels:
+          host: media.breeze-blocks.net
+          hostname: media
+          ip: 192.168.5.71
+          job: node-exporter
+          port: "9100"
+          service: node-media
+      - targets:
+          - "nautobot.breeze-blocks.net:9100"
+        labels:
+          host: nautobot.breeze-blocks.net
+          hostname: nautobot
+          ip: 192.168.5.65
+          job: node-exporter
+          port: "9100"
+          service: node-nautobot
+      - targets:
+          - "nextcloud.breeze-blocks.net:9100"
+        labels:
+          host: nextcloud.breeze-blocks.net
+          hostname: nextcloud
+          ip: 192.168.5.72
+          job: node-exporter
+          port: "9100"
+          service: node-nextcloud
+      - targets:
+          - "ns01.breeze-blocks.net:9100"
+        labels:
+          host: ns01.breeze-blocks.net
+          hostname: ns01
+          ip: 192.168.5.9
+          job: node-exporter
+          port: "9100"
+          service: node-ns01
+      - targets:
+          - "ns03.breeze-blocks.net:9100"
+        labels:
+          host: ns03.breeze-blocks.net
+          hostname: ns03
+          ip: 192.168.5.3
+          job: node-exporter
+          port: "9100"
+          service: node-ns03
+      - targets:
+          - "ns04.breeze-blocks.net:9100"
+        labels:
+          host: ns04.breeze-blocks.net
+          hostname: ns04
+          ip: 192.168.5.4
+          job: node-exporter
+          port: "9100"
+          service: node-ns04
+      - targets:
+          - "ostium.breeze-blocks.net:9100"
+        labels:
+          host: ostium.breeze-blocks.net
+          hostname: ostium
+          ip: 192.168.5.5
+          job: node-exporter
+          port: "9100"
+          service: node-ostium
+      - targets:
+          - "whac.breeze-blocks.net:9100"
+        labels:
+          host: whac.breeze-blocks.net
+          hostname: whac
+          ip: 192.168.5.70
+          job: node-exporter
+          port: "9100"
+          service: node-whac
+    relabel_configs:
+      - source_labels:
+          - __address__
+        regex: "(.+)"
+        target_label: instance
+      - source_labels:
+          - __address__
+        regex: "(.+):9091"
+        replacement: "${1}"
+        target_label: host
+      - source_labels:
+          - __address__
+        regex: "(.+).breeze-blocks.net:9100"
+        replacement: "${1}"
+        target_label: hostname

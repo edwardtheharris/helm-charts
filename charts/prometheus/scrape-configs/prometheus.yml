@@ -1,0 +1,46 @@
+# my global config
+global:
+  scrape_interval: 15s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
+  evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.
+  # scrape_timeout is set to the global default (10s).
+  external_labels:
+    monitor: "prometheus"
+  query_log_file: /var/lib/prometheus/queries.active
+
+# Alertmanager configuration
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+            - alertmanager:9093
+
+# Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
+rule_files: []
+  #- /etc/prometheus/recording_rules.yml
+  # - /etc/prometheus/alerting_rules.yml
+  ## Below two files are DEPRECATED will be removed from this default values file
+  #- /etc/prometheus/rules
+  # - /etc/prometheus/alerts
+  # - "first_rules.yml"
+  # - "second_rules.yml"
+
+scrape_config_files:
+  - /etc/prometheus/scrapes/glances.yml
+  - /etc/prometheus/scrapes/node.yml
+  - /etc/prometheus/scrapes/postgres.yml
+# A scrape configuration containing exactly one endpoint to scrape:
+# Here it's Prometheus itself.
+scrape_configs:
+  # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
+  - job_name: "prometheus"
+    metrics_path: "/metrics"
+    # scheme defaults to 'http'.
+    static_configs:
+      - targets:
+          - "prometheus.monitoring:9090"
+        labels:
+          host: prometheus.breeze-blocks.net
+          hostname: prometheus
+          instance: "prometheus.monitoring:9090"
+          name: prometheus
+          port: "9090"
