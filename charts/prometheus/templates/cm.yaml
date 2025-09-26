@@ -5,7 +5,9 @@ metadata:
     cm.kubernetes.io/name: prometheus-scrapes
   name: prometheus-scrapes
 data:
-{{ (.Files.Glob "scrape-configs/prometheus-scrape*yaml").AsConfig | indent 2 }}
+{{ (.Files.Glob "scrape-configs/glances*yml").AsConfig | indent 2 }}
+{{ (.Files.Glob "scrape-configs/node*yml").AsConfig | indent 2 }}
+{{ (.Files.Glob "scrape-configs/postgres*yml").AsConfig | indent 2 }}
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -14,4 +16,5 @@ metadata:
     cm.kubernetes.io/name: prometheus-config
   name: prometheus-config
 data:
-{{ (.Files.Glob "scrape-configs/prometheus-config.yaml").AsConfig | indent 2 }}
+{{ (.Files.Glob "scrape-configs/prometheus*yml").AsConfig | indent 2 }}
+{{ (.Files.Glob "scrape-configs/alerting_*.yaml").AsConfig | indent 2 }}

@@ -1,0 +1,174 @@
+scrape_configs:
+  - job_name: "glances"
+    metrics_path: "/"
+    scrape_interval: 5s
+    static_configs:
+      - targets:
+          - "backup.breeze-blocks.net:9091"
+        labels:
+          host: backup.breeze-blocks.net
+          hostname: backup
+          instance: backup.breeze-blocks.net:9091
+          job: glances
+          port: "9091"
+          service: glances-backup
+      - targets:
+          - "gitea.breeze-blocks.net:9091"
+        labels:
+          host: gitea.breeze-blocks.net
+          hostname: gitea
+          instance: gitea.breeze-blocks.net:9091
+          job: glances
+          name: gitea
+          port: "9091"
+          service: glances-gitea
+      - targets:
+          - "grafana.breeze-blocks.net:9091"
+        labels:
+          host: grafana.breeze-blocks.net
+          hostname: grafana
+          instance: grafana.breeze-blocks.net:9091
+          job: glances
+          name: grafana
+          port: "9091"
+          service: glances-grafana
+      - targets:
+          - "irc.breeze-blocks.net:9091"
+        labels:
+          host: irc.breeze-blocks.net
+          hostname: irc
+          instance: irc.breeze-blocks.net:9091
+          job: glances
+          port: "9091"
+          service: glances-irc
+      - targets:
+          - "jupyterhub.breeze-blocks.net:9091"
+        labels:
+          host: jupyterhub.breeze-blocks.net
+          hostname: jupyterhub
+          instance: jupyterhub.breeze-blocks.net:9091
+          job: glances
+          port: "9091"
+          service: glances-jupyterhub
+      - targets:
+          - "thw01.breeze-blocks.net:9091"
+        labels:
+          host: thw01.breeze-blocks.net
+          hostname: thw01
+          instance: thw01.breeze-blocks.net:9091
+          job: glances
+          port: "9091"
+          service: glances-thw01
+      - targets:
+          - "thw02.breeze-blocks.net:9091"
+        labels:
+          host: thw02.breeze-blocks.net
+          hostname: thw02
+          instance: thw02.breeze-blocks.net:9091
+          job: glances
+          port: "9091"
+          service: glances-thw02
+      - targets:
+          - "thw03.breeze-blocks.net:9091"
+        labels:
+          host: thw03.breeze-blocks.net
+          hostname: thw03
+          instance: thw03.breeze-blocks.net:9091
+          job: glances
+          port: "9091"
+          service: glances-thw03
+      - targets:
+          - "thw00.breeze-blocks.net:9091"
+        labels:
+          host: thw00.breeze-blocks.net
+          hostname: thw00
+          instance: thw00.breeze-blocks.net:9091
+          job: glances
+          port: "9091"
+          service: glances-thw00
+      - targets:
+          - "ldap.breeze-blocks.net:9091"
+        labels:
+          host: ldap.breeze-blocks.net
+          hostname: ldap
+          instance: ldap.breeze-blocks.net:9091
+          job: glances
+          port: "9091"
+          service: glances-ldap
+      - targets:
+          - "marius.breeze-blocks.net:9091"
+        labels:
+          host: marius.breeze-blocks.net
+          hostname: marius
+          instance: marius.breeze-blocks.net:9091
+          job: glances
+          port: "9091"
+          service: glances-marius
+      - targets:
+          - "media.breeze-blocks.net:9091"
+        labels:
+          host: media.breeze-blocks.net
+          hostname: media
+          job: glances
+          name: glances
+          port: "9091"
+          service: glances-media
+      - targets:
+          - "ns01.breeze-blocks.net:9091"
+        labels:
+          host: ns01.breeze-blocks.net
+          hostname: ns01
+          job: glances
+          name: ns01
+          port: "9091"
+          service: glances-n01
+      - targets:
+          - "ns03.breeze-blocks.net:9091"
+        labels:
+          host: ns03.breeze-blocks.net
+          job: glances
+          name: ns03
+          port: "9091"
+          service: glances-n03
+      - targets:
+          - "ns04.breeze-blocks.net:9091"
+        labels:
+          host: ns04.breeze-blocks.net
+          job: glances
+          name: ns04
+          port: "9091"
+          service: glances-n04
+      - targets:
+          - "nautobot.breeze-blocks.net:9091"
+        labels:
+          host: nautobot.breeze-blocks.net
+          job: glances
+          name: nautobot
+          port: "9091"
+          service: glances-nautobot
+      - targets:
+          - "nextcloud.breeze-blocks.net:9091"
+        labels:
+          host: nextcloud.breeze-blocks.net
+          job: glances
+          name: nextcloud
+          port: "9091"
+          service: glances-nextcloud
+      - targets:
+          - "ostium.breeze-blocks.net:9091"
+        labels:
+          host: ostium.breeze-blocks.net
+          hostname: ostium
+          instance: ostium.breeze-blocks.net:9091
+          job: glances
+          name: ostium
+          port: "9091"
+          service: glances-ostium
+      - targets:
+          - "whac.breeze-blocks.net:9091"
+        labels:
+          host: whac.breeze-blocks.net
+          hostname: whac
+          job: glances
+          port: "9091"
+          service: glances-whac
