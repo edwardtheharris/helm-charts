@@ -39,3 +39,19 @@ spec:
     name: the-hard-way-ca
     kind: ClusterIssuer
     group: cert-manager.io
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: argocd
+spec:
+  isCA: true
+  commonName: argo.breeze-blocks.net
+  secretName: argocd-tls-certs-cm
+  privateKey:
+    algorithm: ECDSA
+    size: 256
+  issuerRef:
+    name: the-hard-way-ca
+    kind: ClusterIssuer
+    group: cert-manager.io
