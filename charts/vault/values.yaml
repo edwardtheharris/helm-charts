@@ -46,12 +46,12 @@ global:
 injector:
   # True if you want to enable vault agent injection.
   # @default: global.enabled
-  enabled: "-"
+  enabled: false
 
   replicas: 1
 
   # Configures the port the injector should listen on
-  port: 8080
+  port: 8082
 
   # If multiple replicas are specified, by default a leader will be determined
   # so that only one injector attempts to create TLS certificates.
@@ -285,15 +285,15 @@ injector:
   # This can either be a multi-line string or YAML matching the PodSpec's affinity field.
   # Commenting out or setting as empty the affinity variable, will allow
   # deployment of multiple replicas to single node services such as Minikube.
-  affinity: |
-    podAntiAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        - labelSelector:
-            matchLabels:
-              app.kubernetes.io/name: {{ template "vault.name" . }}-agent-injector
-              app.kubernetes.io/instance: "{{ .Release.Name }}"
-              component: webhook
-          topologyKey: kubernetes.io/hostname
+  affinity: {}
+  #   podAntiAffinity:
+  #     requiredDuringSchedulingIgnoredDuringExecution:
+  #       - labelSelector:
+  #           matchLabels:
+  #             app.kubernetes.io/name: {{ template "vault.name" . }}-agent-injector
+  #             app.kubernetes.io/instance: "{{ .Release.Name }}"
+  #             component: webhook
+  #         topologyKey: kubernetes.io/hostname
 
   # Topology settings for injector pods
   # ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-topology-spread-constraints/
@@ -313,6 +313,7 @@ injector:
   #   beta.kubernetes.io/arch: amd64
 
   nodeSelector:
+    kubernetes.io/os: linux
 
   # Priority class for injector pods
   priorityClassName: ""
@@ -619,15 +620,15 @@ server:
   # Commenting out or setting as empty the affinity variable, will allow
   # deployment to single node services such as Minikube
   # This should be either a multi-line string or YAML matching the PodSpec's affinity field.
-  affinity: |
-    podAntiAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        - labelSelector:
-            matchLabels:
-              app.kubernetes.io/name: {{ template "vault.name" . }}
-              app.kubernetes.io/instance: "{{ .Release.Name }}"
-              component: server
-          topologyKey: kubernetes.io/hostname
+  affinity: {}
+  #   podAntiAffinity:
+  #     requiredDuringSchedulingIgnoredDuringExecution:
+  #       - labelSelector:
+  #           matchLabels:
+  #             app.kubernetes.io/name: {{ template "vault.name" . }}
+  #             app.kubernetes.io/instance: "{{ .Release.Name }}"
+  #             component: server
+  #         topologyKey: kubernetes.io/hostname
 
   # Topology settings for server pods
   # ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-topology-spread-constraints/
@@ -645,7 +646,8 @@ server:
   # Example:
   # nodeSelector:
   #   beta.kubernetes.io/arch: amd64
-  nodeSelector: {}
+  nodeSelector:
+    kubernetes.io/os: linux
 
   # Enables network policy for server pods
   networkPolicy:
@@ -1049,7 +1051,7 @@ ui:
   activeVaultPodOnly: false
   serviceType: LoadBalancer
   serviceNodePort: null
-  externalPort: 8200
+  externalPort: 8280
   targetPort: 8200
 
   # The IP family and IP families options are to set the behaviour in a dual-stack environment.
@@ -1143,6 +1145,8 @@ csi:
     # YAML-formatted multi-line templated string map of the annotations to apply
     # to the daemonSet.
     annotations: {}
+    nodeSelector:
+      kubernetes.io/os: linux
     # Provider host path (must match the CSI provider's path)
     providersDir: "/var/run/secrets-store-csi-providers"
     # Kubelet host path
@@ -1184,7 +1188,7 @@ csi:
     extraLabels: {}
 
   agent:
-    enabled: true
+    enabled: false
     extraArgs: []
 
     image:
