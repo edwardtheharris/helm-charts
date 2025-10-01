@@ -1,5 +1,7 @@
 # Contributing to Vault Helm
 
+<!--markdownlint-disable-->
+
 **Please note:** We take Vault's security and our users' trust very seriously.
 If you believe you have found a security issue in Vault, please responsibly
 disclose by contacting us at security@hashicorp.com.
@@ -25,15 +27,15 @@ quickly merge or address your contributions.
 
 ### Reporting an Issue
 
-* Make sure you test against the latest released version. It is possible
+- Make sure you test against the latest released version. It is possible
   we already fixed the bug you're experiencing. Even better is if you can test
   against `main`, as bugs are fixed regularly but new versions are only
   released every few months.
 
-* Provide steps to reproduce the issue, and if possible include the expected
+- Provide steps to reproduce the issue, and if possible include the expected
   results as well as the actual results. Please provide text, not screen shots!
 
-* Respond as promptly as possible to any questions made by the Vault
+- Respond as promptly as possible to any questions made by the Vault
   team to your issue. Stale issues will be closed periodically.
 
 ### Issue Lifecycle
@@ -69,8 +71,8 @@ The following are the instructions for running bats tests using a Docker contain
 
 #### Prerequisites
 
-* Docker installed
-* `vault-helm` checked out locally
+- Docker installed
+- `vault-helm` checked out locally
 
 #### Test
 
@@ -81,28 +83,35 @@ First, build the Docker image for running the tests:
 ```shell
 docker build -f ${PWD}/test/docker/Test.dockerfile ${PWD}/test/docker/ -t vault-helm-test
 ```
+
 Next, execute the tests with the following commands:
+
 ```shell
 docker run -it --rm -v "${PWD}:/test" vault-helm-test bats /test/test/unit
 ```
-It's possible to only run specific bats tests using regular expressions. 
+
+It's possible to only run specific bats tests using regular expressions.
 For example, the following will run only tests with "injector" in the name:
+
 ```shell
 docker run -it --rm -v "${PWD}:/test" vault-helm-test bats /test/test/unit -f "injector"
 ```
 
 ### Test Manually
+
 The following are the instructions for running bats tests on your workstation.
+
 #### Prerequisites
-* [Bats](https://github.com/bats-core/bats-core)
+
+- [Bats](https://github.com/bats-core/bats-core)
   ```bash
   brew install bats-core
   ```
-* [yq](https://pypi.org/project/yq/)
+- [yq](https://pypi.org/project/yq/)
   ```bash
   brew install python-yq
   ```
-* [helm](https://helm.sh)
+- [helm](https://helm.sh)
   ```bash
   brew install kubernetes-helm
   ```
@@ -136,17 +145,19 @@ Changes to the Helm chart should be accompanied by appropriate unit tests.
 
 - Put tests in the test file in the same order as the variables appear in the `values.yaml`.
 - Start tests for a chart value with a header that says what is being tested, like this:
-    ```
-    #--------------------------------------------------------------------
-    # annotations
-    ```
+
+  ```
+  #--------------------------------------------------------------------
+  # annotations
+  ```
 
 - Name the test based on what it's testing in the following format (this will be its first line):
-    ```
-    @test "<section being tested>: <short description of the test case>" {
-    ```
 
-    When adding tests to an existing file, the first section will be the same as the other tests in the file.
+  ```
+  @test "<section being tested>: <short description of the test case>" {
+  ```
+
+  When adding tests to an existing file, the first section will be the same as the other tests in the file.
 
 #### Test Details
 
@@ -159,7 +170,7 @@ The output from this `helm template` command is then piped to [yq](https://pypi.
 `yq` allows us to pull out just the information we're interested in, either by referencing its position in the yaml file directly or giving information about it (like its length).
 The `-r` flag can be used with `yq` to return a raw string instead of a quoted one which is especially useful when looking for an exact match.
 
-The test passes or fails based on the conditional at the end that is in square brackets, which is a comparison of our expected value and the output of  `helm template` piped to `yq`.
+The test passes or fails based on the conditional at the end that is in square brackets, which is a comparison of our expected value and the output of `helm template` piped to `yq`.
 
 The `| tee /dev/stderr ` pieces direct any terminal output of the `helm template` and `yq` commands to stderr so that it doesn't interfere with `bats`.
 
@@ -169,75 +180,76 @@ Here are some examples of common test patterns:
 
 - Check that a value is disabled by default
 
-    ```
-    @test "ui/Service: no type by default" {
-      cd `chart_dir`
-      local actual=$(helm template \
-          --show-only templates/ui-service.yaml  \
-          . | tee /dev/stderr |
-          yq -r '.spec.type' | tee /dev/stderr)
-      [ "${actual}" = "null" ]
-    }
-    ```
+  ```
+  @test "ui/Service: no type by default" {
+    cd `chart_dir`
+    local actual=$(helm template \
+        --show-only templates/ui-service.yaml  \
+        . | tee /dev/stderr |
+        yq -r '.spec.type' | tee /dev/stderr)
+    [ "${actual}" = "null" ]
+  }
+  ```
 
-    In this example, nothing is changed from the default templates (no `--set` flags), then we use `yq` to retrieve the value we're checking, `.spec.type`.
-    This output is then compared against our expected value (`null` in this case) in the assertion `[ "${actual}" = "null" ]`.
-
+  In this example, nothing is changed from the default templates (no `--set` flags), then we use `yq` to retrieve the value we're checking, `.spec.type`.
+  This output is then compared against our expected value (`null` in this case) in the assertion `[ "${actual}" = "null" ]`.
 
 - Check that a template value is rendered to a specific value
-    ```
-    @test "ui/Service: specified type" {
-      cd `chart_dir`
-      local actual=$(helm template \
-          --show-only templates/ui-service.yaml  \
-          --set 'ui.serviceType=LoadBalancer' \
-          . | tee /dev/stderr |
-          yq -r '.spec.type' | tee /dev/stderr)
-      [ "${actual}" = "LoadBalancer" ]
-    }
-    ```
 
-    This is very similar to the last example, except we've changed a default value with the `--set` flag and correspondingly changed the expected value.
+  ```
+  @test "ui/Service: specified type" {
+    cd `chart_dir`
+    local actual=$(helm template \
+        --show-only templates/ui-service.yaml  \
+        --set 'ui.serviceType=LoadBalancer' \
+        . | tee /dev/stderr |
+        yq -r '.spec.type' | tee /dev/stderr)
+    [ "${actual}" = "LoadBalancer" ]
+  }
+  ```
+
+  This is very similar to the last example, except we've changed a default value with the `--set` flag and correspondingly changed the expected value.
 
 - Check that a template value contains several values
-    ```
-	@test "server/standalone-StatefulSet: custom resources" {
-	  cd `chart_dir`
-	  local actual=$(helm template \
-		  --show-only templates/server-statefulset.yaml  \
-		  --set 'server.standalone.enabled=true' \
-		  --set 'server.resources.requests.memory=256Mi' \
-		  --set 'server.resources.requests.cpu=250m' \
-		  . | tee /dev/stderr |
-		  yq -r '.spec.template.spec.containers[0].resources.requests.memory' | tee /dev/stderr)
-	  [ "${actual}" = "256Mi" ]
 
-	  local actual=$(helm template \
-		  --show-only templates/server-statefulset.yaml  \
-		  --set 'server.standalone.enabled=true' \
-		  --set 'server.resources.limits.memory=256Mi' \
-		  --set 'server.resources.limits.cpu=250m' \
-		  . | tee /dev/stderr |
-		  yq -r '.spec.template.spec.containers[0].resources.limits.memory' | tee /dev/stderr)
-	  [ "${actual}" = "256Mi" ]
-    ```
+  ```
+  @test "server/standalone-StatefulSet: custom resources" {
+  cd `chart_dir`
+  local actual=$(helm template \
+  	  --show-only templates/server-statefulset.yaml  \
+  	  --set 'server.standalone.enabled=true' \
+  	  --set 'server.resources.requests.memory=256Mi' \
+  	  --set 'server.resources.requests.cpu=250m' \
+  	  . | tee /dev/stderr |
+  	  yq -r '.spec.template.spec.containers[0].resources.requests.memory' | tee /dev/stderr)
+  [ "${actual}" = "256Mi" ]
 
-    *Note:* If testing more than two conditions, it would be good to separate the `helm template` part of the command from the `yq` sections to reduce redundant work.
+  local actual=$(helm template \
+  	  --show-only templates/server-statefulset.yaml  \
+  	  --set 'server.standalone.enabled=true' \
+  	  --set 'server.resources.limits.memory=256Mi' \
+  	  --set 'server.resources.limits.cpu=250m' \
+  	  . | tee /dev/stderr |
+  	  yq -r '.spec.template.spec.containers[0].resources.limits.memory' | tee /dev/stderr)
+  [ "${actual}" = "256Mi" ]
+  ```
+
+  _Note:_ If testing more than two conditions, it would be good to separate the `helm template` part of the command from the `yq` sections to reduce redundant work.
 
 - Check that an entire template file is not rendered
-    ```
-    @test "syncCatalog/Deployment: disabled by default" {
-      cd `chart_dir`
-      local actual=$( (helm template \
-          --show-only templates/server-statefulset.yaml  \
-          --set 'global.enabled=false' \
-          . || echo "---") | tee /dev/stderr |
-          yq 'length > 0' | tee /dev/stderr)
-      [ "${actual}" = "false" ]
-    }
-    ```
-    Here we are check the length of the command output to see if the anything is rendered.
-    This style can easily be switched to check that a file is rendered instead.
+  ```
+  @test "syncCatalog/Deployment: disabled by default" {
+    cd `chart_dir`
+    local actual=$( (helm template \
+        --show-only templates/server-statefulset.yaml  \
+        --set 'global.enabled=false' \
+        . || echo "---") | tee /dev/stderr |
+        yq 'length > 0' | tee /dev/stderr)
+    [ "${actual}" = "false" ]
+  }
+  ```
+  Here we are check the length of the command output to see if the anything is rendered.
+  This style can easily be switched to check that a file is rendered instead.
 
 ## Contributor License Agreement
 
