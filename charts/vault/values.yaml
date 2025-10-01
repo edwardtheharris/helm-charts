@@ -18,7 +18,11 @@ global:
   #   - name: image-pull-secret
 
   # TLS for end-to-end encrypted transport
+<<<<<<< Updated upstream
   tlsDisable: true
+=======
+  tlsDisable: false
+>>>>>>> Stashed changes
 
   # External vault server address for the injector and CSI provider to use.
   # Setting this will disable deployment of a vault server.
@@ -238,7 +242,11 @@ injector:
     # private key to serve the injector webhook. If this is null, then the
     # injector will default to its automatic management mode that will assign
     # a service account to the injector to generate its own certificates.
+<<<<<<< Updated upstream
     secretName: null
+=======
+    secretName: vault-tls
+>>>>>>> Stashed changes
 
     # caBundle is a base64-encoded PEM-encoded certificate bundle for the CA
     # that signed the TLS certificate that the webhook serves. This must be set
@@ -311,7 +319,12 @@ injector:
   # Example:
   # nodeSelector:
   #   beta.kubernetes.io/arch: amd64
+<<<<<<< Updated upstream
   nodeSelector: {}
+=======
+  nodeSelector:
+    kubernetes.io/os: linux
+>>>>>>> Stashed changes
 
   # Priority class for injector pods
   priorityClassName: ""
@@ -327,7 +340,11 @@ injector:
 
   # Should the injector pods run on the host network (useful when using
   # an alternate CNI in EKS)
+<<<<<<< Updated upstream
   hostNetwork: false
+=======
+  hostNetwork: true
+>>>>>>> Stashed changes
 
   # Injector service specific config
   service:
@@ -357,7 +374,11 @@ injector:
 server:
   # If true, or "-" with global.enabled true, Vault server will be installed.
   # See vault.mode in _helpers.tpl for implementation details.
+<<<<<<< Updated upstream
   enabled: "-"
+=======
+  enabled: true
+>>>>>>> Stashed changes
 
   # [Enterprise Only] This value refers to a Kubernetes secret that you have
   # created that contains your enterprise license. If you are not using an
@@ -388,7 +409,11 @@ server:
   # Configure the logging format for the Vault server.
   # Supported log formats include: standard, json
   logFormat: ""
+<<<<<<< Updated upstream
   
+=======
+
+>>>>>>> Stashed changes
   # Resource requests, limits, etc. for the server cluster placement. This
   # should map directly to the value of the resources field for a PodSpec.
   # By default no direct resource request is made.
@@ -406,7 +431,11 @@ server:
   # If deployment is on OpenShift, the following block is ignored.
   # In order to expose the service, use the route section below
   ingress:
+<<<<<<< Updated upstream
     enabled: false
+=======
+    enabled: true
+>>>>>>> Stashed changes
     labels: {}
       # traffic: external
     annotations: {}
@@ -419,7 +448,11 @@ server:
 
     # Optionally use ingressClassName instead of deprecated annotation.
     # See: https://kubernetes.io/docs/concepts/services-networking/ingress/#deprecated-annotation
+<<<<<<< Updated upstream
     ingressClassName: ""
+=======
+    ingressClassName: nginx
+>>>>>>> Stashed changes
 
     # As of Kubernetes 1.19, all Ingress Paths must have a pathType configured. The default value below should be sufficient in most cases.
     # See: https://kubernetes.io/docs/concepts/services-networking/ingress/#path-types for other possible values.
@@ -429,7 +462,11 @@ server:
     # configure the ingress to point to the Vault active service.
     activeService: true
     hosts:
+<<<<<<< Updated upstream
       - host: chart-example.local
+=======
+      - host: vault.breeze-blocks.net
+>>>>>>> Stashed changes
         paths: []
     ## Extra paths to prepend to the host configuration. This is useful when working with annotation based services.
     extraPaths: []
@@ -439,10 +476,17 @@ server:
     #       name: ssl-redirect
     #       port:
     #         number: use-annotation
+<<<<<<< Updated upstream
     tls: []
     #  - secretName: chart-example-tls
     #    hosts:
     #      - chart-example.local
+=======
+    tls:
+      - secretName: vault-tls
+        hosts:
+          - vault.breeze-blocks.net
+>>>>>>> Stashed changes
 
   # hostAliases is a list of aliases to be added to /etc/hosts. Specified as a YAML list.
   hostAliases: []
@@ -477,7 +521,12 @@ server:
   # extraInitContainers is a list of init containers. Specified as a YAML list.
   # This is useful if you need to run a script to provision TLS certificates or
   # write out configuration files in a dynamic way.
+<<<<<<< Updated upstream
   extraInitContainers: null
+=======
+  extraInitContainers:
+    null
+>>>>>>> Stashed changes
     # # This example installs a plugin pulled from github into the /usr/local/libexec/vault/oauthapp folder,
     # # which is defined in the volumes value.
     # - name: oauthapp
@@ -505,7 +554,12 @@ server:
 
   # extraPorts is a list of extra ports. Specified as a YAML list.
   # This is useful if you need to add additional ports to the statefulset in dynamic way.
+<<<<<<< Updated upstream
   extraPorts: null
+=======
+  extraPorts:
+    null
+>>>>>>> Stashed changes
     # - containerPort: 8300
     #   name: http-monitoring
 
@@ -657,12 +711,21 @@ server:
     #     port: 443
     ingress:
       - from:
+<<<<<<< Updated upstream
         - namespaceSelector: {}
         ports:
         - port: 8200
           protocol: TCP
         - port: 8201
           protocol: TCP
+=======
+          - namespaceSelector: {}
+        ports:
+          - port: 8200
+            protocol: TCP
+          - port: 8201
+            protocol: TCP
+>>>>>>> Stashed changes
 
   # Priority class for server pods
   priorityClassName: ""
@@ -779,7 +842,11 @@ server:
     mountPath: "/vault/data"
     # Name of the storage class to use.  If null it will use the
     # configured default Storage Class.
+<<<<<<< Updated upstream
     storageClass: null
+=======
+    storageClass: csi-lvm-linear
+>>>>>>> Stashed changes
     # Access Mode of the storage device being used for the PVC
     accessMode: ReadWriteOnce
     # Annotations to apply to the PVC
@@ -899,7 +966,10 @@ server:
     # persistent volumes for Vault to store data according to the configuration under server.dataStorage.
     # The Vault cluster will coordinate leader elections and failovers internally.
     raft:
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
       # Enables Raft integrated storage
       enabled: false
       # Set the Node Raft ID to the name of the pod
@@ -975,8 +1045,13 @@ server:
     disruptionBudget:
       enabled: true
 
+<<<<<<< Updated upstream
     # maxUnavailable will default to (n/2)-1 where n is the number of
     # replicas. If you'd like a custom value, you can specify an override here.
+=======
+      # maxUnavailable will default to (n/2)-1 where n is the number of
+      # replicas. If you'd like a custom value, you can specify an override here.
+>>>>>>> Stashed changes
       maxUnavailable: null
 
   # Definition of the serviceAccount used to run Vault.
@@ -987,7 +1062,11 @@ server:
     create: true
     # The name of the service account to use.
     # If not set and create is true, a name is generated using the fullname template
+<<<<<<< Updated upstream
     name: ""
+=======
+    name: vault
+>>>>>>> Stashed changes
     # Create a Secret API object to store a non-expiring token for the service account.
     # Prior to v1.24.0, Kubernetes used to generate this secret for each service account by default.
     # Kubernetes now recommends using short-lived tokens from the TokenRequest API or projected volumes instead if possible.
@@ -1041,11 +1120,19 @@ ui:
   # serviceType can be used to control the type of service created. For
   # example, setting this to "LoadBalancer" will create an external load
   # balancer (for supported K8S installations) to access the UI.
+<<<<<<< Updated upstream
   enabled: false
   publishNotReadyAddresses: true
   # The service should only contain selectors for active Vault pod
   activeVaultPodOnly: false
   serviceType: "ClusterIP"
+=======
+  enabled: true
+  publishNotReadyAddresses: true
+  # The service should only contain selectors for active Vault pod
+  activeVaultPodOnly: false
+  serviceType: LoadBalancer
+>>>>>>> Stashed changes
   serviceNodePort: null
   externalPort: 8200
   targetPort: 8200
@@ -1092,7 +1179,11 @@ csi:
   # With the driver and provider installed, you can mount Vault secrets into volumes
   # similar to the Vault Agent injector, and you can also sync those secrets into
   # Kubernetes secrets.
+<<<<<<< Updated upstream
   enabled: false
+=======
+  enabled: true
+>>>>>>> Stashed changes
 
   image:
     repository: "hashicorp/vault-csi-provider"
@@ -1102,10 +1193,17 @@ csi:
   # volumes is a list of volumes made available to all containers. These are rendered
   # via toYaml rather than pre-processed like the extraVolumes value.
   # The purpose is to make it easy to share volumes between containers.
+<<<<<<< Updated upstream
   volumes: null
   # - name: tls
   #   secret:
   #     secretName: vault-tls
+=======
+  volumes:
+    - name: tls
+      secret:
+        secretName: vault-tls
+>>>>>>> Stashed changes
 
   # volumeMounts is a list of volumeMounts for the main server container. These are rendered
   # via toYaml rather than pre-processed like the extraVolumes value.
@@ -1344,6 +1442,7 @@ serverTelemetry:
     metricRelabelings: []
 
   prometheusRules:
+<<<<<<< Updated upstream
       # The Prometheus operator *must* be installed before enabling this feature,
       # if not the chart will fail to install due to missing CustomResourceDefinitions
       # provided by the operator.
@@ -1373,3 +1472,34 @@ serverTelemetry:
       #    for: 5m
       #    labels:
       #      severity: critical
+=======
+    # The Prometheus operator *must* be installed before enabling this feature,
+    # if not the chart will fail to install due to missing CustomResourceDefinitions
+    # provided by the operator.
+
+    # Deploy the PrometheusRule custom resource for AlertManager based alerts.
+    # Requires that AlertManager is properly deployed.
+    enabled: false
+
+    # Selector labels to add to the PrometheusRules.
+    # When empty, defaults to:
+    #  release: prometheus
+    selectors: {}
+
+    # Some example rules.
+    rules: []
+    #  - alert: vault-HighResponseTime
+    #    annotations:
+    #      message: The response time of Vault is over 500ms on average over the last 5 minutes.
+    #    expr: vault_core_handle_request{quantile="0.5", namespace="mynamespace"} > 500
+    #    for: 5m
+    #    labels:
+    #      severity: warning
+    #  - alert: vault-HighResponseTime
+    #    annotations:
+    #      message: The response time of Vault is over 1s on average over the last 5 minutes.
+    #    expr: vault_core_handle_request{quantile="0.5", namespace="mynamespace"} > 1000
+    #    for: 5m
+    #    labels:
+    #      severity: critical
+>>>>>>> Stashed changes
