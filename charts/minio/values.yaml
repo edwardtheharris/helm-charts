@@ -8,7 +8,7 @@ fullnameOverride: ""
 
 ## set kubernetes cluster domain where minio is running
 ##
-clusterDomain: cluster.local
+clusterDomain: k8s.local
 
 ## Set default image, imageTag, and imagePullPolicy. mode is used to indicate the
 ##
@@ -103,7 +103,7 @@ rootPassword: ""
 ## All mentioned variables will be ignored in values file.
 ## .data.rootUser and .data.rootPassword are mandatory,
 ## others depend on enabled status of corresponding sections.
-existingSecret: ""
+existingSecret: "minio-root"
 
 ## Directory on the MinIO pof
 certsPath: "/etc/minio/certs/"
@@ -126,11 +126,11 @@ pools: 1
 
 ## TLS Settings for MinIO
 tls:
-  enabled: false
+  enabled: true
   ## Create a secret with private.key and public.crt files and pass that here. Ref: https://github.com/minio/minio/tree/master/docs/tls/kubernetes#2-create-kubernetes-secret
-  certSecret: ""
-  publicCrt: public.crt
-  privateKey: private.key
+  certSecret: "minio-tls"
+  publicCrt: tls.crt
+  privateKey: tls.key
 
 ## Trusted Certificates Settings for MinIO. Ref: https://docs.min.io/community/minio-object-store/operations/network-encryption.html#third-party-certificate-authorities
 ## Bundle multiple trusted certificates into one secret and pass that here. Ref: https://github.com/minio/minio/tree/master/docs/tls/kubernetes#2-create-kubernetes-secret
@@ -159,7 +159,7 @@ persistence:
   ##
   ## Storage class of PV to bind. By default it looks for standard storage class.
   ## If the PV uses a different storage class, specify that here.
-  storageClass: ""
+  storageClass: csi-lvm-linear
   volumeName: ""
   accessMode: ReadWriteOnce
   size: 500Gi
@@ -174,7 +174,7 @@ persistence:
 ## ref: http://kubernetes.io/docs/user-guide/services/
 ##
 service:
-  type: ClusterIP
+  type: LoadBalancer
   clusterIP: ~
   port: "9000"
   nodePort: 32000
@@ -198,13 +198,11 @@ service:
 ##
 
 ingress:
-  enabled: false
-  ingressClassName: ~
-  labels:
-    {}
+  enabled: true
+  ingressClassName: nginx
+  labels: {}
     # node-role.kubernetes.io/ingress: platform
-  annotations:
-    {}
+  annotations: {}
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
     # kubernetes.io/ingress.allow-http: "false"
@@ -214,14 +212,14 @@ ingress:
     # nginx.ingress.kubernetes.io/whitelist-source-range: 0.0.0.0/0
   path: /
   hosts:
-    - minio-example.local
-  tls: []
-  #  - secretName: chart-example-tls
-  #    hosts:
-  #      - chart-example.local
+    - minio.breeze-blocks.net
+  tls:
+    - secretName: minio-tls
+      hosts:
+        - minio.breeze-blocks.net
 
 consoleService:
-  type: ClusterIP
+  type: LoadBalancer
   clusterIP: ~
   port: "9001"
   nodePort: 32001
@@ -241,13 +239,11 @@ consoleService:
   externalTrafficPolicy: Cluster
 
 consoleIngress:
-  enabled: false
+  enabled: true
   ingressClassName: ~
-  labels:
-    {}
+  labels: {}
     # node-role.kubernetes.io/ingress: platform
-  annotations:
-    {}
+  annotations: {}
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
     # kubernetes.io/ingress.allow-http: "false"
@@ -395,8 +391,7 @@ makeUserJob:
 
 ## List of service accounts to be created after minio install
 ##
-svcaccts:
-  []
+svcaccts: []
   ## accessKey, secretKey and parent user to be assigned to the service accounts
   ## Add new service accounts as explained here https://docs.min.io/community/minio-object-store/administration/identity-access-management/minio-user-management.html#access-keys
   # - accessKey: console-svcacct
@@ -435,8 +430,7 @@ makeServiceAccountJob:
 
 ## List of buckets to be created after minio install
 ##
-buckets:
-  []
+buckets: []
   #   # Name of the bucket
   # - name: bucket1
   #   # Policy to be set on the
@@ -485,15 +479,13 @@ customCommandJob:
     requests:
       memory: 128Mi
   ## Additional volumes to add to the post-job.
-  extraVolumes:
-    []
+  extraVolumes: []
     # - name: extra-policies
     #   configMap:
     #     name: my-extra-policies-cm
   ## Additional volumeMounts to add to the custom commands container when
   ## running the post-job.
-  extraVolumeMounts:
-    []
+  extraVolumeMounts: []
     # - name: extra-policies
     #   mountPath: /mnt/extras/
   # Command to run after the main command on exit
@@ -606,8 +598,7 @@ metrics:
     # for node metrics
     relabelConfigs: {}
     # for cluster metrics
-    relabelConfigsCluster:
-      {}
+    relabelConfigsCluster: {}
       # metricRelabelings:
       #   - regex: (server|pod)
       #     action: labeldrop
