@@ -5,7 +5,7 @@
 replicaCount: 1
 
 p2pNodePort:
-  enabled: true
+  enabled: false
   nodePort: 32000
   initContainer:
     image:
@@ -22,7 +22,7 @@ cluster:
     pullPolicy: IfNotPresent
     tag: "latest"
   imagePullSecrets: []
-  nameOverride: ""
+  nameOverride: ipfs
   podSecurityContext: {}
     # fsGroup: 2000
   # -- Additional env variables
@@ -39,18 +39,20 @@ cluster:
     #   cpu: 100m
     #   memory: 128Mi
 
-  nodeSelector: {}
+  nodeSelector:
+    kubernetes.io/os: linux
 
   tolerations: []
 
   affinity: {}
 
   storage:
-    storageClassName: ""
-    volumeSize: ""  # "1Gi"
+    storageClassName: csi-lvm-linear
+    volumeSize: 50Gi # "1Gi"
 
   service:
-    type: ""
+    type: LoadBalancer
+    port: 2222
 
 ipfs:
   image:
@@ -58,7 +60,7 @@ ipfs:
     pullPolicy: IfNotPresent
     tag: "latest"
   imagePullSecrets: []
-  nameOverride: ""
+  nameOverride: ipfs
   podSecurityContext: {}
     # fsGroup: 2000
   initScripts:
@@ -98,20 +100,22 @@ ipfs:
     #   cpu: 100m
     #   memory: 128Mi
 
-  nodeSelector: {}
+  nodeSelector:
+    kubernetes.io/os: linux
 
   tolerations: []
 
   affinity: {}
 
   storage:
-    storageClassName: ""
-    volumeSize: ""  # "1Gi"
+    storageClassName: csi-lvm-linear
+    volumeSize: "50Gi"
 
   service:
-    type: ClusterIP
+    type: LoadBalancer
+    port: 2322
 
-fullnameOverride: ""
+fullnameOverride: ipfs
 
 sharedSecret: ""
 
@@ -122,7 +126,7 @@ serviceAccount:
   annotations: {}
   # The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
-  name: ""
+  name: ipfs
 
 podAnnotations: {}
 
@@ -136,24 +140,29 @@ securityContext: {}
 
 # `service.type` may be overridden by `cluster.service.type` and/or `ipfs.service.type`.
 service:
-  type: ClusterIP
+  type: LoadBalancer
+  port: 2422
 
 ingress:
-  enabled: false
-  className: ""
+  enabled: true
+  className: nginx
   annotations: {}
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   hosts:
-    - host: chart-example.local
+    - host: ipfs.breeze-blocks.net
       paths:
         - path: /
           pathType: ImplementationSpecific
-  tls: []
-  #  - secretName: chart-example-tls
-  #    hosts:
-  #      - chart-example.local
-
+          backend:
+            service:
+              name: ipfs
+              port:
+                number: 2222
+  tls:
+    - secretName: ipfs-tls
+      hosts:
+        - ipfs.breeze-blocks.net
 
 rbac:
   # -- Specifies whether RBAC resources are to be created
@@ -161,22 +170,22 @@ rbac:
   # -- Required ClusterRole rules
   # @default -- See `values.yaml`
   clusterRules:
-     # Required to obtain the nodes external IP
+    # Required to obtain the nodes external IP
     - apiGroups: [""]
       resources:
-      - "nodes"
+        - "nodes"
       verbs:
-      - "get"
-      - "list"
-      - "watch"
+        - "get"
+        - "list"
+        - "watch"
   # -- Required ClusterRole rules
   # @default -- See `values.yaml`
   rules:
     # Required to get information about the services nodePort.
     - apiGroups: [""]
       resources:
-      - "services"
+        - "services"
       verbs:
-      - "get"
-      - "list"
-      - "watch"
+        - "get"
+        - "list"
+        - "watch"
