@@ -1,25 +1,42 @@
 apiVersion: cert-manager.io/v1
 kind: Issuer
 metadata:
-  name: communications-services-int
+  name: comms-int
   namespace: cert-manager
 spec:
   ca:
-    secretName: communications-services-ca
+    secretName: comms-svc-ca-tls
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: communications-services-int
+  name: comms-svc-ca
   namespace: cert-manager
 spec:
   isCA: true
-  commonName: int.communications-services.net
-  secretName: communications-services-int
+  commonName: int.cms.breeze-blocks.net
+  secretName: comms-svc-ca-tls
   privateKey:
-    algorithm: ECDSA
-    size: 256
+    algorithm: RSA
+    size: 4096
   issuerRef:
-    name: communications-services-ca
+    name: comms-svc
+    kind: ClusterIssuer
+    group: cert-manager.io
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: comms-svc-int
+  namespace: cert-manager
+spec:
+  isCA: true
+  commonName: int.cms.breeze-blocks.net
+  secretName: comms-svc-int-tls
+  privateKey:
+    algorithm: RSA
+    size: 4096
+  issuerRef:
+    name: comms-svc-ca
     kind: ClusterIssuer
     group: cert-manager.io
