@@ -1110,7 +1110,7 @@ cainjector:
     # The name of the service account to use.
     # If not set and create is true, a name is generated using the fullname template
     # +docs:property
-    # name: ""
+    name: "cainjector"
 
     # Optional additional annotations to add to the controller's Service Account.
     # +docs:property
@@ -1125,7 +1125,7 @@ cainjector:
 
   # Automounting API credentials for a particular pod.
   # +docs:property
-  # automountServiceAccountToken: true
+  automountServiceAccountToken: true
 
   # Additional volumes to add to the cert-manager controller pod.
   volumes: []
@@ -1306,7 +1306,7 @@ startupapicheck:
     # The name of the service account to use.
     # If not set and create is true, a name is generated using the fullname template.
     # +docs:property
-    # name: ""
+    name: cert-manager-startupapicheck
 
     # Optional additional annotations to add to the Job's Service Account.
     # +docs:property
