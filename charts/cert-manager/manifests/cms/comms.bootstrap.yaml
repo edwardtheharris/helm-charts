@@ -30,7 +30,7 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
-  name: comms-svc-ca
+  name: comms-svc-int
 spec:
   ca:
-    secretName: comms-svc-ca-tls
+    secretName: comms-svc-int-tls
