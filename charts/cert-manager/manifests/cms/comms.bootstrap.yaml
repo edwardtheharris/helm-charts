@@ -23,7 +23,7 @@ spec:
     algorithm: ECDSA
     size: 256
   issuerRef:
-    name: comms
+    name: comms-svc
     kind: ClusterIssuer
     group: cert-manager.io
 ---
