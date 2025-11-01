@@ -1,11 +1,11 @@
 apiVersion: cert-manager.io/v1
-kind: Issuer
+kind: ClusterIssuer
 metadata:
   name: the-hard-way-int
   namespace: cert-manager
 spec:
   ca:
-    secretName: the-hard-way-ca
+    secretName: the-hard-way-ca-tls
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
@@ -27,16 +27,31 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: prometheus-node-exporter
-  namespace: monitoring
+  name: argocd
 spec:
   isCA: true
-  commonName: the-hard-way.breeze-blocks.net
-  secretName: prometheus-node-exporter-tls
+  commonName: argo.breeze-blocks.net
+  secretName: argocd-server-tls
   privateKey:
     algorithm: ECDSA
     size: 256
   issuerRef:
-    name: the-hard-way-ca
+    name: the-hard-way-int
+    kind: ClusterIssuer
+    group: cert-manager.io
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: argocd
+spec:
+  isCA: true
+  commonName: argo.breeze-blocks.net
+  secretName: argocd-tls-certs-cm
+  privateKey:
+    algorithm: ECDSA
+    size: 256
+  issuerRef:
+    name: the-hard-way-int
     kind: ClusterIssuer
     group: cert-manager.io

@@ -33,4 +33,4 @@ metadata:
   name: the-hard-way-ca
 spec:
   ca:
-    secretName: the-hard-way-ca
+    secretName: the-hard-way-ca-tls

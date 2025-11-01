@@ -174,7 +174,7 @@ serviceAccount:
   # The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template.
   # +docs:property
-  # name: ""
+  name: "cert-manager"
 
   # Optional additional annotations to add to the controller's Service Account.
   # +docs:property
@@ -504,7 +504,7 @@ prometheus:
     annotations: {}
 
     # Keep labels from scraped data, overriding server-side labels.
-    honorLabels: false
+    honorLabels: true
 
     # EndpointAdditionalProperties allows setting additional properties on the
     # endpoint such as relabelings, metricRelabelings etc.
@@ -546,7 +546,7 @@ prometheus:
     annotations: {}
 
     # Keep labels from scraped data, overriding server-side labels.
-    honorLabels: false
+    honorLabels: true
 
     # EndpointAdditionalProperties allows setting additional properties on the
     # endpoint such as relabelings, metricRelabelings etc.
@@ -828,7 +828,7 @@ webhook:
     # The name of the service account to use.
     # If not set and create is true, a name is generated using the fullname template.
     # +docs:property
-    # name: ""
+    name: "cert-manager-webhook"
 
     # Optional additional annotations to add to the controller's Service Account.
     # +docs:property
@@ -866,7 +866,7 @@ webhook:
   # Specifies how the service should be handled. Useful if you want to expose the
   # webhook outside of the cluster. In some cases, the control plane cannot
   # reach internal services.
-  serviceType: ClusterIP
+  serviceType: LoadBalancer
 
   # Specify the load balancer IP for the created service.
   # +docs:property
@@ -875,12 +875,11 @@ webhook:
   # Overrides the mutating webhook and validating webhook so they reach the webhook
   # service using the `url` field instead of a service.
   url: {}
-  # host:
 
   # Enables default network policies for webhooks.
   networkPolicy:
     # Create network policies for the webhooks.
-    enabled: false
+    enabled: true
 
     # Ingress rule for the webhook network policy. By default, it allows all
     # inbound traffic.
@@ -888,7 +887,7 @@ webhook:
     ingress:
       - from:
           - ipBlock:
-              cidr: 0.0.0.0/0
+              cidr: 192.168.5.0/28
 
     # Egress rule for the webhook network policy. By default, it allows all
     # outbound traffic to ports 80 and 443, as well as DNS ports.
