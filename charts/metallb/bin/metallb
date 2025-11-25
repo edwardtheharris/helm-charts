@@ -2,6 +2,6 @@
 
 helm upgrade --install metallb . -f values.yaml
 
-kubectl apply -f manifests/IPAddressPool.yaml
+kubectl apply -f manifests/comms.ipaddr.yaml
 
 kubectl apply -f manifests/L2Advertisement.yaml
