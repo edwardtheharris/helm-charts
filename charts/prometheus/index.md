@@ -14,7 +14,6 @@ This work has been moved to the
 repo with the remaining monitoring tools.
 ```
 
-
 ## Repository Contents
 
 ```{contents}
