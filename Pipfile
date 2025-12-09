@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 sphinx-copybutton = "*"
 pipenv = "*"
+pre-commit = "*"
 
 [dev-packages]
 myst-parser = {extras = ["linkify"], version = "*"}
