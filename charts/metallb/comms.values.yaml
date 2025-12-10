@@ -62,7 +62,7 @@ prometheus:
   # Prometheus Operator PodMonitors
   podMonitor:
     # enable support for Prometheus Operator
-    enabled: true
+    enabled: false
 
     # optional additional labels for podMonitors
     additionalLabels: {}
@@ -141,7 +141,7 @@ prometheus:
   # Prometheus Operator alertmanager alerts
   prometheusRule:
     # enable alertmanager alerts
-    enabled: true
+    enabled: false
 
     # optional additional labels for prometheusRules
     additionalLabels: {}

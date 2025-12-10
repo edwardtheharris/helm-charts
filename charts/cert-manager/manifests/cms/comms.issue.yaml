@@ -5,7 +5,7 @@ metadata:
   namespace: cert-manager
 spec:
   ca:
-    secretName: comms-svc-int
+    secretName: comms-svc-ca-tls
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
