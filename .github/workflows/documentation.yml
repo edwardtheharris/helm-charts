@@ -107,12 +107,11 @@ jobs:
       - name: Setup pages
         uses: actions/configure-pages@main
       - name: Install poetry
-        run: python3.11 -m pip install poetry
+        run: python3.12 -m pip install poetry
       - name: Install Python dependencies
-        run: |
-          pipenv install --dev
+        run: eval "$(poetry env activate)"
       - name: Build the static site
-        run: pipenv run sphinx-build -a -E . deploy
+        run: poetry run sphinx-build -a -E . deploy
       - name: Upload artifact
         uses: actions/upload-pages-artifact@main
         with:
