@@ -13,7 +13,6 @@ title: Index for MetalLB L2 deployment to bare metal.
 
 You can find the main website at [metallb.io](https://metallb.io/).
 
-
 ```{toctree}
 README
 ```
