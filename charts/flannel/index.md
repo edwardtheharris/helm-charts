@@ -10,7 +10,7 @@ title: Flannel Helm Configuration
 ## Flannel Chart Usage
 
 For basic installations this is a simple process[^flannel-helm-docs].
-You can find the source code in the 
+You can find the source code in the
 [Flannel GitHub Repository](https://github.com/flannel-io/flannel).
 
 1. Create the namespace.
