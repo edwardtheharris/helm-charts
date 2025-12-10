@@ -98,8 +98,10 @@ jobs:
       - uses: actions/setup-python@main
         with:
           python-version: 3.12
-      - name: install direnv
-        run: apt-get update; apt-get install -y direnv; eval "$(direnv hook bash)"
+      - name: Install direnv
+        run: sudo apt-get update; sudo apt-get install -y direnv; eval "$(direnv hook bash)"
+      - name: Activate direnv
+        run: direnv allow
       - name: Create virtualenv
         run: python3.12 -m venv ../.3.12
       - name: Setup pages
