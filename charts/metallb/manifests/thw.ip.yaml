@@ -4,4 +4,8 @@ metadata:
   name: the-hard-way
 spec:
   addresses:
+<<<<<<<< HEAD:charts/metallb/manifests/thw.ipaddr.yaml
+    - 192.168.5.48/28
+========
     - 192.168.5.145-192.168.5.159
+>>>>>>>> 8a3e9a7b8d746ca9ced7627d04f047915ea76f8e:charts/metallb/manifests/thw.ip.yaml

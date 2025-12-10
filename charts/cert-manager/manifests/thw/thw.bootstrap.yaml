@@ -6,31 +6,31 @@ metadata:
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
-  name: the-hard-way
+  name: thw-svc
 spec:
   selfSigned: {}
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: the-hard-way-ca
+  name: thw-svc-ca
   namespace: cert-manager
 spec:
   isCA: true
-  commonName: ca.the-hard-way.net
-  secretName: the-hard-way-ca
+  commonName: thw-ca.breeze-blocks.net
+  secretName: the-hard-way-ca-tls
   privateKey:
-    algorithm: ECDSA
-    size: 256
+    algorithm: RSA
+    size: 4096
   issuerRef:
-    name: the-hard-way
+    name: thw-svc
     kind: ClusterIssuer
     group: cert-manager.io
 ---
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
-  name: the-hard-way-ca
+  name: thw-svc-ca
 spec:
   ca:
-    secretName: the-hard-way-ca
+    secretName: thw-svc-ca-tls

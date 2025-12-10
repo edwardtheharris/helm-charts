@@ -15,7 +15,8 @@ global:
 namespaceOverride: ""
 ## Labels to apply to all resources
 ##
-commonLabels: {}
+commonLabels:
+  kubernetes.io/cluster: comms
 # scmhash: abc123
 # myLabel: aakkmd
 
@@ -223,7 +224,7 @@ controller:
   #         name: secret-resource
 
   # -- Use a `DaemonSet` or `Deployment`
-  kind: Deployment
+  kind: DaemonSet
   # -- Annotations to be added to the controller Deployment or DaemonSet
   ##
   annotations: {}
@@ -1198,7 +1199,7 @@ defaultBackend:
     # loadBalancerIP: ""
     loadBalancerSourceRanges: []
     servicePort: 80
-    type: ClusterIP
+    type: LoadBalancer
   priorityClassName: ""
   # -- Instruct the kubelet to use the named RuntimeClass to run the pod
   runtimeClassName: ""

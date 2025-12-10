@@ -1,3 +1,5 @@
+<<<<<<< HEAD
+=======
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
@@ -6,6 +8,7 @@ metadata:
 spec:
   ca:
     secretName: comms-svc-ca-tls
+>>>>>>> 8a3e9a7b8d746ca9ced7627d04f047915ea76f8e
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
@@ -14,12 +17,35 @@ metadata:
   namespace: cert-manager
 spec:
   isCA: true
+<<<<<<< HEAD
+  commonName: int.cms.breeze-blocks.net
+  dnsNames:
+    - int.cms.breeze-blocks.net
+  emailAddresses:
+    - int@breeze-blocks.net
+  ipAddresses:
+    - 192.168.5.16
+=======
   commonName: int.breeze-blocks.net
   secretName: comms-svc-int-tls
   privateKey:
     algorithm: RSA
     size: 4096
+>>>>>>> 8a3e9a7b8d746ca9ced7627d04f047915ea76f8e
   issuerRef:
     name: comms-svc-ca
     kind: ClusterIssuer
     group: cert-manager.io
+<<<<<<< HEAD
+  privateKey:
+    algorithm: RSA
+    size: 4096
+  secretName: comms-svc-int-tls
+  usages:
+    - cert sign
+    - client auth
+    - digital signature
+    - server auth
+    - signing
+=======
+>>>>>>> 8a3e9a7b8d746ca9ced7627d04f047915ea76f8e
