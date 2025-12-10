@@ -7,6 +7,3 @@
 [submodule "charts/redis"]
 	path = charts/redis
 	url = git@github.com:edwardtheharris/helm-redis.git
-[submodule "charts/calico"]
-	path = charts/calico
-	url = git@github.com:edwardtheharris/helm-calico.git
