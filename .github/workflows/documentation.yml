@@ -99,7 +99,7 @@ jobs:
         with:
           python-version: 3.12
       - name: install direnv
-        run: apt-get update; apt-get install -y direnv
+        run: apt-get update; apt-get install -y direnv; eval "$(direnv hook bash)"
       - name: Create virtualenv
         run: python3.12 -m venv ../.3.12
       - name: Setup pages
