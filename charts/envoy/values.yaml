@@ -49,7 +49,7 @@ deployment:
       allowPrivilegeEscalation: false
       capabilities:
         drop:
-        - ALL
+          - ALL
       privileged: false
       runAsNonRoot: true
       runAsGroup: 65532
@@ -74,8 +74,8 @@ deployment:
   pod:
     affinity: {}
     annotations:
-      prometheus.io/scrape: 'true'
-      prometheus.io/port: '19001'
+      prometheus.io/scrape: "true"
+      prometheus.io/port: "19001"
     labels: {}
     topologySpreadConstraints: []
     tolerations: []
@@ -85,7 +85,7 @@ service:
   # If set to PreferClose, the Envoy fleet will prioritize connecting to the Envoy Gateway pods that are topologically closest to them.
   trafficDistribution: ""
   annotations: {}
-  type: "ClusterIP"
+  type: LoadBalancer
 
 hpa:
   enabled: false
@@ -95,7 +95,7 @@ hpa:
   behavior: {}
 
 config:
-# -- EnvoyGateway configuration. Visit https://gateway.envoyproxy.io/docs/api/extension_types/#envoygateway to view all options.
+  # -- EnvoyGateway configuration. Visit https://gateway.envoyproxy.io/docs/api/extension_types/#envoygateway to view all options.
   envoyGateway:
     gateway:
       controllerName: gateway.envoyproxy.io/gatewayclass-controller
@@ -110,7 +110,12 @@ createNamespace: false
 
 kubernetesClusterDomain: cluster.local
 
-# -- Certgen is used to generate the certificates required by EnvoyGateway. If you want to construct a custom certificate, you can generate a custom certificate through Cert-Manager before installing EnvoyGateway. Certgen will not overwrite the custom certificate. Please do not manually modify `values.yaml` to disable certgen, it may cause EnvoyGateway OIDC,OAuth2,etc. to not work as expected.
+# -- Certgen is used to generate the certificates required by EnvoyGateway.
+# If you want to construct a custom certificate, you can generate a custom
+# certificate through Cert-Manager before installing EnvoyGateway. Certgen
+# will not overwrite the custom certificate. Please do not manually modify
+# `values.yaml` to disable certgen, it may cause EnvoyGateway OIDC,OAuth2,etc.
+# to not work as expected.
 certgen:
   job:
     annotations: {}
@@ -127,7 +132,7 @@ certgen:
       allowPrivilegeEscalation: false
       capabilities:
         drop:
-        - ALL
+          - ALL
       privileged: false
       readOnlyRootFilesystem: true
       runAsNonRoot: true
