@@ -4,7 +4,7 @@ kind: Certificate
 metadata:
   name: vault
 spec:
-  isCA: true
+  isCA: false
   usages:
     - server auth
     - client auth
@@ -15,13 +15,11 @@ spec:
   # other certificates.
   # commonName: vault.breeze-blocks.net
   privateKey:
-    algorithm: ECDSA
-    size: 256
+    algorithm: RSA
+    size: 4096
   secretName: vault-tls
   subject:
     organizations:
-      - cert-manager
-      - breeze-blocks
       - the-hard-way
   issuerRef:
     name: the-hard-way-ca
@@ -36,14 +34,18 @@ spec:
   # literalSubject: "O=jetstack, CN=example.com, 2.5.4.42=John, 2.5.4.4=Doe"
 
   # At least one of commonName (possibly through literalSubject), dnsNames, uris, emailAddresses, ipAddresses or otherNames is required.
+  ipAddresses:
+    - 192.168.5.80
+    - 192.168.5.81
+    - 192.168.5.82
+    - 192.168.5.83
+    - 192.168.5.84
   dnsNames:
     - vault.breeze-blocks.net
   uris:
     - https://vault.breeze-blocks.net
   emailAddresses:
     - duchess@breeze-blocks.net
-  ipAddresses:
-    - 192.168.5.82
   # Needs cert-manager 1.14+ and "OtherNames" feature flag
   # otherNames:
   #   # Should only supply oid of ut8 valued types

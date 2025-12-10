@@ -385,7 +385,7 @@ server:
 
   # Configure the logging verbosity for the Vault server.
   # Supported log levels include: trace, debug, info, warn, error
-  logLevel: ""
+  logLevel: "debug"
 
   # Configure the logging format for the Vault server.
   # Supported log formats include: standard, json
@@ -679,7 +679,9 @@ server:
   # Extra annotations to attach to the server pods
   # This can either be YAML or a YAML-formatted multi-line templated string map
   # of the annotations to apply to the server pods
-  annotations: {}
+  annotations:
+    apps.kubernetes.io/pod-index: "0"
+    statefulset.kubernetes.io/pod-name: "vault-the-hard-way"
 
   # Add an annotation to the server configmap and the statefulset pods,
   # vaultproject.io/config-checksum, that is a hash of the Vault configuration.
@@ -798,7 +800,9 @@ server:
   # persistentVolumeClaimRetentionPolicy:
   #   whenDeleted: Retain
   #   whenScaled: Retain
-  persistentVolumeClaimRetentionPolicy: {}
+  persistentVolumeClaimRetentionPolicy:
+    whenDeleted: Retain
+    whenScaled: Retain
 
   # This configures the Vault Statefulset to create a PVC for audit
   # logs.  Once Vault is deployed, initialized, and unsealed, Vault must
@@ -837,7 +841,7 @@ server:
   # the "file" backend.  This mode is not highly available and should not be scaled
   # past a single replica.
   standalone:
-    enabled: "-"
+    enabled: true
 
     # config is a raw string of default configuration when using a Stateful
     # deployment. Default is to use a PersistentVolumeClaim mounted at /vault/data
@@ -850,7 +854,7 @@ server:
     # https://developer.hashicorp.com/vault/docs/platform/k8s/helm/run#protecting-sensitive-vault-configurations
     config: |-
       ui = true
-
+      cluster_name = "the-hard-way"
       listener "tcp" {
         tls_disable = 1
         address = "[::]:8200"
@@ -1177,7 +1181,8 @@ csi:
     # Example:
     # nodeSelector:
     #   beta.kubernetes.io/arch: amd64
-    nodeSelector: {}
+    nodeSelector:
+      kubernetes.io/os: linux
 
     # Affinity Settings
     # This should be either a multi-line string or YAML matching the PodSpec's affinity field.
