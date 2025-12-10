@@ -4,8 +4,9 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-pipenv = "*"
 sphinx-copybutton = "*"
+pipenv = "*"
+pre-commit = "*"
 
 [dev-packages]
 myst-parser = {extras = ["linkify"], version = "*"}

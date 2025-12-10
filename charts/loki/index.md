@@ -8,6 +8,12 @@ date: 2024-09-26
 title: Loki Helm Chart Values
 ---
 
+```{warning}
+This work has been moved to the 
+[helm-monitoring](https://github.com/edwardtheharris/helm_monitoring)
+repository with the other monitoring tools.
+```
+
 ## Usage
 
 1. Create a namespace.

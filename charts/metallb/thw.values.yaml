@@ -23,7 +23,7 @@ prometheus:
   # (https://github.com/coreos/prometheus-operator) for more powerful
   # monitoring configuration. If you use the Prometheus operator, this
   # can be left at false.
-  scrapeAnnotations: false
+  scrapeAnnotations: true
 
   # port both controller and speaker will listen on for metrics
   metricsPort: 7472
@@ -51,7 +51,7 @@ prometheus:
 
   # the namespace where prometheus is deployed
   # required when " .Values.prometheus.rbacPrometheus == true " and " .Values.prometheus.podMonitor.enabled=true or prometheus.serviceMonitor.enabled=true "
-  namespace: ""
+  namespace: monitoring
 
   # the image to be used for the kuberbacproxy container
   rbacProxy:
@@ -62,7 +62,7 @@ prometheus:
   # Prometheus Operator PodMonitors
   podMonitor:
     # enable support for Prometheus Operator
-    enabled: false
+    enabled: true
 
     # optional additional labels for podMonitors
     additionalLabels: {}
@@ -95,7 +95,7 @@ prometheus:
   # to podMonitor, supports secure metrics.
   serviceMonitor:
     # enable support for Prometheus Operator
-    enabled: false
+    enabled: true
 
     speaker:
       # optional additional labels for the speaker serviceMonitor
