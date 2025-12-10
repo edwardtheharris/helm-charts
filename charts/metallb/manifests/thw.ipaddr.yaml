@@ -4,4 +4,4 @@ metadata:
   name: the-hard-way
 spec:
   addresses:
-    - 192.168.5.48/28
+    - 192.168.5.144/28

@@ -9,7 +9,6 @@ date: 2025-09-16
 title: Index for MetalLB L2 deployment to bare metal.
 ---
 
-
 ## MetalLB Readme
 
 You can find the main website at [metallb.io](https://metallb.io/).

@@ -39,6 +39,7 @@ You can find the source code in the
    helm install flannel -f values.yaml --namespace kube-flannel flannel/flannel
    ```
 
-[^flannel-helm-docs]: All information provided here was taken from the much
+[^flannel-helm-docs]:
+    All information provided here was taken from the much
     more reliable
     [actual documentation](https://github.com/flannel-io/flannel?tab=readme-ov-file#deploying-flannel-with-helm).

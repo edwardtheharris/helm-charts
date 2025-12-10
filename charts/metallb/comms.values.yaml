@@ -23,7 +23,7 @@ prometheus:
   # (https://github.com/coreos/prometheus-operator) for more powerful
   # monitoring configuration. If you use the Prometheus operator, this
   # can be left at false.
-  scrapeAnnotations: false
+  scrapeAnnotations: true
 
   # port both controller and speaker will listen on for metrics
   metricsPort: 7472
@@ -47,11 +47,11 @@ prometheus:
 
   # the service account used by prometheus
   # required when " .Values.prometheus.rbacPrometheus == true " and " .Values.prometheus.podMonitor.enabled=true or prometheus.serviceMonitor.enabled=true "
-  serviceAccount: ""
+  serviceAccount: prometheus
 
   # the namespace where prometheus is deployed
   # required when " .Values.prometheus.rbacPrometheus == true " and " .Values.prometheus.podMonitor.enabled=true or prometheus.serviceMonitor.enabled=true "
-  namespace: ""
+  namespace: monitoring
 
   # the image to be used for the kuberbacproxy container
   rbacProxy:
@@ -121,22 +121,22 @@ prometheus:
     jobLabel: "app.kubernetes.io/name"
 
     # Scrape interval. If not set, the Prometheus default scrape interval is used.
-    interval:
+    interval: 60
 
     # 	metric relabel configs to apply to samples before ingestion.
-    metricRelabelings: []
-    # - action: keep
-    #   regex: 'kube_(daemonset|deployment|pod|namespace|node|statefulset).+'
-    #   sourceLabels: [__name__]
+    metricRelabelings:
+      - action: keep
+        regex: "kube_(daemonset|deployment|pod|namespace|node|statefulset).+"
+        sourceLabels: [__name__]
 
     # 	relabel configs to apply to samples before ingestion.
-    relabelings: []
-    # - sourceLabels: [__meta_kubernetes_pod_node_name]
-    #   separator: ;
-    #   regex: ^(.*)$
-    #   target_label: nodename
-    #   replacement: $1
-    #   action: replace
+    relabelings:
+      - sourceLabels: [__meta_kubernetes_pod_node_name]
+        separator: ;
+        regex: ^(.*)$
+        target_label: node
+        replacement: $1
+        action: replace
 
   # Prometheus Operator alertmanager alerts
   prometheusRule:

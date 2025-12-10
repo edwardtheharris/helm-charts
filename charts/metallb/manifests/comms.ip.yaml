@@ -4,5 +4,4 @@ metadata:
   name: comms-external
 spec:
   addresses:
-    - 192.168.5.48/28
-    - 192.168.5.112/28
+    - 192.168.5.16/28

@@ -1,15 +1,9 @@
 [submodule "charts/storage-classes"]
 	path = charts/storage-classes
 	url = git@github.com:edwardtheharris/helm-storage-classes.git
-[submodule "charts/nautobot"]
-	path = charts/nautobot
-	url = git@github.com:edwardtheharris/helm-nautobot.git
 [submodule "charts/postgresql"]
 	path = charts/postgresql
 	url = git@github.com:edwardtheharris/helm-postgresql.git
 [submodule "charts/redis"]
 	path = charts/redis
 	url = git@github.com:edwardtheharris/helm-redis.git
-[submodule "charts/calico"]
-	path = charts/calico
-	url = git@github.com:edwardtheharris/helm-calico.git
