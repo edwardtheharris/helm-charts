@@ -23,9 +23,11 @@ charts/ingress-nginx/index
 charts/cert-manager/index
 charts/flannel/index
 charts/grafana/index
+charts/ipfs/index
 charts/loki/index
 charts/metallb/index
 charts/prometheus/index
+charts/prometheus-node-exporter/index
 ```
 
 ```{toctree}

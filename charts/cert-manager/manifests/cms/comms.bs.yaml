@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cert-manager
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: comms-svc
+spec:
+  selfSigned: {}
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: comms-svc-ca
+  namespace: cert-manager
+spec:
+  isCA: true
+<<<<<<<< HEAD:charts/cert-manager/manifests/thw/thw.bootstrap.yaml
+  commonName: ca.the-hard-way.net
+  secretName: the-hard-way-ca-tls
+========
+  commonName: ca.breeze-blocks.net
+  secretName: comms-svc-ca-tls
+>>>>>>>> 8a3e9a7b8d746ca9ced7627d04f047915ea76f8e:charts/cert-manager/manifests/cms/comms.bs.yaml
+  privateKey:
+    algorithm: RSA
+    size: 4096
+  issuerRef:
+    name: comms-svc
+    kind: ClusterIssuer
+    group: cert-manager.io
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: comms-svc-ca
+spec:
+  ca:
+<<<<<<<< HEAD:charts/cert-manager/manifests/thw/thw.bootstrap.yaml
+    secretName: the-hard-way-ca-tls
+========
+    secretName: comms-svc-ca-tls
+>>>>>>>> 8a3e9a7b8d746ca9ced7627d04f047915ea76f8e:charts/cert-manager/manifests/cms/comms.bs.yaml

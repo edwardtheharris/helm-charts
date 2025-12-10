@@ -15,8 +15,7 @@ global:
 namespaceOverride: ""
 ## Labels to apply to all resources
 ##
-commonLabels:
-  kubernetes.io/cluster: comms
+commonLabels: {}
 # scmhash: abc123
 # myLabel: aakkmd
 
@@ -105,7 +104,7 @@ controller:
   # -- Required for use with CNI based kubernetes installations (such as ones set up by kubeadm),
   # since CNI and hostport don't mix yet. Can be deprecated once https://github.com/kubernetes/kubernetes/issues/23920
   # is merged
-  hostNetwork: false
+  hostNetwork: true
   ## Use host ports 80 and 443
   ## Disabled by default
   hostPort:
@@ -224,7 +223,7 @@ controller:
   #         name: secret-resource
 
   # -- Use a `DaemonSet` or `Deployment`
-  kind: DaemonSet
+  kind: Deployment
   # -- Annotations to be added to the controller Deployment or DaemonSet
   ##
   annotations: {}
@@ -1199,7 +1198,7 @@ defaultBackend:
     # loadBalancerIP: ""
     loadBalancerSourceRanges: []
     servicePort: 80
-    type: LoadBalancer
+    type: ClusterIP
   priorityClassName: ""
   # -- Instruct the kubelet to use the named RuntimeClass to run the pod
   runtimeClassName: ""

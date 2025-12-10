@@ -8,6 +8,12 @@ date: 2024-09-26
 title: Grafana Helm Chart Values
 ---
 
+```{warning}
+This work has been moved to the
+[helm-monitoring](https://github.com/edwardtheharris/helm-monitoring)
+repo with the remaining monitoring tools.
+```
+
 ## Repository Contents
 
 ```{contents}

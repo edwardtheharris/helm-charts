@@ -25,3 +25,5 @@ jobs:
           helm repo add frr https://metallb.github.io/frr-k8s
           helm repo update
           helm lint $(find . -type f | dirname $(grep Chart.yaml))
+      - name: Lint Helm Packages
+        run: helm lint *.tgz

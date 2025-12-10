@@ -9,8 +9,9 @@ date: 2025-09-16
 title: Index for MetalLB L2 deployment to bare metal.
 ---
 
-
 ## MetalLB Readme
+
+You can find the main website at [metallb.io](https://metallb.io/).
 
 ```{toctree}
 README
@@ -20,7 +21,7 @@ README
 
 ## MetalLB deployment
 
-1. Create `networking`{l=yaml} namespace.
+1. Create `networking`{l=yaml} namespace[^metallb-install].
 
    ```{code-block} shell
    kubectl create ns networking
@@ -89,3 +90,6 @@ charts/frr-k8s/README
 charts/frr-k8s/charts/crds/README
 README
 ```
+
+[^metallb-install]: You can find the official install guide on the
+    [metallb webiste](https://metallb.io/installation/).
