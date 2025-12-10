@@ -11,15 +11,15 @@ global:
   images:
     envoyGateway:
       # This is the full image name including the hub, repo, and tag.
-      image: ${GatewayImage}
+      image: docker.io/envoyproxy/gateway:v1.6.1
       # Specify image pull policy if default behavior isn't desired.
       # Default behavior: latest images will be Always else IfNotPresent.
-      pullPolicy: ${GatewayImagePullPolicy}
+      pullPolicy: IfNotPresent
       # List of secrets in the same namespace of the component that can be used to pull images from private repositories.
       pullSecrets: []
     ratelimit:
       # This is the full image name including the hub, repo, and tag.
-      image: "docker.io/envoyproxy/ratelimit:master"
+      image: "docker.io/envoyproxy/ratelimit:99d85510"
       # Specify image pull policy if default behavior isn't desired.
       # Default behavior: latest images will be Always else IfNotPresent.
       pullPolicy: IfNotPresent
@@ -49,7 +49,7 @@ deployment:
       allowPrivilegeEscalation: false
       capabilities:
         drop:
-          - ALL
+        - ALL
       privileged: false
       runAsNonRoot: true
       runAsGroup: 65532
@@ -74,8 +74,8 @@ deployment:
   pod:
     affinity: {}
     annotations:
-      prometheus.io/scrape: "true"
-      prometheus.io/port: "19001"
+      prometheus.io/scrape: 'true'
+      prometheus.io/port: '19001'
     labels: {}
     topologySpreadConstraints: []
     tolerations: []
@@ -95,7 +95,7 @@ hpa:
   behavior: {}
 
 config:
-  # -- EnvoyGateway configuration. Visit https://gateway.envoyproxy.io/docs/api/extension_types/#envoygateway to view all options.
+# -- EnvoyGateway configuration. Visit https://gateway.envoyproxy.io/docs/api/extension_types/#envoygateway to view all options.
   envoyGateway:
     gateway:
       controllerName: gateway.envoyproxy.io/gatewayclass-controller
@@ -127,7 +127,7 @@ certgen:
       allowPrivilegeEscalation: false
       capabilities:
         drop:
-          - ALL
+        - ALL
       privileged: false
       readOnlyRootFilesystem: true
       runAsNonRoot: true
