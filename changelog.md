@@ -6,12 +6,15 @@ email: xandertheharris@gmail.com
 date: 2025-09-07
 title: Breeze Blocks Helm Repository Changelog
 ---
+<!--markdownlint-disable-->
+## [unreleased]
 
+### 💼 Other - [unreleased]
+- Update changelog
+- Closes #129
 ## [0.0.3] - 2025-12-10
 
 ### 💼 Other - 0.0.3
-
-
 - Merge branch 'main' into 77-bump-jinja2-from-314-to-315-in-the-pip-group-across-1-directory
 - Merge pull request #78 from edwardtheharris/77-bump-jinja2-from-314-to-315-in-the-pip-group-across-1-directory
 - 77 bump jinja2 from 314 to 315 in the pip group across 1 directory
@@ -520,8 +523,6 @@ title: Breeze Blocks Helm Repository Changelog
 ## [0.0.2] - 2025-09-07
 
 ### 💼 Other - 0.0.2
-
-
 - Add apparently working loki
 - Closes #69
 - Merge pull request #70 from edwardtheharris/69-provide-working-loki
@@ -611,8 +612,6 @@ title: Breeze Blocks Helm Repository Changelog
 ## [redis-0.0.4] - 2024-10-05
 
 ### 💼 Other - redis-0.0.4
-
-
 - Update index.yaml
 - Edwardtheharris <edwardtheharris@users.noreply.github.com>
 - Add 0.0.2 charts for release
@@ -696,8 +695,6 @@ title: Breeze Blocks Helm Repository Changelog
 ## [nautobot-0.0.2] - 2024-08-16
 
 ### 💼 Other - nautobot-0.0.2
-
-
 - Add 0.0.2 charts
 - Closes #39
 - Update index.yaml
@@ -714,8 +711,6 @@ title: Breeze Blocks Helm Repository Changelog
 ## [nautobot-0.0.1] - 2024-08-16
 
 ### 💼 Other - nautobot-0.0.1
-
-
 - Update index.yaml
 - Edwardtheharris <edwardtheharris@users.noreply.github.com>
 - Update lvm
@@ -798,8 +793,6 @@ title: Breeze Blocks Helm Repository Changelog
 ## [storage-0.0.2] - 2024-07-28
 
 ### 💼 Other - storage-0.0.2
-
-
 - Update index.yaml
 - Edwardtheharris <edwardtheharris@users.noreply.github.com>
 - Update release
@@ -825,8 +818,6 @@ title: Breeze Blocks Helm Repository Changelog
 ## [storage-0.0.1] - 2024-07-27
 
 ### 💼 Other - storage-0.0.1
-
-
 - Initial commit
 - Add workflows
 - Closes #1
