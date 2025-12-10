@@ -97,8 +97,11 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-python@main
         with:
-          python-version: 3.11
-          cache: poetry
+          python-version: 3.12
+      - name: install direnv
+        run: apt-get update; apt-get install -y direnv
+      - name: Create virtualenv
+        run: python3.12 -m venv ../.3.12
       - name: Setup pages
         uses: actions/configure-pages@main
       - name: Install poetry
