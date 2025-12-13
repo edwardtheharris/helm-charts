@@ -104,7 +104,8 @@ config:
     logging:
       level:
         default: info
-    extensionApis: {}
+    extensionApis:
+      enableBackend: true
 
 createNamespace: false
 

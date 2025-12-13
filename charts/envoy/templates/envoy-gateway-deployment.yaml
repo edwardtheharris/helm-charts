@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: envoy-gateway
+  name: {{ .Release.Name }}
   namespace: '{{ .Release.Namespace }}'
   {{- with .Values.deployment.annotations }}
   annotations:
