@@ -57,6 +57,9 @@ deployment:
       seccompProfile:
         type: RuntimeDefault
   ports:
+    - name: grafana
+      port: 3000
+      targetPort: 3000
     - name: grpc
       port: 18000
       targetPort: 18000
