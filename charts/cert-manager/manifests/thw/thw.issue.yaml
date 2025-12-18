@@ -1,25 +1,25 @@
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
-  name: thw-int
+  name: thw-svc-int-ca
   namespace: cert-manager
 spec:
   ca:
-    secretName: thw-ca-tls
+    secretName: thw-svc-int-ca-tls
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: thw-int
+  name: thw-svc-int
   namespace: cert-manager
 spec:
   isCA: true
   commonName: int.thw.net
-  secretName: thw-int-tls
+  secretName: thw-svc-int-tls
   privateKey:
     algorithm: ECDSA
     size: 256
   issuerRef:
-    name: thw-ca
+    name: thw-svc-int-ca
     kind: ClusterIssuer
     group: cert-manager.io
