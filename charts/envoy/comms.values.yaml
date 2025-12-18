@@ -106,8 +106,9 @@ config:
       type: Kubernetes
     logging:
       level:
-        default: info
-    extensionApis: {}
+        default: debug
+    extensionApis:
+      enableBackend: true
 
 createNamespace: false
 
