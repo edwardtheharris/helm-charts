@@ -1,0 +1,54 @@
+certgen:
+  job:
+    annotations:
+      app.kubernetes.io/name: envoy-gateway
+    args:
+      - --disable-topology-injector
+    pod:
+      labels:
+        app.kubernetes.io/name: envoy-gateway
+  rbac:
+    labels:
+        app.kubernetes.io/name: envoy-gateway
+config:
+  envoyGateway:
+    provider:
+      type: Kubernetes
+createNamespace: false
+deployment:
+  pod:
+    annotations:
+      app.kubernetes.io/name: envoy-gateway
+  envoyGateway:
+    image:
+      repository: docker.io/envoyproxy/gateway
+      tag: v1.6.1
+  ports:
+    - name: grpc
+      port: 18000
+      targetPort: 18000
+    - name: ratelimit
+      port: 18001
+      targetPort: 18001
+    - name: wasm
+      port: 18002
+      targetPort: 18002
+    - name: metrics
+      port: 19001
+      targetPort: 19001
+global:
+  imageRegistry: "" # docker.io/envoyproxy
+  images:
+    envoyGateway:
+      image: docker.io/envoyproxy/gateway:v1.6.1
+    ratelimit:
+      image: docker.io/envoyproxy/ratelimit:99d85510
+hpa:
+  enabled: false
+kubernetesClusterDomain: cluster.local
+podDisruptionBudget:
+  minAvailable: 1
+service:
+  type: LoadBalancer
+topologyInjector:
+  enabled: false
