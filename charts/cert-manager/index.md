@@ -5,8 +5,12 @@ authors:
    - name: Xander Harris
      email: xandertheharris@gmail.com
 date: 2024-07-30
-title: Cert Manager Helm Chart Values
+title: Cert Manager Helm Chart Docs
 ---
+
+```{toctree}
+crds/index
+```
 
 This folder contains a values file to deploy the Cert Manager Helm
 Chart along with a JSON schema file generated from that values file.
