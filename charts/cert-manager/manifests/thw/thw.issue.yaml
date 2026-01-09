@@ -5,7 +5,7 @@ metadata:
   namespace: cert-manager
 spec:
   ca:
-    secretName: thw-svc-int-ca-tls
+    secretName: thw-svc-ca-tls
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
@@ -14,7 +14,7 @@ metadata:
   namespace: cert-manager
 spec:
   isCA: true
-  commonName: int.thw.net
+  commonName: thw-int.breeze-blocks.net
   secretName: thw-svc-int-tls
   privateKey:
     algorithm: ECDSA
