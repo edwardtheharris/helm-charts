@@ -7,17 +7,18 @@ title: Cert Manager CRDs
 ---
 
 To deal with the end of support for Ingress NGINX,
-we need to use [Annotated Gateway resources](https://cert-manager.io/docs/usage/gateway/)
-instead of [Annotated Ingress resources](https://cert-manager.io/docs/usage/ingress/).
+we need to use
+[Annotated Gateway resources](https://cert-manager.io/docs/usage/gateway/)
+instead of
+[Annotated Ingress resources](https://cert-manager.io/docs/usage/ingress/).
 This requires a few additional steps when installing
 cert-manager.
 
-1. Install the API Gateway Bundle.
+1. Install the API Gateway Bundle.[^source]
 
    ```{code-block} shell
-   kubectl apply -f "https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.0.0/standard-install.yaml"
+   kubectl apply -f crds/standard-install.yaml
    ```
-
 
 2. Add the following configuration to your values.
 
@@ -40,3 +41,7 @@ cert-manager.
    annotations:
      cert-manager.io/cluster-issuer: your-cluster-issuer
    ```
+
+[^source]:
+  The original source is available
+  [on GitHub](https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.0.0/standard-install.yaml)
