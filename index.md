@@ -19,8 +19,8 @@ publicly in case someone else has similar purposes.
 :glob:
 :maxdepth: 2
 
-charts/ingress-nginx/index
 charts/cert-manager/index
+charts/envoy/index
 charts/flannel/index
 charts/grafana/index
 charts/ipfs/index
