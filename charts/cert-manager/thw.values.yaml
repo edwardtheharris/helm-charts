@@ -19,8 +19,8 @@ global:
   # For more information, see the [cert-manager documentation](https://cert-manager.io/docs/reference/api-docs/#acme.cert-manager.io/v1.ACMEChallengeSolverHTTP01Ingress).
   # For example, secretTemplate in CertificateSpec
   # For more information, see the [cert-manager documentation](https://cert-manager.io/docs/reference/api-docs/#cert-manager.io/v1.CertificateSpec).
-  commonLabels: {}
-  # app.kubernetes.io/name: cert-manager
+  commonLabels:
+    # app.kubernetes.io/name: cert-manager
 
   # The number of old ReplicaSets to retain to allow rollback (if not set, the default Kubernetes value is set to 10).
   # +docs:property
@@ -82,7 +82,7 @@ crds:
   # the CRD when the Helm release is uninstalled.
   # WARNING: when the CRDs are removed, all cert-manager custom resources
   # (Certificates, Issuers, ...) will be removed too by the garbage collector.
-  keep: false
+  keep: true
 
 # +docs:section=Controller
 
@@ -203,7 +203,6 @@ enableCertificateOwnerRef: true
 config:
   apiVersion: controller.config.cert-manager.io/v1alpha1
   kind: ControllerConfiguration
-  enableGatewayAPI: true
   logging:
     verbosity: 2
     format: text
@@ -237,7 +236,7 @@ config:
 # For more information, see the [cert-manager documentation](https://cert-manager.io/docs/configuration/acme/dns01/#setting-nameservers-for-dns01-self-check).
 
 # A comma-separated string with the host and port of the recursive nameservers cert-manager should query.
-dns01RecursiveNameservers: "192.168.5.3:53,192.168.5.4:53"
+dns01RecursiveNameservers: "192.168.5.5:53,192.168.5.7:53"
 
 # Forces cert-manager to use only the recursive nameservers for verification.
 # Enabling this option could cause the DNS01 self check to take longer owing to caching performed by the recursive nameservers.
@@ -351,10 +350,10 @@ podLabels: {}
 # settings. However, when a Pod's dnsPolicy is set to "None", the dnsConfig field has to be specified.
 # For more information, see [Pod's DNS Config](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#pod-dns-config).
 # +docs:property
-# podDnsConfig:
-#   nameservers:
-#     - "1.1.1.1"
-#     - "8.8.8.8"
+podDnsConfig:
+  nameservers:
+    - "192.168.5.5"
+    - "8.8.8.8"
 
 # Optional hostAliases for cert-manager-controller pods. May be useful when performing ACME DNS-01 self checks.
 hostAliases: []
