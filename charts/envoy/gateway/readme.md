@@ -12,10 +12,19 @@ title: gateway-helm
 
 ## Maintainers
 
-| Name | Email | Url |
-| ---- | ------ | --- |
-| envoy-gateway-steering-committee |  | <https://github.com/envoyproxy/gateway/blob/main/GOVERNANCE.md> |
-| envoy-gateway-maintainers |  | <https://github.com/envoyproxy/gateway/blob/main/CODEOWNERS> |
+```{list-table}
+:header-rows: 1
+
+- * Name 
+  * Email 
+  * Url 
+- * envoy-gateway-steering-committee 
+  * none given 
+  * [governance](https://github.com/envoyproxy/gateway/blob/main/GOVERNANCE.md)
+- * envoy-gateway-maintainers 
+  * none given
+  * [code owners](https://github.com/envoyproxy/gateway/blob/main/CODEOWNERS)
+```
 
 ## Source Code
 
