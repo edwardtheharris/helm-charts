@@ -1,8 +1,12 @@
-# gateway-helm
+---
+abstract: The Helm chart for Envoy Gateway
+date: 2026-01-09
+title: gateway-helm
+---
 
-![Version: v0.0.0-latest](https://img.shields.io/badge/Version-v0.0.0--latest-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
-
-The Helm chart for Envoy Gateway
+![Version: v0.0.0-latest](https://img.shields.io/badge/Version-v0.0.0--latest-informational?style=flat-square)
+![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 **Homepage:** <https://gateway.envoyproxy.io/>
 
@@ -26,9 +30,10 @@ Please refer to Helm's [documentation](https://helm.sh/docs) to get started.
 
 Once Helm has been set up correctly, install the chart from dockerhub:
 
-``` shell
+```{code-block} shell
 helm install eg oci://docker.io/envoyproxy/gateway-helm --version v0.0.0-latest -n envoy-gateway-system --create-namespace
 ```
+
 You can find all helm chart release in [Dockerhub](https://hub.docker.com/r/envoyproxy/gateway-helm/tags)
 
 ### Install from Source Code
@@ -43,10 +48,13 @@ make kube-deploy TAG=latest
 
 ### Skip install CRDs
 
-You can install the eg chart along without Gateway API CRDs and Envoy Gateway CRDs, make sure CRDs exist in Cluster first if you want to skip to install them, otherwise EG may fail to start:
+You can install the eg chart along without Gateway API CRDs and Envoy Gateway
+CRDs, make sure CRDs exist in Cluster first if you want to skip to install
+them, otherwise EG may fail to start:
 
-``` shell
-helm install eg --create-namespace oci://docker.io/envoyproxy/gateway-helm --version v0.0.0-latest -n envoy-gateway-system --skip-crds
+```{code-block} shell
+helm install eg --create-namespace oci://docker.io/envoyproxy/gateway-helm \
+  --version v0.0.0-latest -n envoy-gateway-system --skip-crds
 ```
 
 To uninstall the chart:
@@ -57,6 +65,7 @@ helm uninstall eg -n envoy-gateway-system
 
 ## Values
 
+<!--markdownlint-disable-->
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | certgen | object | `{"job":{"affinity":{},"annotations":{},"args":[],"nodeSelector":{},"pod":{"annotations":{},"labels":{}},"resources":{},"securityContext":{"allowPrivilegeEscalation":false,"capabilities":{"drop":["ALL"]},"privileged":false,"readOnlyRootFilesystem":true,"runAsGroup":65532,"runAsNonRoot":true,"runAsUser":65532,"seccompProfile":{"type":"RuntimeDefault"}},"tolerations":[],"ttlSecondsAfterFinished":30},"rbac":{"annotations":{},"labels":{}}}` | Certgen is used to generate the certificates required by EnvoyGateway. If you want to construct a custom certificate, you can generate a custom certificate through Cert-Manager before installing EnvoyGateway. Certgen will not overwrite the custom certificate. Please do not manually modify `values.yaml` to disable certgen, it may cause EnvoyGateway OIDC,OAuth2,etc. to not work as expected. |
@@ -118,4 +127,3 @@ helm uninstall eg -n envoy-gateway-system
 | service.type | string | `"ClusterIP"` | Service type. Can be set to LoadBalancer with specific IP, e.g.: type: LoadBalancer loadBalancerIP: 10.236.90.20 |
 | topologyInjector.annotations | object | `{}` |  |
 | topologyInjector.enabled | bool | `true` |  |
-
