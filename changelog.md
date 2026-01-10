@@ -7,12 +7,7 @@ date: 2025-09-07
 title: Breeze Blocks Helm Repository Changelog
 ---
 <!--markdownlint-disable-->
-## [unreleased]
-
-### 💼 Other - [unreleased]
-- Update changelog
-- Closes #129
-## [0.0.3] - 2025-12-10
+## [0.0.3] - 2026-01-10
 
 ### 💼 Other - 0.0.3
 - Merge branch 'main' into 77-bump-jinja2-from-314-to-315-in-the-pip-group-across-1-directory
@@ -520,6 +515,111 @@ title: Breeze Blocks Helm Repository Changelog
 - Merge pull request #128 from edwardtheharris/111-add-argocd-ca
 - 111 add argocd ca
 - Closes #111
+- Update changelog
+- Closes #129
+- Update changelog, config
+- Closes #129
+- Merge pull request #130 from edwardtheharris/129-release-003
+- Update changelog
+- Closes #129
+- Bump urllib3 from 2.6.1 to 2.6.3 in the pip group across 1 directory
+- Bumps the pip group with 1 update in the / directory: [urllib3](https://github.com/urllib3/urllib3).
+- Updates `urllib3` from 2.6.1 to 2.6.3
+- - [Release notes](https://github.com/urllib3/urllib3/releases)
+- - [Changelog](https://github.com/urllib3/urllib3/blob/main/CHANGES.rst)
+- - [Commits](https://github.com/urllib3/urllib3/compare/2.6.1...2.6.3)
+- ---
+- Updated-dependencies:
+- - dependency-name: urllib3
+-   dependency-version: 2.6.3
+-   dependency-type: indirect
+-   dependency-group: pip
+- ...
+- Dependabot[bot] <support@github.com>
+- Merge pull request #132 from edwardtheharris/dependabot/pip/pip-8177a8837a
+- Bump urllib3 from 2.6.1 to 2.6.3 in the pip group across 1 directory
+- Closes #135
+- Drop ipfs
+- Closes #127
+- Drop vault storage classes
+- Closes #127
+- Add index md
+- Closes #127
+- Add envoy gateway, drop ingress-nginx
+- Closes #127
+- Pull chart from repo
+- Closes #127
+- Update values
+- Closes #127
+- Merge branch 'main' of
+- Edwardtheharris/helm-charts into 127-replace-ingress-nginx-with-envoy
+- Closes #127
+- Merge branch '127-replace-ingress-nginx-with-envoy' of
+- Edwardtheharris/helm-charts into 127-replace-ingress-nginx-with-envoy
+- Closes #127
+- Update envoy settings
+- Closes #127
+- Update chart whitespace
+- Closes #127
+- Update comms
+- Closes #127
+- Merge branch '127-replace-ingress-nginx-with-envoy' of
+- Edwardtheharris/helm-charts into 127-replace-ingress-nginx-with-envoy
+- Closes #127
+- Update trailing spaces
+- Closes #127
+- Drop service account
+- Closes #127
+- Update values
+- Closes #127
+- Add Dockerfile
+- Closes #127
+- Replace ingress-nginx for migration
+- Closes #127
+- Update values
+- Closes #127
+- Update bootstrap values
+- Closes #127
+- Update the issue manifest
+- Closes #127
+- Upgrade cert manager with Gateway support
+- Closes #133
+- Add values for thw
+- Closes #133
+- Enable Gateway API support
+- Closes #133
+- Merge pull request #134 from edwardtheharris/133-enable-gateway-support-in-cert-manager
+- 133 enable gateway support in cert manager
+- Closes #133
+- Drop old ingress nginx
+- Closes #127
+- Add gateway and gateway-crds install
+- Closes #127
+- Fix index file
+- Closes #127
+- Update docs
+- Closes #127
+- Update index
+- Closes #127
+- Update readme
+- Closes #127
+- Fix readme
+- Closes #127
+- Fix readme harder
+- Closes #127
+- Update action
+- Closes #127
+- Fix readme almost as hard as I can
+- Closes #127
+- Fix readme as hard as I can
+- Closes #127
+- Merge pull request #131 from edwardtheharris/127-replace-ingress-nginx-with-envoy
+- 127 replace ingress nginx with envoy
+- Closes #127
+- Merge branch 'main' into 135-bump-urllib3-from-261-to-263-in-the-pip-group-across-1-directory-132
+- Merge pull request #136 from edwardtheharris/135-bump-urllib3-from-261-to-263-in-the-pip-group-across-1-directory-132
+- 135 bump urllib3 from 261 to 263 in the pip group across 1 directory 132
+- Closes #135
 ## [0.0.2] - 2025-09-07
 
 ### 💼 Other - 0.0.2
