@@ -4,7 +4,9 @@ date: 2026-01-09
 title: gateway-crds-helm
 ---
 
-![Version: v0.0.0-latest](https://img.shields.io/badge/Version-v0.0.0--latest-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: v0.0.0-latest](https://img.shields.io/badge/Version-v0.0.0--latest-informational?style=flat-square)
+![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 A Helm chart for Envoy Gateway CRDs
 
@@ -13,8 +15,9 @@ A Helm chart for Envoy Gateway CRDs
 ## Maintainers
 
 ```{list-table}
-```
-```
+```{list-table}
+:header-rows: 1
+
 - * Name
   * Email
   * URL
@@ -72,4 +75,3 @@ helm template eg-crds oci://docker.io/envoyproxy/gateway-crds-helm \
 | crds.envoyGateway.enabled | bool | `false` |  |
 | crds.gatewayAPI.channel | string | `"experimental"` |  |
 | crds.gatewayAPI.enabled | bool | `false` |  |
-
