@@ -1,4 +1,8 @@
-# gateway-crds-helm
+---
+abstract: Envoy Gateway CRDs Helm chart readme
+date: 2026-01-09
+title: gateway-crds-helm
+---
 
 ![Version: v0.0.0-latest](https://img.shields.io/badge/Version-v0.0.0--latest-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
@@ -8,22 +12,33 @@ A Helm chart for Envoy Gateway CRDs
 
 ## Maintainers
 
-| Name | Email | Url |
-| ---- | ------ | --- |
-| envoy-gateway-steering-committee |  | <https://github.com/envoyproxy/gateway/blob/main/GOVERNANCE.md> |
-| envoy-gateway-maintainers |  | <https://github.com/envoyproxy/gateway/blob/main/CODEOWNERS> |
+```{list-table}
+```
+```
+- * Name
+  * Email
+  * URL
+- * envoy-gateway-steering-committee
+  * none given
+  * [governance](https://github.com/envoyproxy/gateway/blob/main/GOVERNANCE.md)
+- * envoy-gateway-maintainers
+  * none given
+  * [code owners](https://github.com/envoyproxy/gateway/blob/main/CODEOWNERS)
+```
 
 ## Source Code
 
-* <https://github.com/envoyproxy/gateway>
+* [envoyproxy/gateway](https://github.com/envoyproxy/gateway)
 
 ## Usage
 
 [Helm](https://helm.sh) must be installed to use the charts.
 Please refer to Helm's [documentation](https://helm.sh/docs) to get started.
 
-If you want to manage the CRDs outside of the Envoy Gateway Helm chart, you can use this chart to install the CRDs separately.
-If you do, make sure that you don't install the CRDs again when installing the Envoy Gateway Helm chart, by using `--skip-crds` flag.
+If you want to manage the CRDs outside of the Envoy Gateway Helm chart, you
+can use this chart to install the CRDs separately.
+If you do, make sure that you don't install the CRDs again when installing the
+Envoy Gateway Helm chart, by using `--skip-crds` flag.
 
 ### Install from DockerHub
 
@@ -34,8 +49,12 @@ helm template eg-crds oci://docker.io/envoyproxy/gateway-crds-helm \
     --version v0.0.0-latest | kubectl apply --server-side -f -
 ```
 
-**Note**: We're using `helm template` piped into `kubectl apply` instead of `helm install` due to a [known Helm limitation](https://github.com/helm/helm/pull/12277)
+```{note}
+We're using `helm template` piped into `kubectl apply`
+instead of `helm install` due to a
+[known Helm limitation](https://github.com/helm/helm/pull/12277)
 related to large CRDs in the `templates/` directory.
+```
 
 You can find all helm chart release in [Dockerhub](https://hub.docker.com/r/envoyproxy/gateway-crds-helm/tags)
 
