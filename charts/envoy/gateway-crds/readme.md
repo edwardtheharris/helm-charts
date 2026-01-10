@@ -70,6 +70,7 @@ helm template eg-crds oci://docker.io/envoyproxy/gateway-crds-helm \
 
 ## Values
 
+<!--markdownlint-disable-->
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | crds.envoyGateway.enabled | bool | `false` |  |
