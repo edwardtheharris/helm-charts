@@ -1,8 +1,0 @@
-apiVersion: v2
-description: Run ipfs cluster along with kubo (go-ipfs)
-maintainers:
-- email: rafael@skyle.net
-  name: skylenet
-name: ipfs-cluster
-type: application
-version: 0.1.14

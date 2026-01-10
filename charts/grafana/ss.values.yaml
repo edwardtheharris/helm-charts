@@ -143,7 +143,7 @@ dnsConfig:
     - 192.168.5.7
   options:
     - name: ndots
-      value: "2"
+      value: "4"
     - name: edns0
 
 securityContext:
@@ -582,7 +582,7 @@ extraSecretMounts:
   - name: postgresql
     mountPath: /etc/secrets
     defaultMode: 0440
-    secretName: postgresql-grafana
+    secretName: grafana-postgres
     readOnly: true
     optional: false
     subPath: ""
@@ -885,7 +885,7 @@ grafana.ini:
     enforce_domain: true
   database:
     type: postgres
-    host: postgresql.postgresql:5432
+    host: postgres.database.svc.cluster.local:5432
     name: grafana
     user: grafana
     password: $__file{/etc/secrets/password}
