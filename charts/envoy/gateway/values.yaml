@@ -9,7 +9,7 @@ certgen:
         app.kubernetes.io/name: envoy-gateway
   rbac:
     labels:
-        app.kubernetes.io/name: envoy-gateway
+      app.kubernetes.io/name: envoy-gateway
 config:
   envoyGateway:
     provider:
