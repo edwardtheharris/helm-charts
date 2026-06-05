@@ -1,0 +1,16 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+pre-commit = "*"
+sphinx = "*"
+sphinx-copybutton = "*"
+myst-parser = {extras = ["linkify"], version = "*"}
+sphinx-autobuild = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.14"
