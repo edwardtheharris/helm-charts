@@ -1,0 +1,61 @@
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  labels:
+    app.kubernetes.io/name: {{ .Release.Name }}
+  name: {{ .Release.Name }}-ca-issuer
+  namespace: {{ .Release.Namespace }}
+spec:
+  selfSigned: {}
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: {{ .Release.Name }}-ca
+  namespace: {{ .Release.Namespace }}
+spec:
+  isCA: true
+  commonName: {{ .Release.Name }}
+  secretName: {{ .Release.Name }}-ca-tls
+  privateKey:
+    algorithm: RSA
+    size: 2048
+  issuerRef:
+    name: {{ .Release.Name }}-ca-issuer
+    kind: Issuer
+    group: cert-manager.io
+---
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  labels:
+    app.kubernetes.io/name: {{ .Release.Name }}
+  name: {{ .Release.Name }}-issuer
+  namespace: {{ .Release.Namespace }}
+spec:
+  ca:
+    secretName: {{ .Release.Name }}-ca-tls
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  labels:
+    app.kubernetes.io/name: {{ .Release.Name }}
+  name: {{ .Release.Name }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  commonName: {{ .Release.Name }}
+  dnsNames:
+  - "envoy-gateway"
+  - "envoy-gateway.envoy-gateway-system"
+  - "envoy-gateway.envoy-gateway-system.svc"
+  - "envoy-gateway.envoy-gateway-system.svc.cluster.local"
+  issuerRef:
+    kind: Issuer
+    name: eg-issuer
+  usages:
+  - "digital signature"
+  - "data encipherment"
+  - "key encipherment"
+  - "content commitment"
+  secretName: {{ .Release.Name }}-tls
