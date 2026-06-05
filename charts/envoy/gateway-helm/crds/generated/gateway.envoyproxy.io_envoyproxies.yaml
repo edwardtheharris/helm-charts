@@ -283,11 +283,15 @@ spec:
                   If unspecified, the default filter order is applied.
                   Default filter order is:
 
+                  - envoy.filters.http.custom_response
+
                   - envoy.filters.http.health_check
 
                   - envoy.filters.http.fault
 
                   - envoy.filters.http.cors
+
+                  - envoy.filters.http.header_mutation
 
                   - envoy.filters.http.ext_authz
 
@@ -319,8 +323,6 @@ spec:
 
                   - envoy.filters.http.grpc_stats
 
-                  - envoy.filters.http.custom_response
-
                   - envoy.filters.http.credential_injector
 
                   - envoy.filters.http.compressor
@@ -339,9 +341,11 @@ spec:
                         After defines the filter that should come after the filter.
                         Only one of Before or After must be set.
                       enum:
+                      - envoy.filters.http.custom_response
                       - envoy.filters.http.health_check
                       - envoy.filters.http.fault
                       - envoy.filters.http.cors
+                      - envoy.filters.http.header_mutation
                       - envoy.filters.http.ext_authz
                       - envoy.filters.http.api_key_auth
                       - envoy.filters.http.basic_auth
@@ -357,7 +361,6 @@ spec:
                       - envoy.filters.http.ratelimit
                       - envoy.filters.http.grpc_web
                       - envoy.filters.http.grpc_stats
-                      - envoy.filters.http.custom_response
                       - envoy.filters.http.credential_injector
                       - envoy.filters.http.compressor
                       - envoy.filters.http.dynamic_forward_proxy
@@ -367,9 +370,11 @@ spec:
                         Before defines the filter that should come before the filter.
                         Only one of Before or After must be set.
                       enum:
+                      - envoy.filters.http.custom_response
                       - envoy.filters.http.health_check
                       - envoy.filters.http.fault
                       - envoy.filters.http.cors
+                      - envoy.filters.http.header_mutation
                       - envoy.filters.http.ext_authz
                       - envoy.filters.http.api_key_auth
                       - envoy.filters.http.basic_auth
@@ -385,7 +390,6 @@ spec:
                       - envoy.filters.http.ratelimit
                       - envoy.filters.http.grpc_web
                       - envoy.filters.http.grpc_stats
-                      - envoy.filters.http.custom_response
                       - envoy.filters.http.credential_injector
                       - envoy.filters.http.compressor
                       - envoy.filters.http.dynamic_forward_proxy
@@ -393,9 +397,11 @@ spec:
                     name:
                       description: Name of the filter.
                       enum:
+                      - envoy.filters.http.custom_response
                       - envoy.filters.http.health_check
                       - envoy.filters.http.fault
                       - envoy.filters.http.cors
+                      - envoy.filters.http.header_mutation
                       - envoy.filters.http.ext_authz
                       - envoy.filters.http.api_key_auth
                       - envoy.filters.http.basic_auth
@@ -411,7 +417,6 @@ spec:
                       - envoy.filters.http.ratelimit
                       - envoy.filters.http.grpc_web
                       - envoy.filters.http.grpc_stats
-                      - envoy.filters.http.custom_response
                       - envoy.filters.http.credential_injector
                       - envoy.filters.http.compressor
                       - envoy.filters.http.dynamic_forward_proxy
@@ -470,6 +475,7 @@ spec:
                   Default: Strict
                 enum:
                 - Strict
+                - InsecureSyntax
                 - Disabled
                 type: string
               mergeGateways:
@@ -13551,12 +13557,21 @@ spec:
                                         format: int32
                                         minimum: 0
                                         type: integer
+                                      resourceAttributes:
+                                        additionalProperties:
+                                          type: string
+                                        description: |-
+                                          ResourceAttributes is a set of labels that describe the source of a log entry, including envoy node info.
+                                          It's recommended to follow [semantic conventions](https://opentelemetry.io/docs/reference/specification/resource/semantic_conventions/).
+                                        type: object
                                       resources:
                                         additionalProperties:
                                           type: string
                                         description: |-
                                           Resources is a set of labels that describe the source of a log entry, including envoy node info.
                                           It's recommended to follow [semantic conventions](https://opentelemetry.io/docs/reference/specification/resource/semantic_conventions/).
+
+                                          Deprecated: Use ResourceAttributes instead.
                                         type: object
                                     type: object
                                     x-kubernetes-validations:
@@ -13576,6 +13591,9 @@ spec:
                                       rule: 'has(self.backendRefs) ? (self.backendRefs.all(f,
                                         f.group == "" || f.group == ''gateway.envoyproxy.io''))
                                         : true'
+                                    - message: either resources or resourceAttributes
+                                        can be set, not both
+                                      rule: '!has(self.resources) || !has(self.resourceAttributes)'
                                   type:
                                     description: Type defines the type of accesslog
                                       sink.
@@ -13700,6 +13718,20 @@ spec:
                               gzip:
                                 description: The configuration for GZIP compressor.
                                 type: object
+                              minContentLength:
+                                allOf:
+                                - pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                                - pattern: ^[1-9]+[0-9]*([EPTGMK]i|[EPTGMk])?$
+                                anyOf:
+                                - type: integer
+                                - type: string
+                                description: |-
+                                  MinContentLength defines the minimum response size in bytes to apply compression.
+                                  Responses smaller than this threshold will not be compressed.
+                                  Must be at least 30 bytes as enforced by Envoy Proxy.
+                                  Note that when the suffix is not provided, the value is interpreted as bytes.
+                                  Default: 30 bytes
+                                x-kubernetes-int-or-string: true
                               type:
                                 description: CompressorType defines the compressor
                                   type to use for compression.
@@ -14926,6 +14958,13 @@ spec:
                                     histograms as delta temporality instead of cumulative.
                                     Required for backends like Elastic that drop cumulative histograms.
                                   type: boolean
+                                resourceAttributes:
+                                  additionalProperties:
+                                    type: string
+                                  description: |-
+                                    ResourceAttributes is a set of labels that describe the source of metrics.
+                                    It's recommended to follow semantic conventions: https://opentelemetry.io/docs/reference/specification/resource/semantic_conventions/
+                                  type: object
                               type: object
                               x-kubernetes-validations:
                               - message: host or backendRefs needs to be set
@@ -14962,6 +15001,25 @@ spec:
                               : !has(self.openTelemetry)'
                         maxItems: 16
                         type: array
+                    type: object
+                  requestID:
+                    description: RequestID configures Envoy request ID behavior.
+                    properties:
+                      tracing:
+                        description: |-
+                          Tracing configures Envoy's behavior for the UUID request ID extension,
+                          including whether the trace sampling decision is packed into the UUID and
+                          whether `X-Request-ID` is used for trace sampling decisions.
+
+                          When omitted, the default behavior is `PackAndSample`, which alters the UUID
+                          to contain the trace sampling decision and uses `X-Request-ID` for stable
+                          trace sampling.
+                        enum:
+                        - PackAndSample
+                        - Sample
+                        - Pack
+                        - Disable
+                        type: string
                     type: object
                   tracing:
                     description: |-
@@ -15029,6 +15087,8 @@ spec:
                         description: |-
                           CustomTags defines the custom tags to add to each span.
                           If provider is kubernetes, pod name and namespace are added by default.
+
+                          Deprecated: Use Tags instead.
                         type: object
                       provider:
                         description: Provider defines the tracing provider.
@@ -16200,6 +16260,13 @@ spec:
                                 maxItems: 32
                                 minItems: 1
                                 type: array
+                              resourceAttributes:
+                                additionalProperties:
+                                  type: string
+                                description: |-
+                                  ResourceAttributes is a set of labels that describe the source of traces.
+                                  It's recommended to follow semantic conventions: https://opentelemetry.io/docs/reference/specification/resource/semantic_conventions/
+                                type: object
                             type: object
                           port:
                             default: 4317
@@ -16268,9 +16335,6 @@ spec:
                         description: |-
                           SamplingFraction represents the fraction of requests that should be
                           selected for tracing if no prior sampling decision has been made.
-
-                          Only one of SamplingRate or SamplingFraction may be specified.
-                          If neither field is specified, all requests will be sampled.
                         properties:
                           denominator:
                             default: 100
@@ -16299,6 +16363,28 @@ spec:
                         maximum: 100
                         minimum: 0
                         type: integer
+                      spanName:
+                        description: |-
+                          SpanName defines the name of the span which will be used for tracing.
+                          Envoy [command operators](https://www.envoyproxy.io/docs/envoy/latest/configuration/observability/access_log/usage#command-operators) may be used in the value.
+                          The [format string documentation](https://www.envoyproxy.io/docs/envoy/latest/configuration/observability/access_log/usage#config-access-log-format-strings) provides more information.
+
+                          If not set, the span name is provider specific.
+                          e.g. Datadog use `ingress` as the default client span name,
+                          and `router <UPSTREAM_CLUSTER> egress` as the server span name.
+                        properties:
+                          client:
+                            description: Client defines operation name of the span
+                              which will be used for tracing.
+                            type: string
+                          server:
+                            description: Server defines the operation name of the
+                              upstream span which will be used for tracing.
+                            type: string
+                        required:
+                        - client
+                        - server
+                        type: object
                       tags:
                         additionalProperties:
                           type: string
