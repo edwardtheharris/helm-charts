@@ -59,7 +59,6 @@ extensions = [
     "myst_parser",
     "sphinx.ext.autodoc",
     "sphinx.ext.githubpages",
-    "sphinxcontrib.autoyaml",
     "sphinx_copybutton",
 ]
 
