@@ -1,0 +1,7 @@
+apiVersion: v2
+appVersion: 2.19.1
+description: The community-supported AWX Operator Helm Chart
+name: awx-operator
+type: application
+icon: https://opengraph.githubassets.com/391ee797b2aa67f881dccc608e9a4513282d07705730fbc61eed76044e335a88/ansible-community/awx-operator-helm
+version: 3.2.0
