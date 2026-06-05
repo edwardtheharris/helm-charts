@@ -1,0 +1,12 @@
+# This file contains the base resources that the docs/user/HTTP_ROUTING.md guide relies on.
+# This includes a GatewayClass, Gateway, Services and Deployments that are used as backends
+# for routing traffic.
+kind: GatewayClass
+apiVersion: gateway.networking.k8s.io/v1
+metadata:
+  name: eg
+  labels:
+    app.kubernetes.io/name: eg
+    {{ include "eg.labels" . | nindent 4 }}
+spec:
+  controllerName: gateway.envoyproxy.io/gatewayclass-controller

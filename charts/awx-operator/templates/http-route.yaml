@@ -1,0 +1,31 @@
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: awx
+  labels:
+    app.kubernetes.io/name: awx
+    app.kubernetes.io/component: http-routing
+spec:
+  gatewayClassName: eg
+  listeners:
+    - name: awx
+      protocol: HTTP
+      port: 80
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: {{ .Release.Name }}
+  labels:
+    app.kubernetes.io/name: {{ .Release.Name }}
+    app.kubernetes.io/component: http-routing
+spec:
+  parentRefs:
+    - name: {{ .Release.Name }}
+  hostnames:
+    - awx.breeze-blocks.net
+  rules:
+    - backendRefs:
+        - name: {{ .Release.Name }}
+          port: 80

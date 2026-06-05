@@ -1,0 +1,28 @@
+AWX:
+  # enable use of awx-deploy template
+  enabled: true
+  name: awx
+  spec:
+    admin_user: admin
+    secrets:
+      awx_value: "none"
+
+  # configurations for external postgres instance
+  postgres:
+    enabled: true
+    host: postgres.database.svc.cluster.local
+    port: 5432
+    dbName: awx
+    username: awx
+    # for secret management, pass in the password independently of this file
+    # at the command line, use --set AWX.postgres.password
+    password: Unset
+    sslmode: prefer
+    type: unmanaged
+
+rbac:
+  create: true
+
+operator-controller: {}
+
+operator-controller-containers: {}
