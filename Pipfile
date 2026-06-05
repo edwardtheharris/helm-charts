@@ -9,6 +9,8 @@ sphinx = "*"
 sphinx-copybutton = "*"
 myst-parser = {extras = ["linkify"], version = "*"}
 sphinx-autobuild = "*"
+version-query = "*"
+sphinx-book-theme = "*"
 
 [dev-packages]
 
