@@ -20,14 +20,10 @@ publicly in case someone else has similar purposes.
 :maxdepth: 2
 
 charts/cert-manager/index
+charts/grafana/index
 charts/envoy/index
 charts/flannel/index
-charts/grafana/index
-charts/ipfs/index
-charts/loki/index
 charts/metallb/index
-charts/prometheus/index
-charts/prometheus-node-exporter/index
 ```
 
 ```{toctree}
