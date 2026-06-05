@@ -23,6 +23,7 @@ jobs:
       - name: Lint Helm Charts
         run: |
           helm repo add frr https://metallb.github.io/frr-k8s
+          helm repo add awx-operator https://ansible-community.github.io/awx-operator-helm/
           helm repo update
           helm lint $(find **/[a-c]* -type f | dirname $(grep Chart.yaml))
           helm lint $(find **/[f-z]* -type f | dirname $(grep Chart.yaml))
