@@ -13,10 +13,10 @@ jobs:
           fetch-depth: 0
           submodules: "true"
       - name: Set up Helm
-        uses: azure/setup-helm@v4.2.0
+        uses: azure/setup-helm@main
         with:
           version: v3.14.4
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@main
         with:
           python-version: "3.12"
           check-latest: true
