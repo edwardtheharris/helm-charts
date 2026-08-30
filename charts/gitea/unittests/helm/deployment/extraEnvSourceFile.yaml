@@ -1,0 +1,82 @@
+suite: deployment template (extraEnvSourceFile)
+release:
+  name: gitea-unittests
+  namespace: testing
+templates:
+  - templates/gitea/deployment.yaml
+  - templates/gitea/config.yaml
+tests:
+  - it: uses direct execution when extraEnvSourceFile is not set
+    template: templates/gitea/deployment.yaml
+    asserts:
+      - equal:
+          path: spec.template.spec.initContainers[1].command
+          value: ["/usr/sbinx/config_environment.sh"]
+      - notExists:
+          path: spec.template.spec.initContainers[1].args
+      - equal:
+          path: spec.template.spec.initContainers[2].command
+          value: ["/usr/sbinx/configure_gitea.sh"]
+      - notExists:
+          path: spec.template.spec.initContainers[2].args
+
+  - it: sources env file in init-app-ini when extraEnvSourceFile is set
+    template: templates/gitea/deployment.yaml
+    set:
+      gitea:
+        extraEnvSourceFile: /vault/secrets/gitea
+    asserts:
+      - equal:
+          path: spec.template.spec.initContainers[1].command
+          value: ["/bin/bash", "-c"]
+      - matchRegex:
+          path: spec.template.spec.initContainers[1].args[0]
+          pattern: source /vault/secrets/gitea
+      - matchRegex:
+          path: spec.template.spec.initContainers[1].args[0]
+          pattern: config_environment\.sh
+
+  - it: sources env file in configure-gitea when extraEnvSourceFile is set
+    template: templates/gitea/deployment.yaml
+    set:
+      gitea:
+        extraEnvSourceFile: /vault/secrets/gitea
+    asserts:
+      - equal:
+          path: spec.template.spec.initContainers[2].command
+          value: ["/bin/bash", "-c"]
+      - matchRegex:
+          path: spec.template.spec.initContainers[2].args[0]
+          pattern: source /vault/secrets/gitea
+      - matchRegex:
+          path: spec.template.spec.initContainers[2].args[0]
+          pattern: configure_gitea\.sh
+
+  - it: sources env file in configure-gpg when extraEnvSourceFile is set with signing enabled
+    template: templates/gitea/deployment.yaml
+    set:
+      signing:
+        enabled: true
+        existingSecret: "custom-gpg-secret"
+      gitea:
+        extraEnvSourceFile: /vault/secrets/gitea
+    asserts:
+      - equal:
+          path: spec.template.spec.initContainers[2].command
+          value: ["/bin/bash", "-c"]
+      - matchRegex:
+          path: spec.template.spec.initContainers[2].args[0]
+          pattern: source /vault/secrets/gitea
+      - matchRegex:
+          path: spec.template.spec.initContainers[2].args[0]
+          pattern: configure_gpg_environment\.sh
+
+  - it: includes file existence check in source command
+    template: templates/gitea/deployment.yaml
+    set:
+      gitea:
+        extraEnvSourceFile: /vault/secrets/gitea
+    asserts:
+      - matchRegex:
+          path: spec.template.spec.initContainers[1].args[0]
+          pattern: "test -f /vault/secrets/gitea"

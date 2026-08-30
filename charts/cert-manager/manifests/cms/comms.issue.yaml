@@ -20,7 +20,12 @@ spec:
   emailAddresses:
     - int@breeze-blocks.net
   ipAddresses:
-    - 192.168.5.16
+    - 192.168.5.39
+    - 192.168.5.41
+    - 192.168.5.43
+    - 192.168.5.45
+    - 192.168.5.47
+    - 192.168.5.49
   secretName: comms-svc-int-tls
   privateKey:
     algorithm: RSA

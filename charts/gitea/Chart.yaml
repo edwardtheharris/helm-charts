@@ -1,0 +1,59 @@
+apiVersion: v2
+name: gitea
+description: Gitea Helm chart for Kubernetes
+type: application
+version: 0.0.0
+# renovate datasource=github-releases depName=go-gitea/gitea extractVersion=^v(?<version>.*)$
+appVersion: 1.26.4
+icon: https://gitea.com/assets/img/logo.svg
+
+annotations:
+  artifacthub.io/links: |
+    - name: support
+      url: https://gitea.com/gitea/helm-gitea/issues
+
+keywords:
+  - git
+  - issue tracker
+  - code review
+  - wiki
+  - gitea
+  - gogs
+
+sources:
+  - https://gitea.com/gitea/helm-gitea
+  - https://github.com/go-gitea/gitea
+  - https://docker.gitea.com/gitea
+
+maintainers:
+  # https://gitea.com/volker.raschek
+  - name: Markus Pesch
+    email: markus.pesch+apps@cryptic.systems
+  # https://gitea.com/DaanSelen
+  - name: Daan Selen
+    email: dselen@nerthus.nl
+  # https://gitea.com/ChristopherHX
+  - name: Christopher Homberger
+    email: christopher.homberger@web.de
+
+dependencies:
+  # https://github.com/bitnami/charts/blob/main/bitnami/postgresql
+  - name: postgresql
+    repository: oci://registry-1.docker.io/bitnamicharts
+    version: 16.7.27
+    condition: postgresql.enabled
+  # https://github.com/bitnami/charts/blob/main/bitnami/postgresql-ha/Chart.yaml
+  - name: postgresql-ha
+    repository: oci://registry-1.docker.io/bitnamicharts
+    version: 16.3.2
+    condition: postgresql-ha.enabled
+  # https://github.com/bitnami/charts/blob/main/bitnami/valkey-cluster/Chart.yaml
+  - name: valkey-cluster
+    repository: oci://registry-1.docker.io/bitnamicharts
+    version: 3.0.24
+    condition: valkey-cluster.enabled
+  # https://github.com/bitnami/charts/blob/main/bitnami/valkey/Chart.yaml
+  - name: valkey
+    repository: oci://registry-1.docker.io/bitnamicharts
+    version: 3.0.31
+    condition: valkey.enabled

@@ -1,0 +1,129 @@
+suite: deployment template (basic)
+release:
+  name: gitea-unittests
+  namespace: testing
+templates:
+  - templates/gitea/deployment.yaml
+  - templates/gitea/config.yaml
+tests:
+  - it: renders a deployment
+    template: templates/gitea/deployment.yaml
+    asserts:
+      - hasDocuments:
+          count: 1
+      - containsDocument:
+          kind: Deployment
+          apiVersion: apps/v1
+          name: gitea-unittests
+  - it: deployment labels are set
+    template: templates/gitea/deployment.yaml
+    set:
+      deployment.labels:
+        hello: world
+    asserts:
+      - isSubset:
+          path: metadata.labels
+          content:
+            hello: world
+      - isSubset:
+          path: spec.template.metadata.labels
+          content:
+            hello: world
+      - isNotSubset:
+          path: spec.selector.matchLabels
+          content:
+            hello: world
+  - it: deployment labels are not in selector matchLabels
+    template: templates/gitea/deployment.yaml
+    set:
+      deployment.labels:
+        custom-label: custom-value
+        another-label: another-value
+    asserts:
+      - equal:
+          path: spec.selector.matchLabels
+          value:
+            app.kubernetes.io/name: gitea
+            app.kubernetes.io/instance: gitea-unittests
+  - it: nodeSelector is undefined
+    asserts:
+      - notExists:
+          path: spec.template.spec.nodeSelector
+        template: templates/gitea/deployment.yaml
+  - it: nodeSelector is defined
+    set:
+      nodeSelector:
+        foo: bar
+        bar: foo
+    asserts:
+      - isSubset:
+          path: spec.template.spec.nodeSelector
+          content:
+            foo: bar
+            bar: foo
+        template: templates/gitea/deployment.yaml
+
+  - it: "injects TMP_EXISTING_ENVS_FILE as environment variable to 'init-app-ini' init container"
+    template: templates/gitea/deployment.yaml
+    asserts:
+      - contains:
+          path: spec.template.spec.initContainers[1].env
+          content:
+            name: TMP_EXISTING_ENVS_FILE
+            value: /tmp/existing-envs
+  - it: "injects ENV_TO_INI_MOUNT_POINT as environment variable to 'init-app-ini' init container"
+    template: templates/gitea/deployment.yaml
+    asserts:
+      - contains:
+          path: spec.template.spec.initContainers[1].env
+          content:
+            name: ENV_TO_INI_MOUNT_POINT
+            value: /env-to-ini-mounts
+  - it: CPU resources are defined as well as GOMAXPROCS
+    template: templates/gitea/deployment.yaml
+    set:
+      resources:
+        limits:
+          cpu: 200ms
+          memory: 200Mi
+        requests:
+          cpu: 100ms
+          memory: 100Mi
+    asserts:
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: GOMAXPROCS
+            valueFrom:
+              resourceFieldRef:
+                divisor: "1"
+                resource: limits.cpu
+      - equal:
+          path: spec.template.spec.containers[0].resources
+          value:
+            limits:
+              cpu: 200ms
+              memory: 200Mi
+            requests:
+              cpu: 100ms
+              memory: 100Mi
+  - it: Init containers have correct volumeMount path
+    template: templates/gitea/deployment.yaml
+    set:
+      initContainersScriptsVolumeMountPath: "/custom/init/path"
+    asserts:
+      - equal:
+          path: spec.template.spec.initContainers[*].volumeMounts[?(@.name=="init")].mountPath
+          value: "/custom/init/path"
+      - equal:
+          path: spec.template.spec.initContainers[*].volumeMounts[?(@.name=="config")].mountPath
+          value: "/custom/init/path"
+  - it: Init containers have correct volumeMount path if there is no override
+    template: templates/gitea/deployment.yaml
+    asserts:
+      - equal:
+          path: spec.template.spec.initContainers[*].volumeMounts[?(@.name=="init")].mountPath
+          value: "/usr/sbinx"
+      - equal:
+          path: spec.template.spec.initContainers[*].volumeMounts[?(@.name=="config")].mountPath
+          value: "/usr/sbinx"

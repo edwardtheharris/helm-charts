@@ -1,0 +1,106 @@
+suite: deployment template (openshift)
+release:
+  name: gitea-unittests
+  namespace: testing
+templates:
+  - templates/gitea/deployment.yaml
+  - templates/gitea/config.yaml
+tests:
+  - it: renders openshift-compatible defaults for chart-managed containers
+    template: templates/gitea/deployment.yaml
+    set:
+      openshift.enabled: true
+    asserts:
+      - notExists:
+          path: spec.template.spec.hostUsers
+      - notExists:
+          path: spec.template.spec.securityContext
+      - equal:
+          path: spec.template.spec.initContainers[0].securityContext
+          value:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            runAsNonRoot: true
+            seccompProfile:
+              type: RuntimeDefault
+      - equal:
+          path: spec.template.spec.initContainers[1].securityContext
+          value:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            runAsNonRoot: true
+            seccompProfile:
+              type: RuntimeDefault
+      - equal:
+          path: spec.template.spec.initContainers[2].securityContext
+          value:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            runAsNonRoot: true
+            seccompProfile:
+              type: RuntimeDefault
+      - equal:
+          path: spec.template.spec.containers[0].securityContext
+          value:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            runAsNonRoot: true
+            seccompProfile:
+              type: RuntimeDefault
+
+  - it: does not force runAsUser 1000 for command init containers on OpenShift
+    template: templates/gitea/deployment.yaml
+    set:
+      openshift.enabled: true
+      signing.enabled: true
+      signing.existingSecret: custom-gpg-secret
+    asserts:
+      - notExists:
+          path: spec.template.spec.initContainers[2].securityContext.runAsUser
+      - notExists:
+          path: spec.template.spec.initContainers[3].securityContext.runAsUser
+
+  - it: preserves explicit pod and container security context overrides on OpenShift
+    template: templates/gitea/deployment.yaml
+    set:
+      openshift:
+        enabled: true
+        hostUsers: true
+      podSecurityContext:
+        fsGroup: 1000620000
+      containerSecurityContext:
+        runAsUser: 1000620000
+        runAsGroup: 1000620000
+    asserts:
+      - equal:
+          path: spec.template.spec.hostUsers
+          value: true
+      - equal:
+          path: spec.template.spec.securityContext
+          value:
+            fsGroup: 1000620000
+      - equal:
+          path: spec.template.spec.initContainers[2].securityContext.runAsUser
+          value: 1000620000
+      - equal:
+          path: spec.template.spec.containers[0].securityContext.runAsGroup
+          value: 1000620000
+
+  - it: renders an explicit hostUsers=false override on OpenShift
+    template: templates/gitea/deployment.yaml
+    set:
+      openshift:
+        enabled: true
+        hostUsers: false
+    asserts:
+      - equal:
+          path: spec.template.spec.hostUsers
+          value: false

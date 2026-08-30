@@ -1,0 +1,14 @@
+suite: config template | config_environment.sh
+release:
+  name: gitea-unittests
+  namespace: testing
+templates:
+  - templates/gitea/config.yaml
+tests:
+  - it: uses `gitea config edit-ini` to write app.ini from environment variables
+    template: templates/gitea/config.yaml
+    asserts:
+      - documentIndex: 1
+        matchRegex:
+          path: stringData["config_environment.sh"]
+          pattern: 'gitea config edit-ini --apply-env --config .+GITEA_APP_INI.+ --out .+GITEA_APP_INI'

@@ -1,0 +1,32 @@
+name: changelog
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  changelog:
+    runs-on: ubuntu-latest
+    container: docker.io/thegeeklab/git-sv:2.1.2
+    steps:
+      - name: install tools
+        run: |
+          apk add -q --update --no-cache nodejs curl jq sed
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - name: Generate upcoming changelog
+        run: |
+          git sv rn -o changelog.md
+          export RELEASE_NOTES=$(cat changelog.md)
+          export ISSUE_NUMBER=$(curl -s "https://gitea.com/api/v1/repos/gitea/helm-gitea/issues?state=open&q=Changelog%20for%20upcoming%20version" | jq '.[].number')
+
+          echo $RELEASE_NOTES
+          JSON_DATA=$(echo "" | jq -Rs --arg title 'Changelog for upcoming version' --arg body "$(cat changelog.md)" '{title: $title, body: $body}')
+
+          if [ -z "$ISSUE_NUMBER" ]; then
+            curl -s -X POST "https://gitea.com/api/v1/repos/gitea/helm-gitea/issues" -H "Authorization: token ${{ secrets.ISSUE_RW_TOKEN }}" -H "Content-Type: application/json" -d "$JSON_DATA"
+          else
+            curl -s -X PATCH "https://gitea.com/api/v1/repos/gitea/helm-gitea/issues/$ISSUE_NUMBER" -H "Authorization: token ${{ secrets.ISSUE_RW_TOKEN }}" -H "Content-Type: application/json" -d "$JSON_DATA"
+          fi

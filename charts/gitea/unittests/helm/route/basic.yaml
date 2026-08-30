@@ -1,0 +1,58 @@
+suite: Test route.yaml
+release:
+  name: gitea-unittests
+  namespace: testing
+templates:
+  - templates/gitea/route.yaml
+tests:
+  - it: should create route when route.enabled is true
+    set:
+      route:
+        enabled: true
+        host: git.apps.example.com
+        path: /
+        annotations:
+          haproxy.router.openshift.io/timeout: 5m
+        tls:
+          termination: edge
+          insecureEdgeTerminationPolicy: Redirect
+    asserts:
+      - hasDocuments:
+          count: 1
+      - equal:
+          path: metadata.name
+          value: gitea-unittests
+      - equal:
+          path: metadata.annotations["haproxy.router.openshift.io/timeout"]
+          value: 5m
+      - equal:
+          path: spec.host
+          value: git.apps.example.com
+      - equal:
+          path: spec.path
+          value: /
+      - equal:
+          path: spec.to.kind
+          value: Service
+      - equal:
+          path: spec.to.name
+          value: gitea-unittests-http
+      - equal:
+          path: spec.port.targetPort
+          value: http
+      - equal:
+          path: spec.wildcardPolicy
+          value: None
+      - equal:
+          path: spec.tls.termination
+          value: edge
+      - equal:
+          path: spec.tls.insecureEdgeTerminationPolicy
+          value: Redirect
+
+  - it: should not create route when route.enabled is false
+    set:
+      route.enabled: false
+    asserts:
+      - hasDocuments:
+          count: 0

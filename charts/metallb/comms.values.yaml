@@ -3,8 +3,8 @@
 # Declare variables to be passed into your templates.
 
 imagePullSecrets: []
-nameOverride: ""
-fullnameOverride: ""
+nameOverride: metallb
+fullnameOverride: metallb
 loadBalancerClass: ""
 
 # To configure MetalLB, you must specify ONE of the following two
