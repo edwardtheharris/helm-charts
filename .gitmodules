@@ -7,6 +7,3 @@
 [submodule "charts/redis"]
 	path = charts/redis
 	url = git@github.com:edwardtheharris/helm-redis.git
-[submodule "charts/vault/vault-secrets-operator"]
-	path = charts/vault/vso
-	url = git@github.com:hashicorp/vault-secrets-operator.git
