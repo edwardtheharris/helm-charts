@@ -1,4 +1,5 @@
 # cert-manager
+<!--markdownlint-disable-->
 
 cert-manager creates TLS certificates for workloads in your Kubernetes or OpenShift cluster and renews the certificates before they expire.
 
@@ -8,7 +9,9 @@ cert-manager can obtain certificates from a [variety of certificate authorities]
 
 ## Prerequisites
 
-- Kubernetes 1.22+
+Make sure you are using a version of Kubernetes that is supported by
+cert-manager. For more information, see the [Supported Releases
+page](https://cert-manager.io/docs/releases/).
 
 ## Installing the Chart
 
@@ -18,15 +21,11 @@ functionality in cert-manager can be found in the [installation docs](https://ce
 To install the chart with the release name `cert-manager`:
 
 ```console
-# Add the Jetstack Helm repository
-helm repo add jetstack https://charts.jetstack.io --force-update
-
-# Install the cert-manager helm chart
 helm install \
-  cert-manager jetstack/cert-manager \
+  cert-manager oci://quay.io/jetstack/charts/cert-manager \
   --namespace cert-manager \
   --create-namespace \
-  --version v1.20.1 \
+  --version v1.21.1 \
   --set crds.enabled=true
 ```
 
@@ -85,8 +84,8 @@ delete the previously installed CustomResourceDefinition resources.
 > []
 > ```
 
-Reference to one or more secrets to be used when pulling images. For more information, see [Pull an Image from a Private Registry](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/).  
-  
+Reference to one or more secrets to be used when pulling images. For more information, see [Pull an Image from a Private Registry](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/).
+
 For example:
 
 ```yaml
@@ -99,10 +98,10 @@ imagePullSecrets:
 > {}
 > ```
 
-Global node selector  
-  
-The nodeSelector on Pods tells Kubernetes to schedule Pods on the nodes with matching labels. For more information, see [Assigning Pods to Nodes](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/).  
-  
+Global node selector
+
+The nodeSelector on Pods tells Kubernetes to schedule Pods on the nodes with matching labels. For more information, see [Assigning Pods to Nodes](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/).
+
 If a component-specific nodeSelector is also set, it will be merged and take precedence.
 
 #### **global.commonLabels** ~ `object`
@@ -111,10 +110,10 @@ If a component-specific nodeSelector is also set, it will be merged and take pre
 > {}
 > ```
 
-Labels to apply to all resources.  
-Please note that this does not add labels to the resources created dynamically by the controllers. For these resources, you have to add the labels in the template in the cert-manager custom resource: For example, podTemplate/ ingressTemplate in ACMEChallengeSolverHTTP01Ingress. For more information, see the [cert-manager documentation](https://cert-manager.io/docs/reference/api-docs/#acme.cert-manager.io/v1.ACMEChallengeSolverHTTP01Ingress).  
-For example, secretTemplate in CertificateSpec  
-For more information, see the [cert-manager documentation](https://cert-manager.io/docs/reference/api-docs/#cert-manager.io/v1.CertificateSpec).
+Labels to apply to all resources.
+These labels are also applied to dynamically-created ACME HTTP01 solver resources
+(pods, services, ingresses, or Gateway API HTTPRoutes).
+The following ACME identity label keys are reserved and will be silently ignored on dynamically-created resources: acme.cert-manager.io/http-domain, acme.cert-manager.io/http-token, acme.cert-manager.io/http01-solver. For per-Issuer-specific labels, use the HTTP01 ingress solver podTemplate and ingressTemplate fields for pod/ingress resources, or the gatewayHTTPRoute solver labels field for Gateway API HTTPRoute resources.
 #### **global.revisionHistoryLimit** ~ `number`
 
 The number of old ReplicaSets to retain to allow rollback (if not set, the default Kubernetes value is set to 10).
@@ -128,14 +127,14 @@ The number of old ReplicaSets to retain to allow rollback (if not set, the defau
 The optional priority class to be used for the cert-manager pods.
 #### **global.hostUsers** ~ `bool`
 
-Set all pods to run in a user namespace without host access. Experimental: may be removed once the Kubernetes User Namespaces feature is GA.  
-  
-Requirements:  
-  - Kubernetes ≥ 1.33, or  
-  - Kubernetes 1.27–1.32 with UserNamespacesSupport feature gate enabled.  
-  
-Set to false to run pods in a user namespace without host access.  
-  
+Set all pods to run in a user namespace without host access. Experimental: may be removed once the Kubernetes User Namespaces feature is GA.
+
+Requirements:
+  - Kubernetes ≥ 1.33, or
+  - Kubernetes 1.27–1.32 with UserNamespacesSupport feature gate enabled.
+
+Set to false to run pods in a user namespace without host access.
+
 See [limitations](https://kubernetes.io/docs/concepts/workloads/pods/user-namespaces/#limitations) for details.
 
 #### **global.rbac.create** ~ `bool`
@@ -158,8 +157,8 @@ Aggregate ClusterRoles to Kubernetes default user-facing roles. For more informa
 > false
 > ```
 
-Create PodSecurityPolicy for cert-manager.  
-  
+Create PodSecurityPolicy for cert-manager.
+
 Note that PodSecurityPolicy was deprecated in Kubernetes 1.21 and removed in Kubernetes 1.25.
 #### **global.podSecurityPolicy.useAppArmor** ~ `bool`
 > Default value:
@@ -194,6 +193,20 @@ The interval between attempts by the acting master to renew a leadership slot be
 
 The duration the clients should wait between attempting acquisition and renewal of a leadership.
 
+#### **global.runtimeClassName** ~ `string`
+> Default value:
+> ```yaml
+> ""
+> ```
+
+A Kubernetes Runtime Class to apply to ACME HTTP01 solver pods, if required. For more information, see [Runtime Class](https://kubernetes.io/docs/concepts/containers/).
+
+For example:
+
+```yaml
+runtimeClassName: gvisor
+```
+
 #### **installCRDs** ~ `bool`
 > Default value:
 > ```yaml
@@ -214,7 +227,7 @@ This option decides if the CRDs should be installed as part of the Helm installa
 > true
 > ```
 
-This option makes it so that the "helm.sh/resource-policy": keep annotation is added to the CRD. This will prevent Helm from uninstalling the CRD when the Helm release is uninstalled. WARNING: when the CRDs are removed, all cert-manager custom resources  
+This option makes it so that the "helm.sh/resource-policy": keep annotation is added to the CRD. This will prevent Helm from uninstalling the CRD when the Helm release is uninstalled. WARNING: when the CRDs are removed, all cert-manager custom resources
 (Certificates, Issuers, ...) will be removed too by the garbage collector.
 ### Controller
 
@@ -224,12 +237,12 @@ This option makes it so that the "helm.sh/resource-policy": keep annotation is a
 > 1
 > ```
 
-The number of replicas of the cert-manager controller to run.  
-  
-The default is 1, but in production set this to 2 or 3 to provide high availability.  
-  
-If `replicas > 1`, consider setting `podDisruptionBudget.enabled=true`.  
-  
+The number of replicas of the cert-manager controller to run.
+
+The default is 1, but in production set this to 2 or 3 to provide high availability.
+
+If `replicas > 1`, consider setting `podDisruptionBudget.enabled=true`.
+
 Note that cert-manager uses leader election to ensure that there can only be a single instance active at a time.
 #### **strategy** ~ `object`
 > Default value:
@@ -237,8 +250,8 @@ Note that cert-manager uses leader election to ensure that there can only be a s
 > {}
 > ```
 
-Deployment update strategy for the cert-manager controller deployment. For more information, see the [Kubernetes documentation](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#strategy).  
-  
+Deployment update strategy for the cert-manager controller deployment. For more information, see the [Kubernetes documentation](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#strategy).
+
 For example:
 
 ```yaml
@@ -254,13 +267,13 @@ strategy:
 > false
 > ```
 
-Enable or disable the PodDisruptionBudget resource.  
-  
-This prevents downtime during voluntary disruptions such as during a Node upgrade. For example, the PodDisruptionBudget will block `kubectl drain` if it is used on the Node where the only remaining cert-manager  
+Enable or disable the PodDisruptionBudget resource.
+
+This prevents downtime during voluntary disruptions such as during a Node upgrade. For example, the PodDisruptionBudget will block `kubectl drain` if it is used on the Node where the only remaining cert-manager
 Pod is currently running.
 #### **podDisruptionBudget.minAvailable** ~ `unknown`
 
-This configures the minimum available pods for disruptions. It can either be set to an integer (e.g., 1) or a percentage value (e.g., 25%).  
+This configures the minimum available pods for disruptions. It can either be set to an integer (e.g., 1) or a percentage value (e.g., 25%).
 It cannot be used if `maxUnavailable` is set.
 
 
@@ -302,18 +315,18 @@ The container registry used for all cert-manager images by default. This can inc
 > jetstack
 > ```
 
-The repository namespace used for all cert-manager images by default.  
-Examples:  
-- jetstack  
+The repository namespace used for all cert-manager images by default.
+Examples:
+- jetstack
 - cert-manager
 
 #### **image.registry** ~ `string`
 
-Deprecated: per-component registry prefix.  
-  
-If set, this value is *prepended* to the image repository that the chart would otherwise render. This applies both when `image.repository` is set and when the repository is computed from  
-`imageRegistry` + `imageNamespace` + `image.name`.  
-  
+Deprecated: per-component registry prefix.
+
+If set, this value is *prepended* to the image repository that the chart would otherwise render. This applies both when `image.repository` is set and when the repository is computed from
+`imageRegistry` + `imageNamespace` + `image.name`.
+
 This can produce "double registry" style references such as `legacy.example.io/quay.io/jetstack/...`. Prefer using the global `imageRegistry`/`imageNamespace` values.
 
 #### **image.name** ~ `string`
@@ -322,7 +335,7 @@ This can produce "double registry" style references such as `legacy.example.io/q
 > cert-manager-controller
 > ```
 
-The image name for the cert-manager controller.  
+The image name for the cert-manager controller.
 This is used (together with `imageRegistry` and `imageNamespace`) to construct the full image reference.
 
 #### **image.repository** ~ `string`
@@ -331,7 +344,7 @@ This is used (together with `imageRegistry` and `imageNamespace`) to construct t
 > ""
 > ```
 
-Full repository override (takes precedence over `imageRegistry`, `imageNamespace`, and `image.name`).  
+Full repository override (takes precedence over `imageRegistry`, `imageNamespace`, and `image.name`).
 Example: quay.io/jetstack/cert-manager-controller
 
 #### **image.tag** ~ `string`
@@ -380,12 +393,12 @@ Override the "cert-manager.name" value, which is used to annotate some of the re
 Specifies whether a service account should be created.
 #### **serviceAccount.name** ~ `string`
 
-The name of the service account to use.  
+The name of the service account to use.
 If not set and create is true, a name is generated using the fullname template.
 
 #### **serviceAccount.annotations** ~ `object`
 
-Optional additional annotations to add to the controller's Service Account. Templates are allowed for both keys and values.  
+Optional additional annotations to add to the controller's Service Account. Templates are allowed for both keys and values.
 Example using templating:
 
 ```yaml
@@ -421,10 +434,10 @@ When this flag is enabled, secrets will be automatically removed when the certif
 > {}
 > ```
 
-This property is used to configure options for the controller pod. This allows setting options that would usually be provided using flags.  
-  
-If `apiVersion` and `kind` are unspecified they default to the current latest version (currently `controller.config.cert-manager.io/v1alpha1`). You can pin the version by specifying the `apiVersion` yourself.  
-  
+This property is used to configure options for the controller pod. This allows setting options that would usually be provided using flags.
+
+If `apiVersion` and `kind` are unspecified they default to the current latest version (currently `controller.config.cert-manager.io/v1alpha1`). You can pin the version by specifying the `apiVersion` yourself.
+
 For example:
 
 ```yaml
@@ -439,7 +452,8 @@ config:
   kubernetesAPIQPS: 9000
   kubernetesAPIBurst: 9000
   numberOfConcurrentWorkers: 200
-  enableGatewayAPI: true
+  gatewayAPI:
+    enabled: true
   # Feature gates as of v1.20.0. Listed with their default values.
   # See https://cert-manager.io/docs/cli/controller/
   featureGates:
@@ -470,6 +484,9 @@ config:
     maxPrivateKeySize: 13000      # Maximum size in bytes for private keys (default: 13000)
     maxChainLength: 95000         # Maximum size in bytes for certificate chains (default: 95000)
     maxBundleSize: 330000         # Maximum size in bytes for certificate bundles (default: 330000)
+  # Configure certificate request backoff durations
+  certificateRequestMinimumBackoffDuration: 1h
+  certificateRequestMaximumBackoffDuration: 32h
 ```
 #### **dns01RecursiveNameservers** ~ `string`
 > Default value:
@@ -499,7 +516,7 @@ Option to disable cert-manager's build-in auto-approver. The auto-approver appro
 > - clusterissuers.cert-manager.io/*
 > ```
 
-List of signer names that cert-manager will approve by default. CertificateRequests referencing these signer names will be auto-approved by cert-manager. Defaults to just approving the cert-manager.io Issuer and ClusterIssuer issuers. When set to an empty array, ALL issuers will be auto-approved by cert-manager. To disable the auto-approval, because, e.g., you are using approver-policy, you can enable 'disableAutoApproval'.  
+List of signer names that cert-manager will approve by default. CertificateRequests referencing these signer names will be auto-approved by cert-manager. Defaults to just approving the cert-manager.io Issuer and ClusterIssuer issuers. When set to an empty array, ALL issuers will be auto-approved by cert-manager. To disable the auto-approval, because, e.g., you are using approver-policy, you can enable 'disableAutoApproval'.
 ref: https://cert-manager.io/docs/concepts/certificaterequest/#approval
 
 #### **extraArgs** ~ `array`
@@ -508,10 +525,10 @@ ref: https://cert-manager.io/docs/concepts/certificaterequest/#approval
 > []
 > ```
 
-Additional command line flags to pass to cert-manager controller binary. To see all available flags run `docker run quay.io/jetstack/cert-manager-controller:<version> --help`.  
-  
-Use this flag to enable or disable arbitrary controllers. For example, to disable the CertificateRequests approver.  
-  
+Additional command line flags to pass to cert-manager controller binary. To see all available flags run `docker run quay.io/jetstack/cert-manager-controller:<version> --help`.
+
+Use this flag to enable or disable arbitrary controllers. For example, to disable the CertificateRequests approver.
+
 For example:
 
 ```yaml
@@ -561,7 +578,7 @@ volumes:
 > []
 > ```
 
-Additional environment variables to pass to cert-manager controller binary.  
+Additional environment variables to pass to cert-manager controller binary.
 For example:
 
 ```yaml
@@ -575,8 +592,8 @@ extraEnv:
 > {}
 > ```
 
-Resources to provide to the cert-manager controller pod.  
-  
+Resources to provide to the cert-manager controller pod.
+
 For example:
 
 ```yaml
@@ -594,7 +611,7 @@ For more information, see [Resource Management for Pods and Containers](https://
 >   type: RuntimeDefault
 > ```
 
-Pod Security Context.  
+Pod Security Context.
 For more information, see [Configure a Security Context for a Pod or Container](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/).
 
 #### **containerSecurityContext** ~ `object`
@@ -656,7 +673,7 @@ Optionally set the IP families for the controller Service that should be support
 
 #### **podDnsPolicy** ~ `string`
 
-Pod DNS policy.  
+Pod DNS policy.
 For more information, see [Pod's DNS Policy](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#pod-s-dns-policy).
 
 #### **podDnsConfig** ~ `object`
@@ -676,8 +693,8 @@ Optional hostAliases for cert-manager-controller pods. May be useful when perfor
 > kubernetes.io/os: linux
 > ```
 
-The nodeSelector on Pods tells Kubernetes to schedule Pods on the nodes with matching labels. For more information, see [Assigning Pods to Nodes](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/).  
-  
+The nodeSelector on Pods tells Kubernetes to schedule Pods on the nodes with matching labels. For more information, see [Assigning Pods to Nodes](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/).
+
 This default ensures that Pods are only scheduled to Linux nodes. It prevents Pods being scheduled to Windows nodes in a mixed OS cluster.
 
 #### **networkPolicy.enabled** ~ `bool`
@@ -697,8 +714,8 @@ Create network policies for cert-manager.
 >       protocol: TCP
 > ```
 
-Ingress rule for the cert-manager network policy.  
-By default all pods are allowed access to:  
+Ingress rule for the cert-manager network policy.
+By default all pods are allowed access to:
   http-metrics and http-healthz ports
 
 #### **networkPolicy.egress** ~ `array`
@@ -749,8 +766,8 @@ Configures the NO_PROXY environment variable where a HTTP proxy is required, but
 > {}
 > ```
 
-A Kubernetes Affinity, if required. For more information, see [Affinity v1 core](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#affinity-v1-core).  
-  
+A Kubernetes Affinity, if required. For more information, see [Affinity v1 core](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#affinity-v1-core).
+
 For example:
 
 ```yaml
@@ -764,14 +781,28 @@ affinity:
          values:
          - master
 ```
+#### **runtimeClassName** ~ `string`
+> Default value:
+> ```yaml
+> ""
+> ```
+
+A Kubernetes Runtime Class to apply to ACME HTTP01 solver pods, if required. For more information, see [Runtime Class](https://kubernetes.io/docs/concepts/containers/).
+
+For example:
+
+```yaml
+runtimeClassName: gvisor
+```
+
 #### **tolerations** ~ `array`
 > Default value:
 > ```yaml
 > []
 > ```
 
-A list of Kubernetes Tolerations, if required. For more information, see [Toleration v1 core](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#toleration-v1-core).  
-  
+A list of Kubernetes Tolerations, if required. For more information, see [Toleration v1 core](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#toleration-v1-core).
+
 For example:
 
 ```yaml
@@ -787,8 +818,8 @@ tolerations:
 > []
 > ```
 
-A list of Kubernetes TopologySpreadConstraints, if required. For more information, see [Topology spread constraint v1 core](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#topologyspreadconstraint-v1-core  
-  
+A list of Kubernetes TopologySpreadConstraints, if required. For more information, see [Topology spread constraint v1 core](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#topologyspreadconstraint-v1-core
+
 For example:
 
 ```yaml
@@ -812,9 +843,9 @@ topologySpreadConstraints:
 > timeoutSeconds: 15
 > ```
 
-LivenessProbe settings for the controller container of the controller Pod.  
-  
-This is enabled by default, in order to enable the clock-skew liveness probe that restarts the controller in case of a skew between the system clock and the monotonic clock. LivenessProbe durations and thresholds are based on those used for the Kubernetes controller-manager. For more information see the following on the  
+LivenessProbe settings for the controller container of the controller Pod.
+
+This is enabled by default, in order to enable the clock-skew liveness probe that restarts the controller in case of a skew between the system clock and the monotonic clock. LivenessProbe durations and thresholds are based on those used for the Kubernetes controller-manager. For more information see the following on the
 [Kubernetes GitHub repository](https://github.com/kubernetes/kubernetes/blob/806b30170c61a38fedd54cc9ede4cd6275a1ad3b/cmd/kubeadm/app/util/staticpod/utils.go#L241-L245)
 
 #### **enableServiceLinks** ~ `bool`
@@ -832,8 +863,8 @@ enableServiceLinks indicates whether information about services should be inject
 > true
 > ```
 
-Enable Prometheus monitoring for the cert-manager controller and webhook. If you use the Prometheus Operator, set prometheus.podmonitor.enabled or prometheus.servicemonitor.enabled, to create a PodMonitor or a  
-ServiceMonitor resource.  
+Enable Prometheus monitoring for the cert-manager controller and webhook. If you use the Prometheus Operator, set prometheus.podmonitor.enabled or prometheus.servicemonitor.enabled, to create a PodMonitor or a
+ServiceMonitor resource.
 Otherwise, 'prometheus.io' annotations are added to the cert-manager and cert-manager-webhook Deployments. Note that you cannot enable both PodMonitor and ServiceMonitor as they are mutually exclusive. Enabling both will result in an error.
 #### **prometheus.servicemonitor.enabled** ~ `bool`
 > Default value:
@@ -853,21 +884,6 @@ The namespace that the service monitor should live in, defaults to the cert-mana
 > ```
 
 Specifies the `prometheus` label on the created ServiceMonitor. This is used when different Prometheus instances have label selectors matching different ServiceMonitors.
-#### **prometheus.servicemonitor.targetPort** ~ `string,integer`
-> Default value:
-> ```yaml
-> http-metrics
-> ```
-
-The target port to set on the ServiceMonitor. This must match the port that the cert-manager controller is listening on for metrics.
-
-#### **prometheus.servicemonitor.path** ~ `string`
-> Default value:
-> ```yaml
-> /metrics
-> ```
-
-The path to scrape for metrics.
 #### **prometheus.servicemonitor.interval** ~ `string`
 > Default value:
 > ```yaml
@@ -909,8 +925,8 @@ Keep labels from scraped data, overriding server-side labels.
 > {}
 > ```
 
-EndpointAdditionalProperties allows setting additional properties on the endpoint such as relabelings, metricRelabelings etc.  
-  
+EndpointAdditionalProperties allows setting additional properties on the endpoint such as relabelings, metricRelabelings etc.
+
 For example:
 
 ```yaml
@@ -942,13 +958,6 @@ The namespace that the pod monitor should live in, defaults to the cert-manager 
 > ```
 
 Specifies the `prometheus` label on the created PodMonitor. This is used when different Prometheus instances have label selectors matching different PodMonitors.
-#### **prometheus.podmonitor.path** ~ `string`
-> Default value:
-> ```yaml
-> /metrics
-> ```
-
-The path to scrape for metrics.
 #### **prometheus.podmonitor.interval** ~ `string`
 > Default value:
 > ```yaml
@@ -990,8 +999,8 @@ Keep labels from scraped data, overriding server-side labels.
 > {}
 > ```
 
-EndpointAdditionalProperties allows setting additional properties on the endpoint such as relabelings, metricRelabelings etc.  
-  
+EndpointAdditionalProperties allows setting additional properties on the endpoint such as relabelings, metricRelabelings etc.
+
 For example:
 
 ```yaml
@@ -1022,10 +1031,10 @@ endpointAdditionalProperties:
 > 1
 > ```
 
-Number of replicas of the cert-manager webhook to run.  
-  
-The default is 1, but in production set this to 2 or 3 to provide high availability.  
-  
+Number of replicas of the cert-manager webhook to run.
+
+The default is 1, but in production set this to 2 or 3 to provide high availability.
+
 If `replicas > 1`, consider setting `webhook.podDisruptionBudget.enabled=true`.
 #### **webhook.timeoutSeconds** ~ `number`
 > Default value:
@@ -1033,9 +1042,9 @@ If `replicas > 1`, consider setting `webhook.podDisruptionBudget.enabled=true`.
 > 30
 > ```
 
-The number of seconds the API server should wait for the webhook to respond before treating the call as a failure. The value must be between 1 and 30 seconds. For more information, see  
-[Validating webhook configuration v1](https://kubernetes.io/docs/reference/kubernetes-api/extend-resources/validating-webhook-configuration-v1/).  
-  
+The number of seconds the API server should wait for the webhook to respond before treating the call as a failure. The value must be between 1 and 30 seconds. For more information, see
+[Validating webhook configuration v1](https://kubernetes.io/docs/reference/kubernetes-api/extend-resources/validating-webhook-configuration-v1/).
+
 The default is set to the maximum value of 30 seconds as users sometimes report that the connection between the K8S API server and the cert-manager webhook server times out. If *this* timeout is reached, the error message will be "context deadline exceeded", which doesn't help the user diagnose what phase of the HTTPS connection timed out. For example, it could be during DNS resolution, TCP connection, TLS negotiation, HTTP negotiation, or slow HTTP response from the webhook server. By setting this timeout to its maximum value the underlying timeout error message has more chance of being returned to the end user.
 #### **webhook.config** ~ `object`
 > Default value:
@@ -1043,10 +1052,10 @@ The default is set to the maximum value of 30 seconds as users sometimes report 
 > {}
 > ```
 
-This is used to configure options for the webhook pod. This allows setting options that would usually be provided using flags.  
-  
-If `apiVersion` and `kind` are unspecified they default to the current latest version (currently `webhook.config.cert-manager.io/v1alpha1`). You can pin the version by specifying the `apiVersion` yourself.  
-  
+This is used to configure options for the webhook pod. This allows setting options that would usually be provided using flags.
+
+If `apiVersion` and `kind` are unspecified they default to the current latest version (currently `webhook.config.cert-manager.io/v1alpha1`). You can pin the version by specifying the `apiVersion` yourself.
+
 For example:
 
 ```yaml
@@ -1075,8 +1084,8 @@ metricsTLSConfig:
 > {}
 > ```
 
-The update strategy for the cert-manager webhook deployment. For more information, see the [Kubernetes documentation](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#strategy)  
-  
+The update strategy for the cert-manager webhook deployment. For more information, see the [Kubernetes documentation](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#strategy)
+
 For example:
 
 ```yaml
@@ -1114,19 +1123,19 @@ Container Security Context to be set on the webhook component container. For mor
 > false
 > ```
 
-Enable or disable the PodDisruptionBudget resource.  
-  
-This prevents downtime during voluntary disruptions such as during a Node upgrade. For example, the PodDisruptionBudget will block `kubectl drain` if it is used on the Node where the only remaining cert-manager  
+Enable or disable the PodDisruptionBudget resource.
+
+This prevents downtime during voluntary disruptions such as during a Node upgrade. For example, the PodDisruptionBudget will block `kubectl drain` if it is used on the Node where the only remaining cert-manager
 Pod is currently running.
 #### **webhook.podDisruptionBudget.minAvailable** ~ `unknown`
 
-This property configures the minimum available pods for disruptions. Can either be set to an integer (e.g., 1) or a percentage value (e.g., 25%).  
+This property configures the minimum available pods for disruptions. Can either be set to an integer (e.g., 1) or a percentage value (e.g., 25%).
 It cannot be used if `maxUnavailable` is set.
 
 
 #### **webhook.podDisruptionBudget.maxUnavailable** ~ `unknown`
 
-This property configures the maximum unavailable pods for disruptions. Can either be set to an integer (e.g., 1) or a percentage value (e.g., 25%).  
+This property configures the maximum unavailable pods for disruptions. Can either be set to an integer (e.g., 1) or a percentage value (e.g., 25%).
 It cannot be used if `minAvailable` is set.
 
 
@@ -1188,7 +1197,7 @@ Additional command line flags to pass to cert-manager webhook binary. To see all
 > []
 > ```
 
-Additional environment variables to pass to cert-manager webhook binary.  
+Additional environment variables to pass to cert-manager webhook binary.
 For example:
 
 ```yaml
@@ -1209,8 +1218,8 @@ Comma separated list of feature gates that should be enabled on the webhook pod.
 > {}
 > ```
 
-Resources to provide to the cert-manager webhook pod.  
-  
+Resources to provide to the cert-manager webhook pod.
+
 For example:
 
 ```yaml
@@ -1230,7 +1239,7 @@ For more information, see [Resource Management for Pods and Containers](https://
 > timeoutSeconds: 1
 > ```
 
-Liveness probe values.  
+Liveness probe values.
 For more information, see [Container probes](https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes).
 
 #### **webhook.readinessProbe** ~ `object`
@@ -1243,7 +1252,7 @@ For more information, see [Container probes](https://kubernetes.io/docs/concepts
 > timeoutSeconds: 1
 > ```
 
-Readiness probe values.  
+Readiness probe values.
 For more information, see [Container probes](https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes).
 
 #### **webhook.nodeSelector** ~ `object`
@@ -1252,8 +1261,8 @@ For more information, see [Container probes](https://kubernetes.io/docs/concepts
 > kubernetes.io/os: linux
 > ```
 
-The nodeSelector on Pods tells Kubernetes to schedule Pods on the nodes with matching labels. For more information, see [Assigning Pods to Nodes](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/).  
-  
+The nodeSelector on Pods tells Kubernetes to schedule Pods on the nodes with matching labels. For more information, see [Assigning Pods to Nodes](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/).
+
 This default ensures that Pods are only scheduled to Linux nodes. It prevents Pods being scheduled to Windows nodes in a mixed OS cluster.
 
 #### **webhook.affinity** ~ `object`
@@ -1262,8 +1271,8 @@ This default ensures that Pods are only scheduled to Linux nodes. It prevents Po
 > {}
 > ```
 
-A Kubernetes Affinity, if required. For more information, see [Affinity v1 core](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#affinity-v1-core).  
-  
+A Kubernetes Affinity, if required. For more information, see [Affinity v1 core](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#affinity-v1-core).
+
 For example:
 
 ```yaml
@@ -1277,14 +1286,28 @@ affinity:
          values:
          - master
 ```
+#### **webhook.runtimeClassName** ~ `string`
+> Default value:
+> ```yaml
+> ""
+> ```
+
+A Kubernetes Runtime Class to apply to ACME HTTP01 solver pods, if required. For more information, see [Runtime Class](https://kubernetes.io/docs/concepts/containers/).
+
+For example:
+
+```yaml
+runtimeClassName: gvisor
+```
+
 #### **webhook.tolerations** ~ `array`
 > Default value:
 > ```yaml
 > []
 > ```
 
-A list of Kubernetes Tolerations, if required. For more information, see [Toleration v1 core](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#toleration-v1-core).  
-  
+A list of Kubernetes Tolerations, if required. For more information, see [Toleration v1 core](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#toleration-v1-core).
+
 For example:
 
 ```yaml
@@ -1300,8 +1323,8 @@ tolerations:
 > []
 > ```
 
-A list of Kubernetes TopologySpreadConstraints, if required. For more information, see [Topology spread constraint v1 core](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#topologyspreadconstraint-v1-core).  
-  
+A list of Kubernetes TopologySpreadConstraints, if required. For more information, see [Topology spread constraint v1 core](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#topologyspreadconstraint-v1-core).
+
 For example:
 
 ```yaml
@@ -1344,11 +1367,11 @@ Optionally set the IP family policy for the controller Service to configure dual
 Optionally set the IP families for the controller Service that should be supported, in the order in which they should be applied to ClusterIP. Can be IPv4 and/or IPv6.
 #### **webhook.image.registry** ~ `string`
 
-Deprecated: per-component registry prefix.  
-  
-If set, this value is *prepended* to the image repository that the chart would otherwise render. This applies both when `webhook.image.repository` is set and when the repository is computed from  
-`imageRegistry` + `imageNamespace` + `webhook.image.name`.  
-  
+Deprecated: per-component registry prefix.
+
+If set, this value is *prepended* to the image repository that the chart would otherwise render. This applies both when `webhook.image.repository` is set and when the repository is computed from
+`imageRegistry` + `imageNamespace` + `webhook.image.name`.
+
 This can produce "double registry" style references such as `legacy.example.io/quay.io/jetstack/...`. Prefer using the global `imageRegistry`/`imageNamespace` values.
 
 #### **webhook.image.name** ~ `string`
@@ -1391,7 +1414,7 @@ Kubernetes imagePullPolicy on Deployment.
 Specifies whether a service account should be created.
 #### **webhook.serviceAccount.name** ~ `string`
 
-The name of the service account to use.  
+The name of the service account to use.
 If not set and create is true, a name is generated using the fullname template.
 
 #### **webhook.serviceAccount.annotations** ~ `object`
@@ -1426,10 +1449,10 @@ The port that the webhook listens on for requests. In GKE private clusters, by d
 > false
 > ```
 
-Specifies if the webhook should be started in hostNetwork mode.  
-  
-Required for use in some managed kubernetes clusters (such as AWS EKS) with custom. CNI (such as calico), because control-plane managed by AWS cannot communicate with pods' IP CIDR and admission webhooks are not working  
-  
+Specifies if the webhook should be started in hostNetwork mode.
+
+Required for use in some managed kubernetes clusters (such as AWS EKS) with custom. CNI (such as calico), because control-plane managed by AWS cannot communicate with pods' IP CIDR and admission webhooks are not working
+
 Since the default port for the webhook conflicts with kubelet on the host network, `webhook.securePort` should be changed to an available port if running in hostNetwork mode.
 #### **webhook.serviceType** ~ `string`
 > Default value:
@@ -1468,8 +1491,8 @@ Create network policies for the webhooks.
 >       protocol: TCP
 > ```
 
-Ingress rule for the webhook network policy.  
-By default all pods are allowed access to:  
+Ingress rule for the webhook network policy.
+By default all pods are allowed access to:
   https, http-metrics, and http-healthz ports
 
 #### **webhook.networkPolicy.egress** ~ `array`
@@ -1547,12 +1570,12 @@ Create the CA Injector deployment
 > 1
 > ```
 
-The number of replicas of the cert-manager cainjector to run.  
-  
-The default is 1, but in production set this to 2 or 3 to provide high availability.  
-  
-If `replicas > 1`, consider setting `cainjector.podDisruptionBudget.enabled=true`.  
-  
+The number of replicas of the cert-manager cainjector to run.
+
+The default is 1, but in production set this to 2 or 3 to provide high availability.
+
+If `replicas > 1`, consider setting `cainjector.podDisruptionBudget.enabled=true`.
+
 Note that cert-manager uses leader election to ensure that there can only be a single instance active at a time.
 #### **cainjector.config** ~ `object`
 > Default value:
@@ -1560,10 +1583,10 @@ Note that cert-manager uses leader election to ensure that there can only be a s
 > {}
 > ```
 
-This is used to configure options for the cainjector pod. It allows setting options that are usually provided via flags.  
-  
-If `apiVersion` and `kind` are unspecified they default to the current latest version (currently `cainjector.config.cert-manager.io/v1alpha1`). You can pin the version by specifying the `apiVersion` yourself.  
-  
+This is used to configure options for the cainjector pod. It allows setting options that are usually provided via flags.
+
+If `apiVersion` and `kind` are unspecified they default to the current latest version (currently `cainjector.config.cert-manager.io/v1alpha1`). You can pin the version by specifying the `apiVersion` yourself.
+
 For example:
 
 ```yaml
@@ -1589,8 +1612,8 @@ metricsTLSConfig:
 > {}
 > ```
 
-Deployment update strategy for the cert-manager cainjector deployment. For more information, see the [Kubernetes documentation](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#strategy).  
-  
+Deployment update strategy for the cert-manager cainjector deployment. For more information, see the [Kubernetes documentation](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#strategy).
+
 For example:
 
 ```yaml
@@ -1637,8 +1660,8 @@ Create network policies for the cainjector.
 >       protocol: TCP
 > ```
 
-Ingress rule for the webhook cainjector policy.  
-By default all pods are allowed access to:  
+Ingress rule for the webhook cainjector policy.
+By default all pods are allowed access to:
   http-metrics port
 
 #### **cainjector.networkPolicy.egress** ~ `array`
@@ -1665,21 +1688,21 @@ Egress rule for the cainjector network policy. By default, it allows all outboun
 > false
 > ```
 
-Enable or disable the PodDisruptionBudget resource.  
-  
-This prevents downtime during voluntary disruptions such as during a Node upgrade. For example, the PodDisruptionBudget will block `kubectl drain` if it is used on the Node where the only remaining cert-manager  
+Enable or disable the PodDisruptionBudget resource.
+
+This prevents downtime during voluntary disruptions such as during a Node upgrade. For example, the PodDisruptionBudget will block `kubectl drain` if it is used on the Node where the only remaining cert-manager
 Pod is currently running.
 #### **cainjector.podDisruptionBudget.minAvailable** ~ `unknown`
 
-`minAvailable` configures the minimum available pods for disruptions. It can either be set to  
-an integer (e.g., 1) or a percentage value (e.g., 25%).  
+`minAvailable` configures the minimum available pods for disruptions. It can either be set to
+an integer (e.g., 1) or a percentage value (e.g., 25%).
 Cannot be used if `maxUnavailable` is set.
 
 
 #### **cainjector.podDisruptionBudget.maxUnavailable** ~ `unknown`
 
-`maxUnavailable` configures the maximum unavailable pods for disruptions. It can either be set to  
-an integer (e.g., 1) or a percentage value (e.g., 25%).  
+`maxUnavailable` configures the maximum unavailable pods for disruptions. It can either be set to
+an integer (e.g., 1) or a percentage value (e.g., 25%).
 Cannot be used if `minAvailable` is set.
 
 
@@ -1713,7 +1736,7 @@ Additional command line flags to pass to cert-manager cainjector binary. To see 
 > []
 > ```
 
-Additional environment variables to pass to cert-manager cainjector binary.  
+Additional environment variables to pass to cert-manager cainjector binary.
 For example:
 
 ```yaml
@@ -1734,8 +1757,8 @@ Comma separated list of feature gates that should be enabled on the cainjector p
 > {}
 > ```
 
-Resources to provide to the cert-manager cainjector pod.  
-  
+Resources to provide to the cert-manager cainjector pod.
+
 For example:
 
 ```yaml
@@ -1751,8 +1774,8 @@ For more information, see [Resource Management for Pods and Containers](https://
 > kubernetes.io/os: linux
 > ```
 
-The nodeSelector on Pods tells Kubernetes to schedule Pods on the nodes with matching labels. For more information, see [Assigning Pods to Nodes](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/).  
-  
+The nodeSelector on Pods tells Kubernetes to schedule Pods on the nodes with matching labels. For more information, see [Assigning Pods to Nodes](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/).
+
 This default ensures that Pods are only scheduled to Linux nodes. It prevents Pods being scheduled to Windows nodes in a mixed OS cluster.
 
 #### **cainjector.affinity** ~ `object`
@@ -1761,8 +1784,8 @@ This default ensures that Pods are only scheduled to Linux nodes. It prevents Po
 > {}
 > ```
 
-A Kubernetes Affinity, if required. For more information, see [Affinity v1 core](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#affinity-v1-core).  
-  
+A Kubernetes Affinity, if required. For more information, see [Affinity v1 core](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#affinity-v1-core).
+
 For example:
 
 ```yaml
@@ -1776,14 +1799,28 @@ affinity:
          values:
          - master
 ```
+#### **cainjector.runtimeClassName** ~ `string`
+> Default value:
+> ```yaml
+> ""
+> ```
+
+A Kubernetes Runtime Class to apply to ACME HTTP01 solver pods, if required. For more information, see [Runtime Class](https://kubernetes.io/docs/concepts/containers/).
+
+For example:
+
+```yaml
+runtimeClassName: gvisor
+```
+
 #### **cainjector.tolerations** ~ `array`
 > Default value:
 > ```yaml
 > []
 > ```
 
-A list of Kubernetes Tolerations, if required. For more information, see [Toleration v1 core](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#toleration-v1-core).  
-  
+A list of Kubernetes Tolerations, if required. For more information, see [Toleration v1 core](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#toleration-v1-core).
+
 For example:
 
 ```yaml
@@ -1799,8 +1836,8 @@ tolerations:
 > []
 > ```
 
-A list of Kubernetes TopologySpreadConstraints, if required. For more information, see [Topology spread constraint v1 core](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#topologyspreadconstraint-v1-core).  
-  
+A list of Kubernetes TopologySpreadConstraints, if required. For more information, see [Topology spread constraint v1 core](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#topologyspreadconstraint-v1-core).
+
 For example:
 
 ```yaml
@@ -1829,11 +1866,11 @@ Optional additional labels to add to the CA Injector Pods.
 Optional additional labels to add to the CA Injector metrics Service.
 #### **cainjector.image.registry** ~ `string`
 
-Deprecated: per-component registry prefix.  
-  
-If set, this value is *prepended* to the image repository that the chart would otherwise render. This applies both when `cainjector.image.repository` is set and when the repository is computed from  
-`imageRegistry` + `imageNamespace` + `cainjector.image.name`.  
-  
+Deprecated: per-component registry prefix.
+
+If set, this value is *prepended* to the image repository that the chart would otherwise render. This applies both when `cainjector.image.repository` is set and when the repository is computed from
+`imageRegistry` + `imageNamespace` + `cainjector.image.name`.
+
 This can produce "double registry" style references such as `legacy.example.io/quay.io/jetstack/...`. Prefer using the global `imageRegistry`/`imageNamespace` values.
 
 #### **cainjector.image.name** ~ `string`
@@ -1876,7 +1913,7 @@ Kubernetes imagePullPolicy on Deployment.
 Specifies whether a service account should be created.
 #### **cainjector.serviceAccount.name** ~ `string`
 
-The name of the service account to use.  
+The name of the service account to use.
 If not set and create is true, a name is generated using the fullname template
 
 #### **cainjector.serviceAccount.annotations** ~ `object`
@@ -1923,11 +1960,11 @@ enableServiceLinks indicates whether information about services should be inject
 
 #### **acmesolver.image.registry** ~ `string`
 
-Deprecated: per-component registry prefix.  
-  
-If set, this value is *prepended* to the image repository that the chart would otherwise render. This applies both when `acmesolver.image.repository` is set and when the repository is computed from  
-`imageRegistry` + `imageNamespace` + `acmesolver.image.name`.  
-  
+Deprecated: per-component registry prefix.
+
+If set, this value is *prepended* to the image repository that the chart would otherwise render. This applies both when `acmesolver.image.repository` is set and when the repository is computed from
+`imageRegistry` + `imageNamespace` + `acmesolver.image.name`.
+
 This can produce "double registry" style references such as `legacy.example.io/quay.io/jetstack/...`. Prefer using the global `imageRegistry`/`imageNamespace` values.
 
 #### **acmesolver.image.name** ~ `string`
@@ -1961,6 +1998,20 @@ Setting a digest pins the image. If a tag is also set, the rendered reference wi
 > ```
 
 Kubernetes imagePullPolicy on Deployment.
+#### **acmesolver.runtimeClassName** ~ `string`
+> Default value:
+> ```yaml
+> ""
+> ```
+
+A Kubernetes Runtime Class to apply to ACME HTTP01 solver pods, if required. For more information, see [Runtime Class](https://kubernetes.io/docs/concepts/containers/).
+
+For example:
+
+```yaml
+runtimeClassName: gvisor
+```
+
 ### Startup API Check
 
 
@@ -2008,6 +2059,11 @@ Timeout for 'kubectl check api' command.
 > ```
 
 Job backoffLimit
+#### **startupapicheck.ttlSecondsAfterFinished** ~ `integer`
+
+Limits the lifetime of a Job that has finished execution (either Complete or Failed). If this field is set, once the Job finishes, it will be automatically cleaned up after ttlSecondsAfterFinished seconds. This is disabled by default (field is not set) to preserve backward compatibility and avoid issues with GitOps tools (e.g. Argo CD) that may attempt to reconcile or recreate Jobs after they are automatically deleted. For more information, see [Automatic Cleanup for Finished Jobs](https://kubernetes.io/docs/concepts/workloads/controllers/ttlafterfinished/).
+
+
 #### **startupapicheck.jobAnnotations** ~ `object`
 > Default value:
 > ```yaml
@@ -2028,8 +2084,8 @@ Optional additional annotations to add to the startupapicheck Pods.
 > - -v
 > ```
 
-Additional command line flags to pass to startupapicheck binary. To see all available flags run `docker run quay.io/jetstack/cert-manager-startupapicheck:<version> --help`.  
-  
+Additional command line flags to pass to startupapicheck binary. To see all available flags run `docker run quay.io/jetstack/cert-manager-startupapicheck:<version> --help`.
+
 Verbose logging is enabled by default so that if startupapicheck fails, you can know what exactly caused the failure. Verbose logs include details of the webhook URL, IP address and TCP connect errors for example.
 
 #### **startupapicheck.extraEnv** ~ `array`
@@ -2038,7 +2094,7 @@ Verbose logging is enabled by default so that if startupapicheck fails, you can 
 > []
 > ```
 
-Additional environment variables to pass to cert-manager startupapicheck binary.  
+Additional environment variables to pass to cert-manager startupapicheck binary.
 For example:
 
 ```yaml
@@ -2052,8 +2108,8 @@ extraEnv:
 > {}
 > ```
 
-Resources to provide to the cert-manager controller pod.  
-  
+Resources to provide to the cert-manager startupapicheck pod.
+
 For example:
 
 ```yaml
@@ -2069,8 +2125,8 @@ For more information, see [Resource Management for Pods and Containers](https://
 > kubernetes.io/os: linux
 > ```
 
-The nodeSelector on Pods tells Kubernetes to schedule Pods on the nodes with matching labels. For more information, see [Assigning Pods to Nodes](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/).  
-  
+The nodeSelector on Pods tells Kubernetes to schedule Pods on the nodes with matching labels. For more information, see [Assigning Pods to Nodes](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/).
+
 This default ensures that Pods are only scheduled to Linux nodes. It prevents Pods being scheduled to Windows nodes in a mixed OS cluster.
 
 #### **startupapicheck.affinity** ~ `object`
@@ -2079,7 +2135,7 @@ This default ensures that Pods are only scheduled to Linux nodes. It prevents Po
 > {}
 > ```
 
-A Kubernetes Affinity, if required. For more information, see [Affinity v1 core](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#affinity-v1-core).  
+A Kubernetes Affinity, if required. For more information, see [Affinity v1 core](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#affinity-v1-core).
 For example:
 
 ```yaml
@@ -2093,14 +2149,28 @@ affinity:
          values:
          - master
 ```
+#### **startupapicheck.runtimeClassName** ~ `string`
+> Default value:
+> ```yaml
+> ""
+> ```
+
+A Kubernetes Runtime Class to apply to ACME HTTP01 solver pods, if required. For more information, see [Runtime Class](https://kubernetes.io/docs/concepts/containers/).
+
+For example:
+
+```yaml
+runtimeClassName: gvisor
+```
+
 #### **startupapicheck.tolerations** ~ `array`
 > Default value:
 > ```yaml
 > []
 > ```
 
-A list of Kubernetes Tolerations, if required. For more information, see [Toleration v1 core](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#toleration-v1-core).  
-  
+A list of Kubernetes Tolerations, if required. For more information, see [Toleration v1 core](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#toleration-v1-core).
+
 For example:
 
 ```yaml
@@ -2119,11 +2189,11 @@ tolerations:
 Optional additional labels to add to the startupapicheck Pods.
 #### **startupapicheck.image.registry** ~ `string`
 
-Deprecated: per-component registry prefix.  
-  
-If set, this value is *prepended* to the image repository that the chart would otherwise render. This applies both when `startupapicheck.image.repository` is set and when the repository is computed from  
-`imageRegistry` + `imageNamespace` + `startupapicheck.image.name`.  
-  
+Deprecated: per-component registry prefix.
+
+If set, this value is *prepended* to the image repository that the chart would otherwise render. This applies both when `startupapicheck.image.repository` is set and when the repository is computed from
+`imageRegistry` + `imageNamespace` + `startupapicheck.image.name`.
+
 This can produce "double registry" style references such as `legacy.example.io/quay.io/jetstack/...`. Prefer using the global `imageRegistry`/`imageNamespace` values.
 
 #### **startupapicheck.image.name** ~ `string`
@@ -2180,7 +2250,7 @@ Automounting API credentials for a particular pod.
 Specifies whether a service account should be created.
 #### **startupapicheck.serviceAccount.name** ~ `string`
 
-The name of the service account to use.  
+The name of the service account to use.
 If not set and create is true, a name is generated using the fullname template.
 
 #### **startupapicheck.serviceAccount.annotations** ~ `object`
@@ -2232,8 +2302,8 @@ enableServiceLinks indicates whether information about services should be inject
 > []
 > ```
 
-Create dynamic manifests via values.  
-  
+Create dynamic manifests via values.
+
 For example:
 
 ```yaml
