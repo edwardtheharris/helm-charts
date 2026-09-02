@@ -7,3 +7,6 @@
 [submodule "charts/redis"]
 	path = charts/redis
 	url = git@github.com:edwardtheharris/helm-redis.git
+[submodule "charts/vault/vault-helm"]
+	path = charts/vault/vault-helm
+	url = git@github.com:hashicorp/vault-helm.git
