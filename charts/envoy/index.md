@@ -4,7 +4,7 @@ date: 2026-01-09
 title: Envoy Gateway charts
 ---
 
-The charts here were pulled from the public repository on 
+The charts here were pulled from the public repository on
 docker.io.
 
 - [gateway-helm](oci://docker.io/envoyproxy/gateway-helm)
@@ -16,6 +16,6 @@ item listed. The other is to install the Gateway CRDs on their own, then
 install the Envoy resources separately which is the second item listed.
 
 ```{toctree}
-gateway-helm/index
-gateway-crds-helm/index
+gateway-helm/README
+gateway-crds-helm/README
 ```

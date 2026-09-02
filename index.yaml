@@ -1,486 +1,477 @@
 apiVersion: v1
 entries:
   bitcoin:
-  - apiVersion: v2
-    appVersion: 27.1.0
-    created: "2024-09-25T14:29:18.374203905-07:00"
-    description: A Helm chart for deploying a full Bitcoin node to bare metal Kubernetes.
-    digest: b7b995cd18bfadeb132c2eecc0de9e0366f9c68ea1ad8c48082189248742165f
-    icon: file://./_static/img/logo/bitcoin.png
-    name: bitcoin
-    type: application
-    urls:
-    - bitcoin-0.0.1.tgz
-    version: 0.0.1
-  - apiVersion: v2
-    appVersion: 27.1.0
-    created: "2024-09-25T14:29:18.444741553-07:00"
-    description: A Helm chart for deploying a full Bitcoin node to bare metal Kubernetes.
-    digest: b7b995cd18bfadeb132c2eecc0de9e0366f9c68ea1ad8c48082189248742165f
-    icon: file://./_static/img/logo/bitcoin.png
-    name: bitcoin
-    type: application
-    urls:
-    - charts/bitcoin-0.0.1.tgz
-    version: 0.0.1
+    - apiVersion: v2
+      appVersion: 27.1.0
+      created: "2026-06-04T19:41:30.31425579-07:00"
+      description: A Helm chart for deploying a full Bitcoin node to bare metal Kubernetes.
+      digest: 05c8c35b607d55727e4d6215904c23e1d3746aad6f70f52d3f68fa6ec883d1b8
+      icon: file://./_static/img/logo/bitcoin.png
+      name: bitcoin
+      type: application
+      urls:
+        - bitcoin-0.0.2.tgz
+      version: 0.0.2
+    - apiVersion: v2
+      appVersion: 27.1.0
+      created: "2026-06-04T19:41:30.313024831-07:00"
+      description: A Helm chart for deploying a full Bitcoin node to bare metal Kubernetes.
+      digest: b7b995cd18bfadeb132c2eecc0de9e0366f9c68ea1ad8c48082189248742165f
+      icon: file://./_static/img/logo/bitcoin.png
+      name: bitcoin
+      type: application
+      urls:
+        - bitcoin-0.0.1.tgz
+      version: 0.0.1
+    - apiVersion: v2
+      appVersion: 27.1.0
+      created: "2026-06-04T19:41:30.343834432-07:00"
+      description: A Helm chart for deploying a full Bitcoin node to bare metal Kubernetes.
+      digest: b7b995cd18bfadeb132c2eecc0de9e0366f9c68ea1ad8c48082189248742165f
+      icon: file://./_static/img/logo/bitcoin.png
+      name: bitcoin
+      type: application
+      urls:
+        - charts/bitcoin-0.0.1.tgz
+      version: 0.0.1
   calico:
-  - apiVersion: v2
-    appVersion: "3.28"
-    created: "2024-09-25T14:29:18.38046191-07:00"
-    description: A Helm chart to deploy Calico resources to bare metal Kubernetes.
-    digest: f69dd115875454b306eb86700f9d2c3d4aee9145243833133a7e9e792e5b9a31
-    icon: file://./_static/img/calico.png
-    name: calico
-    type: application
-    urls:
-    - calico-0.0.3.tgz
-    version: 0.0.3
-  - apiVersion: v2
-    appVersion: 1.16.0
-    created: "2024-09-25T14:29:18.378577896-07:00"
-    description: A Helm chart to deploy Calico resources to bare metal Kubernetes.
-    digest: 6a2df08e984833e951564b73f701b4690f9de647d42b6dc0858c8720eada7be6
-    icon: file://./_static/img/calico.png
-    name: calico
-    type: application
-    urls:
-    - calico-0.0.2.tgz
-    version: 0.0.2
-  - apiVersion: v2
-    appVersion: 1.16.0
-    created: "2024-09-25T14:29:18.449799989-07:00"
-    description: A Helm chart to deploy Calico resources to bare metal Kubernetes.
-    digest: 6a2df08e984833e951564b73f701b4690f9de647d42b6dc0858c8720eada7be6
-    icon: file://./_static/img/calico.png
-    name: calico
-    type: application
-    urls:
-    - charts/calico-0.0.2.tgz
-    version: 0.0.2
-  - apiVersion: v2
-    appVersion: 1.16.0
-    created: "2024-09-25T14:29:18.376204761-07:00"
-    description: A Helm chart to deploy Calico resources to bare metal Kubernetes.
-    digest: 21793f6639913694b9a9124eafadf1031052abc3b57654dac725953a492e3a0e
-    icon: file://./_static/img/calico.png
-    name: calico
-    type: application
-    urls:
-    - calico-0.0.1.tgz
-    version: 0.0.1
-  - apiVersion: v2
-    appVersion: 1.16.0
-    created: "2024-09-25T14:29:18.447041386-07:00"
-    description: A Helm chart to deploy Calico resources to bare metal Kubernetes.
-    digest: 21793f6639913694b9a9124eafadf1031052abc3b57654dac725953a492e3a0e
-    icon: file://./_static/img/calico.png
-    name: calico
-    type: application
-    urls:
-    - charts/calico-0.0.1.tgz
-    version: 0.0.1
+    - apiVersion: v2
+      appVersion: "3.28"
+      created: "2026-06-04T19:41:30.346493583-07:00"
+      description: A Helm chart to deploy Calico resources to bare metal Kubernetes.
+      digest: f69dd115875454b306eb86700f9d2c3d4aee9145243833133a7e9e792e5b9a31
+      icon: file://./_static/img/calico.png
+      name: calico
+      type: application
+      urls:
+        - charts/calico-0.0.3.tgz
+      version: 0.0.3
+    - apiVersion: v2
+      appVersion: 1.16.0
+      created: "2026-06-04T19:41:30.345592486-07:00"
+      description: A Helm chart to deploy Calico resources to bare metal Kubernetes.
+      digest: 6a2df08e984833e951564b73f701b4690f9de647d42b6dc0858c8720eada7be6
+      icon: file://./_static/img/calico.png
+      name: calico
+      type: application
+      urls:
+        - charts/calico-0.0.2.tgz
+      version: 0.0.2
+    - apiVersion: v2
+      appVersion: 1.16.0
+      created: "2026-06-04T19:41:30.344721281-07:00"
+      description: A Helm chart to deploy Calico resources to bare metal Kubernetes.
+      digest: 21793f6639913694b9a9124eafadf1031052abc3b57654dac725953a492e3a0e
+      icon: file://./_static/img/calico.png
+      name: calico
+      type: application
+      urls:
+        - charts/calico-0.0.1.tgz
+      version: 0.0.1
   lvm:
-  - apiVersion: v2
-    appVersion: 0.5.2
-    created: "2024-09-25T14:29:18.401795518-07:00"
-    dependencies:
-    - condition: csi-driver-lvm.enabled
-      name: csi-driver-lvm
-      repository: https://helm.metal-stack.io
-      version: ~0.6
-    - condition: local-static-provisioner.enabled
-      name: local-static-provisioner
-      repository: file://./local-static-provisioner/
-      version: ~2
-    description: A Helm chart to deploy local StorageClasses
-    digest: ce3d00f0899364fd6d23be21ee59e591e07487d1234841bcfd775eb231387b3e
-    icon: file://../assets/icon/csi.png
-    name: lvm
-    type: application
-    urls:
-    - lvm-0.0.4.tgz
-    version: 0.0.4
-  - apiVersion: v2
-    appVersion: 0.5.2
-    created: "2024-09-25T14:29:18.465760031-07:00"
-    dependencies:
-    - condition: csi-driver-lvm.enabled
-      name: csi-driver-lvm
-      repository: https://helm.metal-stack.io
-      version: ~0.6
-    - condition: local-static-provisioner.enabled
-      name: local-static-provisioner
-      repository: file://./local-static-provisioner/
-      version: ~2
-    description: A Helm chart to deploy local StorageClasses
-    digest: ce3d00f0899364fd6d23be21ee59e591e07487d1234841bcfd775eb231387b3e
-    icon: file://../assets/icon/csi.png
-    name: lvm
-    type: application
-    urls:
-    - charts/lvm-0.0.4.tgz
-    version: 0.0.4
-  - apiVersion: v2
-    appVersion: 0.5.2
-    created: "2024-09-25T14:29:18.396918651-07:00"
-    dependencies:
-    - condition: csi-driver-lvm.enabled
-      name: csi-driver-lvm
-      repository: https://helm.metal-stack.io
-      version: ~0.6
-    - condition: local-static-provisioner.enabled
-      name: local-static-provisioner
-      repository: file://./local-static-provisioner/
-      version: ~2
-    description: A Helm chart to deploy local StorageClasses
-    digest: 354b64758d332965b7d29181d6a4d0e38cd4748e3d4403e2c7326a90fb8d0f99
-    icon: file://../assets/icon/csi.png
-    name: lvm
-    type: application
-    urls:
-    - lvm-0.0.3.tgz
-    version: 0.0.3
-  - apiVersion: v2
-    appVersion: 1.16.0
-    created: "2024-09-25T14:29:18.460025602-07:00"
-    dependencies:
-    - condition: csi-driver-lvm.enabled
-      name: csi-driver-lvm
-      repository: https://helm.metal-stack.io
-      version: ~0.6
-    - condition: local-static-provisioner.enabled
-      name: local-static-provisioner
-      repository: file://./local-static-provisioner/
-      version: ~2
-    description: A Helm chart for Kubernetes
-    digest: aba88ea19fb0ad6a906db4ec14991b4c937f9c7819cb7e7e89bc911dc608f3cf
-    icon: file://../assets/icon/csi.png
-    name: lvm
-    type: application
-    urls:
-    - charts/lvm-0.0.3.tgz
-    version: 0.0.3
-  - apiVersion: v2
-    appVersion: 1.16.0
-    created: "2024-09-25T14:29:18.388212199-07:00"
-    dependencies:
-    - condition: csi-driver-lvm.enabled
-      name: csi-driver-lvm
-      repository: https://helm.metal-stack.io
-      version: ~0.5
-    - condition: local-static-provisioner.enabled
-      name: local-static-provisioner
-      repository: file://./local-static-provisioner/
-      version: ~2
-    description: A Helm chart for dynamically provisioned storage on bare-metal k8s.
-    digest: 49bc1059f8bc53af611f0bf540a1d66a4ad421b33a706b689a69e26b04f2ad9a
-    icon: file://../assets/icon/csi.png
-    name: lvm
-    type: application
-    urls:
-    - lvm-0.0.2.tgz
-    version: 0.0.2
-  - apiVersion: v2
-    appVersion: 1.16.0
-    created: "2024-09-25T14:29:18.455972892-07:00"
-    dependencies:
-    - condition: csi-driver-lvm.enabled
-      name: csi-driver-lvm
-      repository: https://helm.metal-stack.io
-      version: ~0.5
-    - condition: local-static-provisioner.enabled
-      name: local-static-provisioner
-      repository: file://./local-static-provisioner/
-      version: ~2
-    description: A Helm chart for dynamically provisioned storage on bare-metal k8s.
-    digest: 49bc1059f8bc53af611f0bf540a1d66a4ad421b33a706b689a69e26b04f2ad9a
-    icon: file://../assets/icon/csi.png
-    name: lvm
-    type: application
-    urls:
-    - charts/lvm-0.0.2.tgz
-    version: 0.0.2
-  - apiVersion: v2
-    appVersion: 1.16.0
-    created: "2024-09-25T14:29:18.383783785-07:00"
-    dependencies:
-    - condition: csi-driver-lvm.enabled
-      name: csi-driver-lvm
-      repository: https://helm.metal-stack.io
-      version: ~0.5
-    - condition: local-static-provisioner.enabled
-      name: local-static-provisioner
-      repository: file://./local-static-provisioner/
-      version: ~2
-    description: A Helm chart for dynamically provisioned storage on bare-metal k8s.
-    digest: ca28b45c69bf8a1ca0bca119c85f79773ea0a9a089d67e22f9aa3d5c20d4dbe4
-    icon: file://../assets/icon/csi.png
-    name: lvm
-    type: application
-    urls:
-    - lvm-0.0.1.tgz
-    version: 0.0.1
-  - apiVersion: v2
-    appVersion: 1.16.0
-    created: "2024-09-25T14:29:18.452448813-07:00"
-    dependencies:
-    - condition: csi-driver-lvm.enabled
-      name: csi-driver-lvm
-      repository: https://helm.metal-stack.io
-      version: ~0.5
-    - condition: local-static-provisioner.enabled
-      name: local-static-provisioner
-      repository: file://./local-static-provisioner/
-      version: ~2
-    description: A Helm chart for dynamically provisioned storage on bare-metal k8s.
-    digest: ca28b45c69bf8a1ca0bca119c85f79773ea0a9a089d67e22f9aa3d5c20d4dbe4
-    icon: file://../assets/icon/csi.png
-    name: lvm
-    type: application
-    urls:
-    - charts/lvm-0.0.1.tgz
-    version: 0.0.1
+    - apiVersion: v2
+      appVersion: 0.5.2
+      created: "2026-06-04T19:41:30.323199015-07:00"
+      dependencies:
+        - condition: csi-driver-lvm.enabled
+          name: csi-driver-lvm
+          repository: https://helm.metal-stack.io
+          version: ~0.6
+        - condition: local-static-provisioner.enabled
+          name: local-static-provisioner
+          repository: file://./local-static-provisioner/
+          version: ~2
+      description: A Helm chart to deploy local StorageClasses
+      digest: ce3d00f0899364fd6d23be21ee59e591e07487d1234841bcfd775eb231387b3e
+      icon: file://../assets/icon/csi.png
+      name: lvm
+      type: application
+      urls:
+        - lvm-0.0.4.tgz
+      version: 0.0.4
+    - apiVersion: v2
+      appVersion: 0.5.2
+      created: "2026-06-04T19:41:30.352312511-07:00"
+      dependencies:
+        - condition: csi-driver-lvm.enabled
+          name: csi-driver-lvm
+          repository: https://helm.metal-stack.io
+          version: ~0.6
+        - condition: local-static-provisioner.enabled
+          name: local-static-provisioner
+          repository: file://./local-static-provisioner/
+          version: ~2
+      description: A Helm chart to deploy local StorageClasses
+      digest: ce3d00f0899364fd6d23be21ee59e591e07487d1234841bcfd775eb231387b3e
+      icon: file://../assets/icon/csi.png
+      name: lvm
+      type: application
+      urls:
+        - charts/lvm-0.0.4.tgz
+      version: 0.0.4
+    - apiVersion: v2
+      appVersion: 0.5.2
+      created: "2026-06-04T19:41:30.320412123-07:00"
+      dependencies:
+        - condition: csi-driver-lvm.enabled
+          name: csi-driver-lvm
+          repository: https://helm.metal-stack.io
+          version: ~0.6
+        - condition: local-static-provisioner.enabled
+          name: local-static-provisioner
+          repository: file://./local-static-provisioner/
+          version: ~2
+      description: A Helm chart to deploy local StorageClasses
+      digest: 354b64758d332965b7d29181d6a4d0e38cd4748e3d4403e2c7326a90fb8d0f99
+      icon: file://../assets/icon/csi.png
+      name: lvm
+      type: application
+      urls:
+        - lvm-0.0.3.tgz
+      version: 0.0.3
+    - apiVersion: v2
+      appVersion: 1.16.0
+      created: "2026-06-04T19:41:30.350277325-07:00"
+      dependencies:
+        - condition: csi-driver-lvm.enabled
+          name: csi-driver-lvm
+          repository: https://helm.metal-stack.io
+          version: ~0.6
+        - condition: local-static-provisioner.enabled
+          name: local-static-provisioner
+          repository: file://./local-static-provisioner/
+          version: ~2
+      description: A Helm chart for Kubernetes
+      digest: aba88ea19fb0ad6a906db4ec14991b4c937f9c7819cb7e7e89bc911dc608f3cf
+      icon: file://../assets/icon/csi.png
+      name: lvm
+      type: application
+      urls:
+        - charts/lvm-0.0.3.tgz
+      version: 0.0.3
+    - apiVersion: v2
+      appVersion: 1.16.0
+      created: "2026-06-04T19:41:30.318372677-07:00"
+      dependencies:
+        - condition: csi-driver-lvm.enabled
+          name: csi-driver-lvm
+          repository: https://helm.metal-stack.io
+          version: ~0.5
+        - condition: local-static-provisioner.enabled
+          name: local-static-provisioner
+          repository: file://./local-static-provisioner/
+          version: ~2
+      description: A Helm chart for dynamically provisioned storage on bare-metal k8s.
+      digest: 49bc1059f8bc53af611f0bf540a1d66a4ad421b33a706b689a69e26b04f2ad9a
+      icon: file://../assets/icon/csi.png
+      name: lvm
+      type: application
+      urls:
+        - lvm-0.0.2.tgz
+      version: 0.0.2
+    - apiVersion: v2
+      appVersion: 1.16.0
+      created: "2026-06-04T19:41:30.348386152-07:00"
+      dependencies:
+        - condition: csi-driver-lvm.enabled
+          name: csi-driver-lvm
+          repository: https://helm.metal-stack.io
+          version: ~0.5
+        - condition: local-static-provisioner.enabled
+          name: local-static-provisioner
+          repository: file://./local-static-provisioner/
+          version: ~2
+      description: A Helm chart for dynamically provisioned storage on bare-metal k8s.
+      digest: 49bc1059f8bc53af611f0bf540a1d66a4ad421b33a706b689a69e26b04f2ad9a
+      icon: file://../assets/icon/csi.png
+      name: lvm
+      type: application
+      urls:
+        - charts/lvm-0.0.2.tgz
+      version: 0.0.2
+    - apiVersion: v2
+      appVersion: 1.16.0
+      created: "2026-06-04T19:41:30.31643031-07:00"
+      dependencies:
+        - condition: csi-driver-lvm.enabled
+          name: csi-driver-lvm
+          repository: https://helm.metal-stack.io
+          version: ~0.5
+        - condition: local-static-provisioner.enabled
+          name: local-static-provisioner
+          repository: file://./local-static-provisioner/
+          version: ~2
+      description: A Helm chart for dynamically provisioned storage on bare-metal k8s.
+      digest: ca28b45c69bf8a1ca0bca119c85f79773ea0a9a089d67e22f9aa3d5c20d4dbe4
+      icon: file://../assets/icon/csi.png
+      name: lvm
+      type: application
+      urls:
+        - lvm-0.0.1.tgz
+      version: 0.0.1
   monero:
-  - apiVersion: v2
-    appVersion: 0.18.3.4-2
-    created: "2024-09-25T14:29:18.404349516-07:00"
-    description: A Helm chart to deploy a Monero node to bare metal Kubernetes.
-    digest: a6ef91d3ecb19c9b0cbb2a20ac5f19219bab3e8505db1eed24f273707693c170
-    icon: file://./_static/img/logo/helm.png
-    name: monero
-    type: application
-    urls:
-    - monero-0.0.1.tgz
-    version: 0.0.1
-  - apiVersion: v2
-    appVersion: 0.18.3.4-2
-    created: "2024-09-25T14:29:18.468259085-07:00"
-    description: A Helm chart to deploy a Monero node to bare metal Kubernetes.
-    digest: a6ef91d3ecb19c9b0cbb2a20ac5f19219bab3e8505db1eed24f273707693c170
-    icon: file://./_static/img/logo/helm.png
-    name: monero
-    type: application
-    urls:
-    - charts/monero-0.0.1.tgz
-    version: 0.0.1
+    - apiVersion: v2
+      appVersion: 0.18.3.4-2
+      created: "2026-06-04T19:41:30.324289313-07:00"
+      description: A Helm chart to deploy a Monero node to bare metal Kubernetes.
+      digest: a6ef91d3ecb19c9b0cbb2a20ac5f19219bab3e8505db1eed24f273707693c170
+      icon: file://./_static/img/logo/helm.png
+      name: monero
+      type: application
+      urls:
+        - monero-0.0.1.tgz
+      version: 0.0.1
+    - apiVersion: v2
+      appVersion: 0.18.3.4-2
+      created: "2026-06-04T19:41:30.35336712-07:00"
+      description: A Helm chart to deploy a Monero node to bare metal Kubernetes.
+      digest: a6ef91d3ecb19c9b0cbb2a20ac5f19219bab3e8505db1eed24f273707693c170
+      icon: file://./_static/img/logo/helm.png
+      name: monero
+      type: application
+      urls:
+        - charts/monero-0.0.1.tgz
+      version: 0.0.1
   nautobot:
-  - apiVersion: v2
-    appVersion: 2.3.0
-    created: "2024-09-25T14:29:18.421841894-07:00"
-    dependencies:
-    - condition: redis.enabled
-      name: redis
-      repository: https://edwardtheharris.github.io/helm-charts
+    - apiVersion: v2
+      appVersion: 2.3.0
+      created: "2026-06-04T19:41:30.33489009-07:00"
+      dependencies:
+        - condition: redis.enabled
+          name: redis
+          repository: https://edwardtheharris.github.io/helm-charts
+          version: 0.0.3
+        - condition: postgresql.enabled
+          name: postgresql
+          repository: https://edwardtheharris.github.io/helm-charts
+          version: 0.0.3
+      description: A Helm chart that will deploy Nautobot to a Kubernetes cluster.
+      digest: 65b67d12b7d881dbe427dfba39d60ffbaec337eff04abc8a8d475c1c8ec674ac
+      icon: file://./_static/img/nautobot.png
+      name: nautobot
+      type: application
+      urls:
+        - nautobot-0.0.3.tgz
       version: 0.0.3
-    - condition: postgresql.enabled
-      name: postgresql
-      repository: https://edwardtheharris.github.io/helm-charts
+    - apiVersion: v2
+      appVersion: 2.3.0
+      created: "2026-06-04T19:41:30.364432413-07:00"
+      dependencies:
+        - condition: redis.enabled
+          name: redis
+          repository: https://edwardtheharris.github.io/helm-charts
+          version: 0.0.3
+        - condition: postgresql.enabled
+          name: postgresql
+          repository: https://edwardtheharris.github.io/helm-charts
+          version: 0.0.3
+      description: A Helm chart that will deploy Nautobot to a Kubernetes cluster.
+      digest: 65b67d12b7d881dbe427dfba39d60ffbaec337eff04abc8a8d475c1c8ec674ac
+      icon: file://./_static/img/nautobot.png
+      name: nautobot
+      type: application
+      urls:
+        - charts/nautobot-0.0.3.tgz
       version: 0.0.3
-    description: A Helm chart that will deploy Nautobot to a Kubernetes cluster.
-    digest: 65b67d12b7d881dbe427dfba39d60ffbaec337eff04abc8a8d475c1c8ec674ac
-    icon: file://./_static/img/nautobot.png
-    name: nautobot
-    type: application
-    urls:
-    - nautobot-0.0.3.tgz
-    version: 0.0.3
-  - apiVersion: v2
-    appVersion: 2.3.0
-    created: "2024-09-25T14:29:18.487100066-07:00"
-    dependencies:
-    - condition: redis.enabled
-      name: redis
-      repository: https://edwardtheharris.github.io/helm-charts
-      version: 0.0.3
-    - condition: postgresql.enabled
-      name: postgresql
-      repository: https://edwardtheharris.github.io/helm-charts
-      version: 0.0.3
-    description: A Helm chart that will deploy Nautobot to a Kubernetes cluster.
-    digest: 65b67d12b7d881dbe427dfba39d60ffbaec337eff04abc8a8d475c1c8ec674ac
-    icon: file://./_static/img/nautobot.png
-    name: nautobot
-    type: application
-    urls:
-    - charts/nautobot-0.0.3.tgz
-    version: 0.0.3
-  - apiVersion: v2
-    appVersion: 2.3.0
-    created: "2024-09-25T14:29:18.411560284-07:00"
-    description: A Helm chart that will deploy Nautobot to a Kubernetes cluster.
-    digest: 316ef8ed1eb1d71f3655094d264ce2ae3e33f3492810965814bad4abac979d52
-    icon: file://./_static/img/nautobot.png
-    name: nautobot
-    type: application
-    urls:
-    - nautobot-0.0.2.tgz
-    version: 0.0.2
-  - apiVersion: v2
-    appVersion: 2.3.0
-    created: "2024-09-25T14:29:18.47659417-07:00"
-    description: A Helm chart that will deploy Nautobot to a Kubernetes cluster.
-    digest: 316ef8ed1eb1d71f3655094d264ce2ae3e33f3492810965814bad4abac979d52
-    icon: file://./_static/img/nautobot.png
-    name: nautobot
-    type: application
-    urls:
-    - charts/nautobot-0.0.2.tgz
-    version: 0.0.2
-  - apiVersion: v2
-    appVersion: 1.16.0
-    created: "2024-09-25T14:29:18.407952496-07:00"
-    description: A Helm to deploy nautobot
-    digest: 269436fa2790159f89496bc79b03fb345c07b9c5c0ba2857ce5fcb9c6be1ffa8
-    icon: file://./_static/img/nautobot.png
-    name: nautobot
-    type: application
-    urls:
-    - nautobot-0.0.1.tgz
-    version: 0.0.1
-  - apiVersion: v2
-    appVersion: 1.16.0
-    created: "2024-09-25T14:29:18.471894987-07:00"
-    description: A Helm to deploy nautobot
-    digest: 269436fa2790159f89496bc79b03fb345c07b9c5c0ba2857ce5fcb9c6be1ffa8
-    icon: file://./_static/img/nautobot.png
-    name: nautobot
-    type: application
-    urls:
-    - charts/nautobot-0.0.1.tgz
-    version: 0.0.1
+    - apiVersion: v2
+      appVersion: 2.3.0
+      created: "2026-06-04T19:41:30.32808395-07:00"
+      description: A Helm chart that will deploy Nautobot to a Kubernetes cluster.
+      digest: 316ef8ed1eb1d71f3655094d264ce2ae3e33f3492810965814bad4abac979d52
+      icon: file://./_static/img/nautobot.png
+      name: nautobot
+      type: application
+      urls:
+        - nautobot-0.0.2.tgz
+      version: 0.0.2
+    - apiVersion: v2
+      appVersion: 2.3.0
+      created: "2026-06-04T19:41:30.358016409-07:00"
+      description: A Helm chart that will deploy Nautobot to a Kubernetes cluster.
+      digest: 316ef8ed1eb1d71f3655094d264ce2ae3e33f3492810965814bad4abac979d52
+      icon: file://./_static/img/nautobot.png
+      name: nautobot
+      type: application
+      urls:
+        - charts/nautobot-0.0.2.tgz
+      version: 0.0.2
+    - apiVersion: v2
+      appVersion: 1.16.0
+      created: "2026-06-04T19:41:30.326090599-07:00"
+      description: A Helm to deploy nautobot
+      digest: 269436fa2790159f89496bc79b03fb345c07b9c5c0ba2857ce5fcb9c6be1ffa8
+      icon: file://./_static/img/nautobot.png
+      name: nautobot
+      type: application
+      urls:
+        - nautobot-0.0.1.tgz
+      version: 0.0.1
+    - apiVersion: v2
+      appVersion: 1.16.0
+      created: "2026-06-04T19:41:30.355932334-07:00"
+      description: A Helm to deploy nautobot
+      digest: 269436fa2790159f89496bc79b03fb345c07b9c5c0ba2857ce5fcb9c6be1ffa8
+      icon: file://./_static/img/nautobot.png
+      name: nautobot
+      type: application
+      urls:
+        - charts/nautobot-0.0.1.tgz
+      version: 0.0.1
   postgres:
-  - apiVersion: v2
-    appVersion: 1.16.0
-    created: "2024-09-25T14:29:18.423450514-07:00"
-    description: A Helm chart for Kubernetes
-    digest: b31734d9f9cc48d3ad8f32c701384d59190b59f86b834f22db98b4710dabe1f6
-    icon: file://./assets/icon/postgresql.jpeg
-    name: postgres
-    type: application
-    urls:
-    - postgresql-0.0.1.tgz
-    version: 0.0.1
+    - apiVersion: v2
+      appVersion: 1.16.0
+      created: "2026-06-04T19:41:30.335325343-07:00"
+      description: A Helm chart for Kubernetes
+      digest: b31734d9f9cc48d3ad8f32c701384d59190b59f86b834f22db98b4710dabe1f6
+      icon: file://./assets/icon/postgresql.jpeg
+      name: postgres
+      type: application
+      urls:
+        - postgresql-0.0.1.tgz
+      version: 0.0.1
+    - apiVersion: v2
+      appVersion: 1.16.0
+      created: "2026-06-04T19:41:30.364883172-07:00"
+      description: A Helm chart for Kubernetes
+      digest: b31734d9f9cc48d3ad8f32c701384d59190b59f86b834f22db98b4710dabe1f6
+      icon: file://./assets/icon/postgresql.jpeg
+      name: postgres
+      type: application
+      urls:
+        - charts/postgresql-0.0.1.tgz
+      version: 0.0.1
   postgresql:
-  - apiVersion: v2
-    appVersion: 1.16.0
-    created: "2024-09-25T14:29:18.427383696-07:00"
-    description: PostgreSQL deployed as a single server or a cluster.
-    digest: 92c65a2653cdd43be70eba341ad3cef081173b86ebb22c103ca1c695cc2aa576
-    icon: file://./assets/icon/postgresql.jpeg
-    name: postgresql
-    type: application
-    urls:
-    - postgresql-0.0.3.tgz
-    version: 0.0.3
-  - apiVersion: v2
-    appVersion: 1.16.0
-    created: "2024-09-25T14:29:18.490511896-07:00"
-    description: PostgreSQL deployed as a single server or a cluster.
-    digest: 92c65a2653cdd43be70eba341ad3cef081173b86ebb22c103ca1c695cc2aa576
-    icon: file://./assets/icon/postgresql.jpeg
-    name: postgresql
-    type: application
-    urls:
-    - charts/postgresql-0.0.3.tgz
-    version: 0.0.3
-  - apiVersion: v2
-    appVersion: 1.16.0
-    created: "2024-09-25T14:29:18.425271398-07:00"
-    description: A Helm chart for Kubernetes
-    digest: 12f79bce72cd559f2d5c62855ed4f7530c923c4157832f834f1d3100837b4ee5
-    icon: file://./assets/icon/postgresql.jpeg
-    name: postgresql
-    type: application
-    urls:
-    - postgresql-0.0.2.tgz
-    version: 0.0.2
+    - apiVersion: v2
+      appVersion: 1.16.0
+      created: "2026-06-04T19:41:30.337176147-07:00"
+      description: PostgreSQL deployed as a single server or a cluster.
+      digest: 92c65a2653cdd43be70eba341ad3cef081173b86ebb22c103ca1c695cc2aa576
+      icon: file://./assets/icon/postgresql.jpeg
+      name: postgresql
+      type: application
+      urls:
+        - postgresql-0.0.3.tgz
+      version: 0.0.3
+    - apiVersion: v2
+      appVersion: 1.16.0
+      created: "2026-06-04T19:41:30.366926599-07:00"
+      description: PostgreSQL deployed as a single server or a cluster.
+      digest: 92c65a2653cdd43be70eba341ad3cef081173b86ebb22c103ca1c695cc2aa576
+      icon: file://./assets/icon/postgresql.jpeg
+      name: postgresql
+      type: application
+      urls:
+        - charts/postgresql-0.0.3.tgz
+      version: 0.0.3
+    - apiVersion: v2
+      appVersion: 1.16.0
+      created: "2026-06-04T19:41:30.336199341-07:00"
+      description: A Helm chart for Kubernetes
+      digest: 12f79bce72cd559f2d5c62855ed4f7530c923c4157832f834f1d3100837b4ee5
+      icon: file://./assets/icon/postgresql.jpeg
+      name: postgresql
+      type: application
+      urls:
+        - postgresql-0.0.2.tgz
+      version: 0.0.2
+    - apiVersion: v2
+      appVersion: 1.16.0
+      created: "2026-06-04T19:41:30.36576171-07:00"
+      description: A Helm chart for Kubernetes
+      digest: 12f79bce72cd559f2d5c62855ed4f7530c923c4157832f834f1d3100837b4ee5
+      icon: file://./assets/icon/postgresql.jpeg
+      name: postgresql
+      type: application
+      urls:
+        - charts/postgresql-0.0.2.tgz
+      version: 0.0.2
   redis:
-  - apiVersion: v2
-    appVersion: 7.4.0
-    created: "2024-09-25T14:29:18.441625678-07:00"
-    description: A Helm chart that will deploy Redis to a Kubernetes cluster.
-    digest: 5cfd66a0b9b6bbb2bd7ecf6cef4e6b75d21c4e0799fd4d9ce57ff0d95cab7029
-    icon: https://edwardtheharris.github.io/helm-redis/_static/redis.png
-    name: redis
-    type: application
-    urls:
-    - redis-0.0.4.tgz
-    version: 0.0.4
-  - apiVersion: v2
-    appVersion: 7.4.0
-    created: "2024-09-25T14:29:18.504635405-07:00"
-    description: A Helm chart that will deploy Redis to a Kubernetes cluster.
-    digest: 5cfd66a0b9b6bbb2bd7ecf6cef4e6b75d21c4e0799fd4d9ce57ff0d95cab7029
-    icon: https://edwardtheharris.github.io/helm-redis/_static/redis.png
-    name: redis
-    type: application
-    urls:
-    - charts/redis-0.0.4.tgz
-    version: 0.0.4
-  - apiVersion: v2
-    appVersion: 7.4.0
-    created: "2024-09-25T14:29:18.439438312-07:00"
-    description: A Helm chart that will deploy Redis to a Kubernetes cluster.
-    digest: b9b803780fec0333f5b15f9179c3ede493203154c4eeeaa4044d468e6bbb3470
-    icon: https://edwardtheharris.github.io/helm-redis/_static/redis.png
-    name: redis
-    type: application
-    urls:
-    - redis-0.0.3.tgz
-    version: 0.0.3
-  - apiVersion: v2
-    appVersion: 7.4.0
-    created: "2024-09-25T14:29:18.501992447-07:00"
-    description: A Helm chart that will deploy Redis to a Kubernetes cluster.
-    digest: b9b803780fec0333f5b15f9179c3ede493203154c4eeeaa4044d468e6bbb3470
-    icon: https://edwardtheharris.github.io/helm-redis/_static/redis.png
-    name: redis
-    type: application
-    urls:
-    - charts/redis-0.0.3.tgz
-    version: 0.0.3
-  - apiVersion: v2
-    appVersion: 1.16.0
-    created: "2024-09-25T14:29:18.431037753-07:00"
-    description: A Redis Helm chart for Kubernetes
-    digest: 02a0b25aba644c79549e6f815a9a7140cbda3ceb4131f1a307e34168e39d1f98
-    icon: file://./_static/img/redis.jpg
-    name: redis
-    type: application
-    urls:
-    - redis-0.0.2.tgz
-    version: 0.0.2
-  - apiVersion: v2
-    appVersion: 1.16.0
-    created: "2024-09-25T14:29:18.493876565-07:00"
-    description: A Redis Helm chart for Kubernetes
-    digest: 02a0b25aba644c79549e6f815a9a7140cbda3ceb4131f1a307e34168e39d1f98
-    icon: file://./_static/img/redis.jpg
-    name: redis
-    type: application
-    urls:
-    - charts/redis-0.0.2.tgz
-    version: 0.0.2
-  - apiVersion: v2
-    appVersion: 1.16.0
-    created: "2024-09-25T14:29:18.428555315-07:00"
-    description: A Redis Helm chart for Kubernetes
-    digest: b92ad7757535b6dd154b728853ab14529fbbfc052d221b2f28d54f03f016e7ec
-    icon: file://./assets/icon/redis.jpg
-    name: redis
-    type: application
-    urls:
-    - redis-0.0.1.tgz
-    version: 0.0.1
-  - apiVersion: v2
-    appVersion: 1.16.0
-    created: "2024-09-25T14:29:18.491678055-07:00"
-    description: A Redis Helm chart for Kubernetes
-    digest: b92ad7757535b6dd154b728853ab14529fbbfc052d221b2f28d54f03f016e7ec
-    icon: file://./assets/icon/redis.jpg
-    name: redis
-    type: application
-    urls:
-    - charts/redis-0.0.1.tgz
-    version: 0.0.1
-generated: "2024-09-25T14:29:18.370705389-07:00"
+    - apiVersion: v2
+      appVersion: 7.4.0
+      created: "2026-06-04T19:41:30.342624495-07:00"
+      description: A Helm chart that will deploy Redis to a Kubernetes cluster.
+      digest: 5cfd66a0b9b6bbb2bd7ecf6cef4e6b75d21c4e0799fd4d9ce57ff0d95cab7029
+      icon: https://edwardtheharris.github.io/helm-redis/_static/redis.png
+      name: redis
+      type: application
+      urls:
+        - redis-0.0.4.tgz
+      version: 0.0.4
+    - apiVersion: v2
+      appVersion: 7.4.0
+      created: "2026-06-04T19:41:30.372857762-07:00"
+      description: A Helm chart that will deploy Redis to a Kubernetes cluster.
+      digest: 5cfd66a0b9b6bbb2bd7ecf6cef4e6b75d21c4e0799fd4d9ce57ff0d95cab7029
+      icon: https://edwardtheharris.github.io/helm-redis/_static/redis.png
+      name: redis
+      type: application
+      urls:
+        - charts/redis-0.0.4.tgz
+      version: 0.0.4
+    - apiVersion: v2
+      appVersion: 7.4.0
+      created: "2026-06-04T19:41:30.341604806-07:00"
+      description: A Helm chart that will deploy Redis to a Kubernetes cluster.
+      digest: b9b803780fec0333f5b15f9179c3ede493203154c4eeeaa4044d468e6bbb3470
+      icon: https://edwardtheharris.github.io/helm-redis/_static/redis.png
+      name: redis
+      type: application
+      urls:
+        - redis-0.0.3.tgz
+      version: 0.0.3
+    - apiVersion: v2
+      appVersion: 7.4.0
+      created: "2026-06-04T19:41:30.371865661-07:00"
+      description: A Helm chart that will deploy Redis to a Kubernetes cluster.
+      digest: b9b803780fec0333f5b15f9179c3ede493203154c4eeeaa4044d468e6bbb3470
+      icon: https://edwardtheharris.github.io/helm-redis/_static/redis.png
+      name: redis
+      type: application
+      urls:
+        - charts/redis-0.0.3.tgz
+      version: 0.0.3
+    - apiVersion: v2
+      appVersion: 1.16.0
+      created: "2026-06-04T19:41:30.338407735-07:00"
+      description: A Redis Helm chart for Kubernetes
+      digest: 02a0b25aba644c79549e6f815a9a7140cbda3ceb4131f1a307e34168e39d1f98
+      icon: file://./_static/img/redis.jpg
+      name: redis
+      type: application
+      urls:
+        - redis-0.0.2.tgz
+      version: 0.0.2
+    - apiVersion: v2
+      appVersion: 1.16.0
+      created: "2026-06-04T19:41:30.368745695-07:00"
+      description: A Redis Helm chart for Kubernetes
+      digest: 02a0b25aba644c79549e6f815a9a7140cbda3ceb4131f1a307e34168e39d1f98
+      icon: file://./_static/img/redis.jpg
+      name: redis
+      type: application
+      urls:
+        - charts/redis-0.0.2.tgz
+      version: 0.0.2
+    - apiVersion: v2
+      appVersion: 1.16.0
+      created: "2026-06-04T19:41:30.337578574-07:00"
+      description: A Redis Helm chart for Kubernetes
+      digest: b92ad7757535b6dd154b728853ab14529fbbfc052d221b2f28d54f03f016e7ec
+      icon: file://./assets/icon/redis.jpg
+      name: redis
+      type: application
+      urls:
+        - redis-0.0.1.tgz
+      version: 0.0.1
+    - apiVersion: v2
+      appVersion: 1.16.0
+      created: "2026-06-04T19:41:30.367770984-07:00"
+      description: A Redis Helm chart for Kubernetes
+      digest: b92ad7757535b6dd154b728853ab14529fbbfc052d221b2f28d54f03f016e7ec
+      icon: file://./assets/icon/redis.jpg
+      name: redis
+      type: application
+      urls:
+        - charts/redis-0.0.1.tgz
+      version: 0.0.1
+generated: "2026-06-04T19:41:30.31192266-07:00"
