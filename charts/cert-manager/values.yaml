@@ -23,12 +23,14 @@ global:
   nodeSelector: {}
 
   # Labels to apply to all resources.
-  # Please note that this does not add labels to the resources created dynamically by the controllers.
-  # For these resources, you have to add the labels in the template in the cert-manager custom resource:
-  # For example, podTemplate/ ingressTemplate in ACMEChallengeSolverHTTP01Ingress
-  # For more information, see the [cert-manager documentation](https://cert-manager.io/docs/reference/api-docs/#acme.cert-manager.io/v1.ACMEChallengeSolverHTTP01Ingress).
-  # For example, secretTemplate in CertificateSpec
-  # For more information, see the [cert-manager documentation](https://cert-manager.io/docs/reference/api-docs/#cert-manager.io/v1.CertificateSpec).
+  # These labels are also applied to dynamically-created ACME HTTP01 solver resources
+  # (pods, services, ingresses, or Gateway API HTTPRoutes).
+  # The following ACME identity label keys are reserved and will be
+  # silently ignored on dynamically-created resources: acme.cert-manager.io/http-domain,
+  # acme.cert-manager.io/http-token, acme.cert-manager.io/http01-solver.
+  # For per-Issuer-specific labels, use the HTTP01 ingress solver podTemplate and
+  # ingressTemplate fields for pod/ingress resources, or the gatewayHTTPRoute
+  # solver labels field for Gateway API HTTPRoute resources.
   commonLabels: {}
 
   # The number of old ReplicaSets to retain to allow rollback (if not set, the default Kubernetes value is set to 10).
@@ -89,6 +91,13 @@ global:
     # renewal of a leadership.
     # +docs:property
     # retryPeriod: 15s
+
+  # A Kubernetes Runtime Class to apply to ACME HTTP01 solver pods, if required. For more information, see [Runtime Class](https://kubernetes.io/docs/concepts/containers/).
+  #
+  # For example:
+  #   runtimeClassName: gvisor
+  # +docs:property
+  runtimeClassName: ""
 
 # This option is equivalent to setting crds.enabled=true and crds.keep=true.
 # Deprecated: use crds.enabled and crds.keep instead.
@@ -286,7 +295,8 @@ enableCertificateOwnerRef: false
 #    kubernetesAPIQPS: 9000
 #    kubernetesAPIBurst: 9000
 #    numberOfConcurrentWorkers: 200
-#    enableGatewayAPI: true
+#    gatewayAPI:
+#      enabled: true
 #    # Feature gates as of v1.20.0. Listed with their default values.
 #    # See https://cert-manager.io/docs/cli/controller/
 #    featureGates:
@@ -317,6 +327,9 @@ enableCertificateOwnerRef: false
 #      maxPrivateKeySize: 13000      # Maximum size in bytes for private keys (default: 13000)
 #      maxChainLength: 95000         # Maximum size in bytes for certificate chains (default: 95000)
 #      maxBundleSize: 330000         # Maximum size in bytes for certificate bundles (default: 330000)
+#    # Configure certificate request backoff durations
+#    certificateRequestMinimumBackoffDuration: 1h
+#    certificateRequestMaximumBackoffDuration: 32h
 config: {}
 
 # Setting Nameservers for DNS01 Self Check.
@@ -343,8 +356,8 @@ disableAutoApproval: false
 # ref: https://cert-manager.io/docs/concepts/certificaterequest/#approval
 # +docs:property
 approveSignerNames:
-  - issuers.cert-manager.io/*
-  - clusterissuers.cert-manager.io/*
+- issuers.cert-manager.io/*
+- clusterissuers.cert-manager.io/*
 
 # Additional command line flags to pass to cert-manager controller binary.
 # To see all available flags run `docker run quay.io/jetstack/cert-manager-controller:<version> --help`.
@@ -420,7 +433,7 @@ containerSecurityContext:
   allowPrivilegeEscalation: false
   capabilities:
     drop:
-      - ALL
+    - ALL
   readOnlyRootFilesystem: true
 
 # Additional volumes to add to the cert-manager controller pod.
@@ -511,29 +524,30 @@ networkPolicy:
   #   http-metrics and http-healthz ports
   # +docs:property
   ingress:
-    - ports:
-        - port: http-metrics
-          protocol: TCP
-        - port: http-healthz
-          protocol: TCP
+  - ports:
+    - port: http-metrics
+      protocol: TCP
+    - port: http-healthz
+      protocol: TCP
+
 
   # Egress rule for the cert-manager network policy. By default, it allows all
   # outbound traffic to ports 80 and 443, as well as DNS ports.
   # +docs:property
   egress:
-    - ports:
-        - port: 80
-          protocol: TCP
-        - port: 443
-          protocol: TCP
-        - port: 53
-          protocol: TCP
-        - port: 53
-          protocol: UDP
-        # On OpenShift and OKD, the Kubernetes API server listens on.
-        # port 6443.
-        - port: 6443
-          protocol: TCP
+  - ports:
+    - port: 80
+      protocol: TCP
+    - port: 443
+      protocol: TCP
+    - port: 53
+      protocol: TCP
+    - port: 53
+      protocol: UDP
+    # On OpenShift and OKD, the Kubernetes API server listens on.
+    # port 6443.
+    - port: 6443
+      protocol: TCP
 
 # +docs:ignore
 ingressShim: {}
@@ -578,6 +592,13 @@ ingressShim: {}
 #            values:
 #            - master
 affinity: {}
+
+# A Kubernetes Runtime Class to apply to ACME HTTP01 solver pods, if required. For more information, see [Runtime Class](https://kubernetes.io/docs/concepts/containers/).
+#
+# For example:
+#   runtimeClassName: gvisor
+# +docs:property
+runtimeClassName: ""
 
 # A list of Kubernetes Tolerations, if required. For more information, see [Toleration v1 core](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#toleration-v1-core).
 #
@@ -650,14 +671,6 @@ prometheus:
     # different ServiceMonitors.
     prometheusInstance: default
 
-    # The target port to set on the ServiceMonitor. This must match the port that the
-    # cert-manager controller is listening on for metrics.
-    # +docs:type=string,integer
-    targetPort: http-metrics
-
-    # The path to scrape for metrics.
-    path: /metrics
-
     # The interval to scrape metrics.
     interval: 60s
 
@@ -701,9 +714,6 @@ prometheus:
     # used when different Prometheus instances have label selectors matching
     # different PodMonitors.
     prometheusInstance: default
-
-    # The path to scrape for metrics.
-    path: /metrics
 
     # The interval to scrape metrics.
     interval: 60s
@@ -824,7 +834,7 @@ webhook:
     allowPrivilegeEscalation: false
     capabilities:
       drop:
-        - ALL
+      - ALL
     readOnlyRootFilesystem: true
 
   podDisruptionBudget:
@@ -899,6 +909,7 @@ webhook:
     #      values:
     #        - kube-system
 
+
   # Additional command line flags to pass to cert-manager webhook binary.
   # To see all available flags run `docker run quay.io/jetstack/cert-manager-webhook:<version> --help`.
   extraArgs: []
@@ -971,6 +982,13 @@ webhook:
   #            values:
   #            - master
   affinity: {}
+
+  # A Kubernetes Runtime Class to apply to ACME HTTP01 solver pods, if required. For more information, see [Runtime Class](https://kubernetes.io/docs/concepts/containers/).
+  #
+  # For example:
+  #   runtimeClassName: gvisor
+  # +docs:property
+  runtimeClassName: ""
 
   # A list of Kubernetes Tolerations, if required. For more information, see [Toleration v1 core](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#toleration-v1-core).
   #
@@ -1110,31 +1128,31 @@ webhook:
     #   https, http-metrics, and http-healthz ports
     # +docs:property
     ingress:
-      - ports:
-          - port: https
-            protocol: TCP
-          - port: healthcheck
-            protocol: TCP
-          - port: http-metrics
-            protocol: TCP
+    - ports:
+      - port: https
+        protocol: TCP
+      - port: healthcheck
+        protocol: TCP
+      - port: http-metrics
+        protocol: TCP
 
     # Egress rule for the webhook network policy. By default, it allows all
     # outbound traffic to ports 80 and 443, as well as DNS ports.
     # +docs:property
     egress:
-      - ports:
-          - port: 80
-            protocol: TCP
-          - port: 443
-            protocol: TCP
-          - port: 53
-            protocol: TCP
-          - port: 53
-            protocol: UDP
-          # On OpenShift and OKD, the Kubernetes API server listens on.
-          # port 6443.
-          - port: 6443
-            protocol: TCP
+    - ports:
+      - port: 80
+        protocol: TCP
+      - port: 443
+        protocol: TCP
+      - port: 53
+        protocol: TCP
+      - port: 53
+        protocol: UDP
+      # On OpenShift and OKD, the Kubernetes API server listens on.
+      # port 6443.
+      - port: 6443
+        protocol: TCP
 
   # Additional volumes to add to the cert-manager controller pod.
   volumes: []
@@ -1224,7 +1242,7 @@ cainjector:
     allowPrivilegeEscalation: false
     capabilities:
       drop:
-        - ALL
+      - ALL
     readOnlyRootFilesystem: true
 
   # Enables default network policies for cainjector.
@@ -1241,27 +1259,27 @@ cainjector:
     #   http-metrics port
     # +docs:property
     ingress:
-      - ports:
-          - port: http-metrics
-            protocol: TCP
+    - ports:
+      - port: http-metrics
+        protocol: TCP
 
     # Egress rule for the cainjector network policy. By default, it allows all
     # outbound traffic to ports 80 and 443, as well as DNS ports.
     # +docs:property
     egress:
-      - ports:
-          - port: 80
-            protocol: TCP
-          - port: 443
-            protocol: TCP
-          - port: 53
-            protocol: TCP
-          - port: 53
-            protocol: UDP
-          # On OpenShift and OKD, the Kubernetes API server listens on.
-          # port 6443.
-          - port: 6443
-            protocol: TCP
+    - ports:
+      - port: 80
+        protocol: TCP
+      - port: 443
+        protocol: TCP
+      - port: 53
+        protocol: TCP
+      - port: 53
+        protocol: UDP
+      # On OpenShift and OKD, the Kubernetes API server listens on.
+      # port 6443.
+      - port: 6443
+        protocol: TCP
 
   podDisruptionBudget:
     # Enable or disable the PodDisruptionBudget resource.
@@ -1332,6 +1350,7 @@ cainjector:
   # For more information, see [Resource Management for Pods and Containers](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/).
   resources: {}
 
+
   # The nodeSelector on Pods tells Kubernetes to schedule Pods on the nodes with
   # matching labels.
   # For more information, see [Assigning Pods to Nodes](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/).
@@ -1355,6 +1374,13 @@ cainjector:
   #            values:
   #            - master
   affinity: {}
+
+  # A Kubernetes Runtime Class to apply to ACME HTTP01 solver pods, if required. For more information, see [Runtime Class](https://kubernetes.io/docs/concepts/containers/).
+  #
+  # For example:
+  #   runtimeClassName: gvisor
+  # +docs:property
+  runtimeClassName: ""
 
   # A list of Kubernetes Tolerations, if required. For more information, see [Toleration v1 core](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#toleration-v1-core).
   #
@@ -1489,6 +1515,13 @@ acmesolver:
     # Kubernetes imagePullPolicy on Deployment.
     pullPolicy: IfNotPresent
 
+  # A Kubernetes Runtime Class to apply to ACME HTTP01 solver pods, if required. For more information, see [Runtime Class](https://kubernetes.io/docs/concepts/containers/).
+  #
+  # For example:
+  #   runtimeClassName: gvisor
+  # +docs:property
+  runtimeClassName: ""
+
 # +docs:section=Startup API Check
 # This startupapicheck is a Helm post-install hook that waits for the webhook
 # endpoints to become available.
@@ -1517,7 +1550,7 @@ startupapicheck:
     allowPrivilegeEscalation: false
     capabilities:
       drop:
-        - ALL
+      - ALL
     readOnlyRootFilesystem: true
 
   # Timeout for 'kubectl check api' command.
@@ -1525,6 +1558,17 @@ startupapicheck:
 
   # Job backoffLimit
   backoffLimit: 4
+
+  # Limits the lifetime of a Job that has finished execution (either Complete
+  # or Failed). If this field is set, once the Job finishes, it will be
+  # automatically cleaned up after ttlSecondsAfterFinished seconds. This is
+  # disabled by default (field is not set) to preserve backward compatibility
+  # and avoid issues with GitOps tools (e.g. Argo CD) that may attempt to
+  # reconcile or recreate Jobs after they are automatically deleted.
+  # For more information, see [Automatic Cleanup for Finished Jobs](https://kubernetes.io/docs/concepts/workloads/controllers/ttlafterfinished/).
+  # +docs:property
+  # +docs:type=integer
+  # ttlSecondsAfterFinished:
 
   # Optional additional annotations to add to the startupapicheck Job.
   # +docs:property
@@ -1545,7 +1589,7 @@ startupapicheck:
   # the webhook URL, IP address and TCP connect errors for example.
   # +docs:property
   extraArgs:
-    - -v
+  - -v
 
   # Additional environment variables to pass to cert-manager startupapicheck binary.
   # For example:
@@ -1554,7 +1598,7 @@ startupapicheck:
   #    value: 'some value'
   extraEnv: []
 
-  # Resources to provide to the cert-manager controller pod.
+  # Resources to provide to the cert-manager startupapicheck pod.
   #
   # For example:
   #  requests:
@@ -1563,6 +1607,7 @@ startupapicheck:
   #
   # For more information, see [Resource Management for Pods and Containers](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/).
   resources: {}
+
 
   # The nodeSelector on Pods tells Kubernetes to schedule Pods on the nodes with
   # matching labels.
@@ -1586,6 +1631,13 @@ startupapicheck:
   #            values:
   #            - master
   affinity: {}
+
+  # A Kubernetes Runtime Class to apply to ACME HTTP01 solver pods, if required. For more information, see [Runtime Class](https://kubernetes.io/docs/concepts/containers/).
+  #
+  # For example:
+  #   runtimeClassName: gvisor
+  # +docs:property
+  runtimeClassName: ""
 
   # A list of Kubernetes Tolerations, if required. For more information, see [Toleration v1 core](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#toleration-v1-core).
   #
