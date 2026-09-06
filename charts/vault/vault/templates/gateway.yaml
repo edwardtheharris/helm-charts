@@ -1,0 +1,36 @@
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: {{ .Release.Name }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app.kubernetes.io/name: {{ .Release.Name }}
+    app.kubernetes.io/component: http-routing
+  annotations:
+    cert-manager.io/cluster-issuer: {{ .Values.server.service.clusterIssuer }}
+    cert-manager.io/common-name: {{ .Values.server.service.hostname }}
+    cert-manager.io/usages: key agreement,digital signature, server auth
+spec:
+  gatewayClassName: eg
+  listeners:
+    - name: http
+      protocol: HTTP
+      port: 80
+      hostname: vault.breeze-blocks.net
+      allowedRoutes:
+        namespaces:
+          from: All
+    - name: https
+      protocol: HTTPS
+      port: 443
+      hostname: vault.breeze-blocks.net
+      allowedRoutes:
+        namespaces:
+          from: All
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: "{{ .Release.Name }}-tls"
+            kind: Secret
+            group: ""
