@@ -67,7 +67,7 @@ jobs:
       - name: Install the checker
         run: npm i -g markdownlint-cli2 markdownlint-cli2-formatter-junit --save-dev
       - name: Lint the Markdown
-        run: markdownlint-cli2 **/*.md *.md '!.venv' '!_build'
+        run: markdownlint-cli2 **/*.md *.md '!.venv' '!_build' '!AGENTS.md' '!CLAUDE.md'
       - name: Publish Test Results
         uses: EnricoMi/publish-unit-test-result-action@v2
         if: always()

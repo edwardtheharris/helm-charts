@@ -9,7 +9,8 @@ title: Cert Manager Helm Chart Docs
 ---
 
 ```{toctree}
-crds/index
+manifests/index
+README
 ```
 
 This folder contains a values file to deploy the Cert Manager Helm

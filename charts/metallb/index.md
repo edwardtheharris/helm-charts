@@ -24,7 +24,7 @@ README
 1. Create `networking`{l=yaml} namespace[^metallb-install].
 
    ```{code-block} shell
-   kubectl create ns networking
+   kubectl create ns metallb-system
    ```
 
 2. Update the values file for your environment.
@@ -32,7 +32,7 @@ README
 3. Deploy the L2 version to your cluster.
 
    ```{code-block} shell
-   helm install --namespace networking metallb . -f values.yaml
+   helm install --namespace metallb-system metallb . -f values.yaml
    ```
 
 4. Define a simple `IPAddressPool`{l=yaml}.
