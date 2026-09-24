@@ -14,7 +14,7 @@ metadata:
   namespace: cert-manager
 spec:
   isCA: true
-  commonName: thw-int.breeze-blocks.net
+  commonName: int.thw.breeze-blocks.net
   secretName: thw-svc-int-tls
   privateKey:
     algorithm: ECDSA

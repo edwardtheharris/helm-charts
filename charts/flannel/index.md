@@ -39,6 +39,12 @@ You can find the source code in the
    helm install flannel -f values.yaml --namespace kube-flannel flannel/flannel
    ```
 
+```{tip} 
+If you see an error about the pods failing to register the network, double
+check that the podCIDR configuration setting matches the subnet shown
+in the pod logs.
+```
+
 [^flannel-helm-docs]:
     All information provided here was taken from the much
     more reliable

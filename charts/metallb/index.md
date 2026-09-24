@@ -24,7 +24,7 @@ README
 1. Create `networking`{l=yaml} namespace[^metallb-install].
 
    ```{code-block} shell
-   kubectl create ns networking
+   kubectl create ns metallb-system
    ```
 
 2. Update the values file for your environment.

@@ -733,6 +733,7 @@ prometheus:
     # EndpointAdditionalProperties allows setting additional properties on the
     # endpoint such as relabelings, metricRelabelings etc.
     #
+
     # For example:
     #  endpointAdditionalProperties:
     #   relabelings:
@@ -751,6 +752,7 @@ prometheus:
     #         key: "tls.crt"
     #
     # +docs:property
+
     endpointAdditionalProperties: {}
 
 # +docs:section=Webhook
@@ -993,6 +995,7 @@ webhook:
   #
   # For example:
   #   tolerations:
+
   #   - key: foo.bar.com/role
   #     operator: Equal
   #     value: master
