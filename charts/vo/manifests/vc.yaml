@@ -1,0 +1,7 @@
+apiVersion: valkey.io/v1alpha1
+kind: ValkeyCluster
+metadata:
+  name: valkey
+spec:
+  shards: 3
+  replicas: 1
