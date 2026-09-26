@@ -1,0 +1,71 @@
+---
+apiVersion: secrets.hashicorp.com/v1beta1
+kind: VaultAuthGlobal
+metadata:
+  name: vault-auth-global
+spec:
+  defaultAuthMethod: kubernetes
+  kubernetes:
+    audiences:
+    - vault
+    mount: kubernetes
+    namespace: gitea
+    role: gitear
+    serviceAccount: gitea
+    tokenExpirationSeconds: 600
+---
+apiVersion: secrets.hashicorp.com/v1beta1
+kind: VaultAuth
+metadata:
+  name: vault-auth
+spec:
+  vaultAuthGlobalRef:
+    name: vault-auth-global
+  kubernetes:
+    role: gitea
+---
+apiVersion: secrets.hashicorp.com/v1beta1
+kind: VaultStaticSecret
+metadata:
+  name: gitea-gpg-key
+spec:
+  vaultAuthRef: vault-auth
+  mount: internal/
+  type: kv-v2
+  path: gitea/gpg
+  version: 2
+  refreshAfter: 60s
+  destination:
+    create: true
+    name: gitea-gpg-key
+---
+apiVersion: secrets.hashicorp.com/v1beta1
+kind: VaultStaticSecret
+metadata:
+  name: gitea-admin-secret
+spec:
+  vaultAuthRef: vault-auth
+  mount: internal/
+  type: kv-v2
+  path: gitea/gitea
+  version: 1
+  refreshAfter: 60s
+  destination:
+    create: true
+    name: gitea-admin-secret
+---
+apiVersion: secrets.hashicorp.com/v1beta1
+kind: VaultStaticSecret
+metadata:
+  name: gitea-postgres
+spec:
+  vaultAuthRef: vault-auth
+  mount: internal/
+  type: kv-v2
+  path: database/gitea
+  version: 2
+  refreshAfter: 60s
+  destination:
+    create: true
+    name: gitea-postgres
+

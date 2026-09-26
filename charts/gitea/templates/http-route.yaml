@@ -6,7 +6,7 @@ metadata:
 spec:
   parentRefs:
     - name: "{{ .Release.Name }}"
-      sectionName: http
+      sectionName: gitea-http
   hostnames:
     - {{ .Release.Name }}.breeze-blocks.net
   rules:
@@ -23,7 +23,7 @@ metadata:
 spec:
   parentRefs:
     - name: "{{ .Release.Name }}"
-      sectionName: https
+      sectionName: gitea-https
   hostnames:
     - {{ .Release.Name }}.breeze-blocks.net
   rules:
