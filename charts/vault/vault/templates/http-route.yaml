@@ -8,7 +8,7 @@ spec:
     - name: "{{ .Release.Name }}"
       sectionName: http
   hostnames:
-    - vault.breeze-blocks.net
+    - {{ .Values.service.hostname }}
   rules:
     - filters:
         - type: RequestRedirect
@@ -25,7 +25,7 @@ spec:
     - name: "{{ .Release.Name }}"
       sectionName: https
   hostnames:
-    - vault.breeze-blocks.net
+    - {{ .Values.service.hostname }}
   rules:
     - matches:
       - path:
