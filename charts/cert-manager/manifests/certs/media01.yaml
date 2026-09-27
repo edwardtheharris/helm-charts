@@ -1,0 +1,17 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: media01
+  namespace: cert-manager
+spec:
+  isCA: false
+  commonName: media01.breeze-blocks.net
+  secretName: media01-tls
+  privateKey:
+    algorithm: ECDSA
+    size: 256
+  issuerRef:
+    name: comms-svc-int
+    kind: ClusterIssuer
+    group: cert-manager.io
