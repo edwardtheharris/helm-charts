@@ -2,6 +2,8 @@
 # SPDX-License-Identifier: MPL-2.0
 
 # Available parameters and their default values for the Vault chart.
+service:
+  hostname: vault.example.com
 
 global:
   # enabled is the master enabled switch. Setting this to true or false
@@ -333,6 +335,7 @@ injector:
   service:
     # Extra annotations to attach to the injector service
     annotations: {}
+    hostname: vault.example.com
 
   # Injector serviceAccount specific config
   serviceAccount:
@@ -377,15 +380,15 @@ server:
     # Enable service-ca operator annotations and ConfigMap creation
     # Requires: global.openshift=true
     enabled: false
-    
+
     # Secret name where service-ca will store the generated certificate
     # IMPORTANT: Must match the secret name in server.volumes below
     secretName: "vault-tls"
-    
+
     # ConfigMap name for service-ca CA bundle injection
     # IMPORTANT: Must match the ConfigMap name in server.volumes below
     configMapName: "service-ca-bundle"
-  
+
   # IMPORTANT: Configure server.volumes, server.volumeMounts, AND server config to use service-ca
   #
   # Step 1: Mount the service-ca resources as volumes
@@ -432,7 +435,7 @@ server:
   # Configure the logging format for the Vault server.
   # Supported log formats include: standard, json
   logFormat: ""
-  
+
   # Resource requests, limits, etc. for the server cluster placement. This
   # should map directly to the value of the resources field for a PodSpec.
   # By default no direct resource request is made.
@@ -494,15 +497,15 @@ server:
     annotations: {}
 
     activeService: true
-    
+
     hostnames: []
       # - host-example
-     
+
     # Keep in mind parentRefs field is required
-    parentRefs: [] 
+    parentRefs: []
       # - name: vault-gateway-example
       #   namespace: example-ns
-    
+
     matches:
       - path:
           type: PathPrefix
@@ -546,7 +549,8 @@ server:
   # extraInitContainers is a list of init containers. Specified as a YAML list.
   # This is useful if you need to run a script to provision TLS certificates or
   # write out configuration files in a dynamic way.
-  extraInitContainers: null
+  extraInitContainers:
+    null
     # # This example installs a plugin pulled from github into the /usr/local/libexec/vault/oauthapp folder,
     # # which is defined in the volumes value.
     # - name: oauthapp
@@ -574,7 +578,8 @@ server:
 
   # extraPorts is a list of extra ports. Specified as a YAML list.
   # This is useful if you need to add additional ports to the statefulset in dynamic way.
-  extraPorts: null
+  extraPorts:
+    null
     # - containerPort: 8300
     #   name: http-monitoring
 
@@ -726,12 +731,12 @@ server:
     #     port: 443
     ingress:
       - from:
-        - namespaceSelector: {}
+          - namespaceSelector: {}
         ports:
-        - port: 8200
-          protocol: TCP
-        - port: 8201
-          protocol: TCP
+          - port: 8200
+            protocol: TCP
+          - port: 8201
+            protocol: TCP
 
   # Priority class for server pods
   priorityClassName: ""
@@ -968,7 +973,6 @@ server:
     # persistent volumes for Vault to store data according to the configuration under server.dataStorage.
     # The Vault cluster will coordinate leader elections and failovers internally.
     raft:
-
       # Enables Raft integrated storage
       enabled: false
       # Set the Node Raft ID to the name of the pod
@@ -1065,9 +1069,9 @@ server:
     disruptionBudget:
       enabled: true
 
-    # maxUnavailable will default to ⌊(n-1)/2⌋ (equivalently, ceil(n/2)-1) where
-    # n is the number of replicas. If you'd like a custom value, you can specify
-    # an override here.
+      # maxUnavailable will default to ⌊(n-1)/2⌋ (equivalently, ceil(n/2)-1) where
+      # n is the number of replicas. If you'd like a custom value, you can specify
+      # an override here.
       maxUnavailable: null
 
   # Definition of the serviceAccount used to run Vault.
@@ -1450,32 +1454,32 @@ serverTelemetry:
     matchLabels: {}
 
   prometheusRules:
-      # The Prometheus operator *must* be installed before enabling this feature,
-      # if not the chart will fail to install due to missing CustomResourceDefinitions
-      # provided by the operator.
+    # The Prometheus operator *must* be installed before enabling this feature,
+    # if not the chart will fail to install due to missing CustomResourceDefinitions
+    # provided by the operator.
 
-      # Deploy the PrometheusRule custom resource for AlertManager based alerts.
-      # Requires that AlertManager is properly deployed.
-      enabled: false
+    # Deploy the PrometheusRule custom resource for AlertManager based alerts.
+    # Requires that AlertManager is properly deployed.
+    enabled: false
 
-      # Selector labels to add to the PrometheusRules.
-      # When empty, defaults to:
-      #  release: prometheus
-      selectors: {}
+    # Selector labels to add to the PrometheusRules.
+    # When empty, defaults to:
+    #  release: prometheus
+    selectors: {}
 
-      # Some example rules.
-      rules: []
-      #  - alert: vault-HighResponseTime
-      #    annotations:
-      #      message: The response time of Vault is over 500ms on average over the last 5 minutes.
-      #    expr: vault_core_handle_request{quantile="0.5", namespace="mynamespace"} > 500
-      #    for: 5m
-      #    labels:
-      #      severity: warning
-      #  - alert: vault-HighResponseTime
-      #    annotations:
-      #      message: The response time of Vault is over 1s on average over the last 5 minutes.
-      #    expr: vault_core_handle_request{quantile="0.5", namespace="mynamespace"} > 1000
-      #    for: 5m
-      #    labels:
-      #      severity: critical
+    # Some example rules.
+    rules: []
+    #  - alert: vault-HighResponseTime
+    #    annotations:
+    #      message: The response time of Vault is over 500ms on average over the last 5 minutes.
+    #    expr: vault_core_handle_request{quantile="0.5", namespace="mynamespace"} > 500
+    #    for: 5m
+    #    labels:
+    #      severity: warning
+    #  - alert: vault-HighResponseTime
+    #    annotations:
+    #      message: The response time of Vault is over 1s on average over the last 5 minutes.
+    #    expr: vault_core_handle_request{quantile="0.5", namespace="mynamespace"} > 1000
+    #    for: 5m
+    #    labels:
+    #      severity: critical
