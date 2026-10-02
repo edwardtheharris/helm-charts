@@ -2,16 +2,16 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: cms-wildcard
+  name: media00
   namespace: cert-manager
 spec:
   isCA: false
-  commonName: *.breeze-blocks.net
-  secretName: wildcard-tls
+  commonName: media00.breeze-blocks.net
+  secretName: media00-tls
   privateKey:
     algorithm: ECDSA
     size: 256
   issuerRef:
-    name: breeze-blocks-ca
+    name: comms-svc-int
     kind: ClusterIssuer
     group: cert-manager.io
