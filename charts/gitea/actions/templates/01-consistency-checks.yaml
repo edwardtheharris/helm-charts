@@ -1,0 +1,8 @@
+{{- if .Values.enabled -}}
+    {{- if or (empty .Values.existingSecret) (empty .Values.existingSecretKey) -}}
+        {{- fail "existingSecret and existingSecretKey are required when provisioning is disabled" -}}
+    {{- end -}}
+    {{- if not .Values.giteaRootURL -}}
+        {{- fail "giteaRootURL is required" -}}
+    {{- end -}}
+{{- end -}}

@@ -1,0 +1,22 @@
+apiVersion: v2
+appVersion: 0.261.3
+description: Gitea Actions Helm chart for Kubernetes
+home: https://gitea.com/
+icon: https://gitea.com/assets/img/logo.svg
+keywords:
+- cicd
+- runner
+- actions
+maintainers:
+- email: dselen@nerthus.nl
+  name: Daan Selen
+- email: markus.pesch+apps@cryptic.systems
+  name: Markus Pesch
+- email: christopher.homberger@web.de
+  name: Christopher Homberger
+name: actions
+sources:
+- https://gitea.com/gitea/helm-actions
+- https://gitea.com/gitea/runner
+type: application
+version: 0.1.2
