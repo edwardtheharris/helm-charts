@@ -285,19 +285,19 @@ enableCertificateOwnerRef: false
 # the version by specifying the `apiVersion` yourself.
 #
 # For example:
-#  config:
-#    apiVersion: controller.config.cert-manager.io/v1alpha1
-#    kind: ControllerConfiguration
-#    logging:
-#      verbosity: 2
-#      format: text
-#    leaderElectionConfig:
-#      namespace: kube-system
-#    kubernetesAPIQPS: 9000
-#    kubernetesAPIBurst: 9000
-#    numberOfConcurrentWorkers: 200
-#    gatewayAPI:
-#      enabled: true
+config:
+  #    apiVersion: controller.config.cert-manager.io/v1alpha1
+  #    kind: ControllerConfiguration
+  #    logging:
+  #      verbosity: 2
+  #      format: text
+  #    leaderElectionConfig:
+  #      namespace: kube-system
+  #    kubernetesAPIQPS: 9000
+  #    kubernetesAPIBurst: 9000
+  #    numberOfConcurrentWorkers: 200
+  gatewayAPI:
+    enabled: true
 #    # Feature gates as of v1.20.0. Listed with their default values.
 #    # See https://cert-manager.io/docs/cli/controller/
 #    featureGates:

@@ -1,7 +1,7 @@
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
-  name: thw-svc-int-ca
+  name: thw-svc-int
   namespace: cert-manager
 spec:
   ca:
@@ -14,12 +14,12 @@ metadata:
   namespace: cert-manager
 spec:
   isCA: true
-  commonName: int.thw.breeze-blocks.net
+  commonName: int.thw.the-hard-way.gov
   secretName: thw-svc-int-tls
   privateKey:
     algorithm: ECDSA
     size: 256
   issuerRef:
-    name: thw-svc-int-ca
+    name: thw-svc-int
     kind: ClusterIssuer
     group: cert-manager.io
