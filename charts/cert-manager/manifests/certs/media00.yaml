@@ -2,20 +2,19 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: media01
+  name: media00
   namespace: cert-manager
 spec:
   isCA: false
-  commonName: media01.breeze-blocks.net
-  secretName: media01-tls
-  ipAddresses:
-    - 192.168.5.11
-    - 192.168.5.110
-  emailAddresses:
-    - media01@breeze-blocks.net
+  commonName: media00.breeze-blocks.net
+  secretName: media00-tls
   dnsNames:
-    - media01
-    - media01.breeze-blocks.net
+    - media00
+    - media00.breeze-blocks.net
+  ipAddresses:
+    - 192.168.5.13
+  emailAddresses:
+    - media00@breeze-blocks.net
   privateKey:
     algorithm: ECDSA
     size: 256

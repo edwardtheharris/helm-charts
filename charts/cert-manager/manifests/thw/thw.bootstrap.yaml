@@ -17,7 +17,7 @@ metadata:
   namespace: cert-manager
 spec:
   isCA: true
-  commonName: ca.thw.breeze-blocks.net
+  commonName: ca.thw.the-hard-way.gov
   secretName: thw-svc-ca-tls
   privateKey:
     algorithm: RSA
