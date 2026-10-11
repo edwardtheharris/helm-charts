@@ -6,11 +6,33 @@ metadata:
   namespace: cert-manager
 spec:
   isCA: false
+  usages:
+    - any
   commonName: media00.breeze-blocks.net
   secretName: media00-tls
   privateKey:
-    algorithm: ECDSA
-    size: 256
+    algorithm: RSA
+    size: 4096
+  issuerRef:
+    name: comms-svc-int
+    kind: ClusterIssuer
+    group: cert-manager.io
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: media00-postgres-radarr
+  namespace: cert-manager
+spec:
+  isCA: false
+  usages:
+    - client auth
+    - server auth
+  commonName: radarr
+  secretName: media00-postgres-radarr-tls
+  privateKey:
+    algorithm: RSA
+    size: 4096
   issuerRef:
     name: comms-svc-int
     kind: ClusterIssuer

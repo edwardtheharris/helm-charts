@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ include "gitea.fullname" . }}
   namespace: {{ .Values.namespace | default .Release.Namespace }}
@@ -14,13 +14,6 @@ metadata:
     {{- end }}
 spec:
   replicas: {{ .Values.replicaCount }}
-  strategy:
-    type: {{ .Values.strategy.type }}
-    {{- if eq .Values.strategy.type "RollingUpdate" }}
-    rollingUpdate:
-      maxUnavailable: {{ .Values.strategy.rollingUpdate.maxUnavailable }}
-      maxSurge: {{ .Values.strategy.rollingUpdate.maxSurge }}
-    {{- end }}
   selector:
     matchLabels:
       {{- include "gitea.selectorLabels" . | nindent 6 }}

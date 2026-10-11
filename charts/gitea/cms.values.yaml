@@ -347,7 +347,15 @@ nodeSelector:
 tolerations: []
 
 ## @param affinity Affinity for the deployment
-affinity: {}
+affinity:
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: kubernetes.io/vpn
+              operator: NotIn
+              values:
+                - "true"
 
 ## @param topologySpreadConstraints TopologySpreadConstraints for the deployment
 topologySpreadConstraints: []
