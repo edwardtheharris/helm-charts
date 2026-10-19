@@ -42,6 +42,13 @@ cert-manager.
      cert-manager.io/cluster-issuer: your-cluster-issuer
    ```
 
+## Request an arbitrary certificate
+
+This is useful if you prefer not to muck about with openssl
+like we had to in the bad old days. You can find everything
+you need to know in the 
+[official docs](https://cert-manager.io/docs/usage/certificate/).
+
 [^source]:
   The original source is available
   [on GitHub](https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.0.0/standard-install.yaml)
