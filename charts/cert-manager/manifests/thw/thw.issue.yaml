@@ -31,7 +31,7 @@ spec:
     algorithm: RSA
     size: 4096
   issuerRef:
-    name: thw-svc-ca
+    name: thw-svc-int
     kind: ClusterIssuer
     group: cert-manager.io
   usages:

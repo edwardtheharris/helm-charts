@@ -8,6 +8,14 @@ spec:
   isCA: false
   commonName: media01.breeze-blocks.net
   secretName: media01-tls
+  ipAddresses:
+    - 192.168.5.11
+    - 192.168.5.110
+  emailAddresses:
+    - media01@breeze-blocks.net
+  dnsNames:
+    - media01
+    - media01.breeze-blocks.net
   privateKey:
     algorithm: ECDSA
     size: 256
