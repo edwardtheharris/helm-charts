@@ -1,0 +1,17 @@
+{{- if .Values.persistence.homarrDatabase.enabled}}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .Values.persistence.homarrDatabase.name }}
+spec:
+  accessModes:
+    - {{ .Values.persistence.homarrDatabase.accessMode }}
+  storageClassName: "{{ .Values.persistence.homarrDatabase.storageClassName }}"
+  resources:
+    requests:
+      storage: {{ .Values.persistence.homarrDatabase.size }}
+  {{- if .Values.persistence.homarrDatabase.volumeClaimName }}
+  volumeName: "{{ .Values.persistence.homarrDatabase.volumeClaimName }}"
+  {{- end }}
+
+{{- end }}
