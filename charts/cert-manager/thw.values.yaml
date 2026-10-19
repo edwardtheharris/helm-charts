@@ -331,7 +331,9 @@ enableCertificateOwnerRef: false
 #    # Configure certificate request backoff durations
 #    certificateRequestMinimumBackoffDuration: 1h
 #    certificateRequestMaximumBackoffDuration: 32h
-config: {}
+config:
+  gatewayAPI:
+    enabled: true
 
 # Setting Nameservers for DNS01 Self Check.
 # For more information, see the [cert-manager documentation](https://cert-manager.io/docs/configuration/acme/dns01/#setting-nameservers-for-dns01-self-check).
@@ -488,9 +490,9 @@ podLabels: {}
 podDnsConfig:
   nameservers:
     - >-
-      192.168.5.5
+      192.168.5.4
     - >-
-      192.168.5.7
+      192.168.5.5
 
 # Optional hostAliases for cert-manager-controller pods. May be useful when performing ACME DNS-01 self checks.
 hostAliases: []
@@ -1354,8 +1356,8 @@ cainjector:
       cpu: 100m
       memory: 32Mi
     limits:
-      cpu: 500m
-      memory: 256Mi
+      cpu: 1000m
+      memory: 1024Mi
 
   # The nodeSelector on Pods tells Kubernetes to schedule Pods on the nodes with
   # matching labels.
