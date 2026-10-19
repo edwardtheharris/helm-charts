@@ -1,0 +1,14 @@
+apiVersion: secrets.hashicorp.com/v1beta1
+kind: VaultAuthGlobal
+metadata:
+  name: vault-auth-global
+spec:
+  defaultAuthMethod: kubernetes
+  kubernetes:
+    audiences:
+      - vault
+    mount: kubernetes
+    namespace: vault
+    role: vault
+    serviceAccount: vault
+    tokenExpirationSeconds: 600
