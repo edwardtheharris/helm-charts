@@ -8,14 +8,14 @@ A Helm chart for Envoy Gateway CRDs
 
 ## Maintainers
 
-| Name | Email | Url |
-| ---- | ------ | --- |
-| envoy-gateway-steering-committee |  | <https://github.com/envoyproxy/gateway/blob/main/GOVERNANCE.md> |
-| envoy-gateway-maintainers |  | <https://github.com/envoyproxy/gateway/blob/main/CODEOWNERS> |
+| Name                             | Email | Url                                                             |
+| -------------------------------- | ----- | --------------------------------------------------------------- |
+| envoy-gateway-steering-committee |       | <https://github.com/envoyproxy/gateway/blob/main/GOVERNANCE.md> |
+| envoy-gateway-maintainers        |       | <https://github.com/envoyproxy/gateway/blob/main/CODEOWNERS>    |
 
 ## Source Code
 
-* <https://github.com/envoyproxy/gateway>
+- <https://github.com/envoyproxy/gateway>
 
 ## Usage
 
@@ -29,7 +29,7 @@ If you do, make sure that you don't install the CRDs again when installing the E
 
 Once Helm has been set up correctly, install the chart from dockerhub:
 
-``` shell
+```shell
 helm template eg-crds oci://docker.io/envoyproxy/gateway-crds-helm --set 'crds.gatewayAPI.enabled=true' --set 'crds.envoyGateway.enabled=true' \
     --version v0.0.0-latest | kubectl apply --server-side -f -
 ```
@@ -41,16 +41,15 @@ You can find all helm chart release in [Dockerhub](https://hub.docker.com/r/envo
 
 To uninstall the chart:
 
-``` shell
+```shell
 helm template eg-crds oci://docker.io/envoyproxy/gateway-crds-helm \
     --version v0.0.0-latest | kubectl delete --server-side -f -
 ```
 
 ## Values
 
-| Key | Type | Default | Description |
-|-----|------|---------|-------------|
-| crds.envoyGateway.enabled | bool | `false` |  |
-| crds.gatewayAPI.channel | string | `"experimental"` |  |
-| crds.gatewayAPI.enabled | bool | `false` |  |
-
+| Key                       | Type   | Default          | Description |
+| ------------------------- | ------ | ---------------- | ----------- |
+| crds.envoyGateway.enabled | bool   | `false`          |             |
+| crds.gatewayAPI.channel   | string | `"experimental"` |             |
+| crds.gatewayAPI.enabled   | bool   | `false`          |             |
