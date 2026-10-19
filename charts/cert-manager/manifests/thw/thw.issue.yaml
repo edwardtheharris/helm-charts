@@ -14,12 +14,29 @@ metadata:
   namespace: cert-manager
 spec:
   isCA: true
-  commonName: int.thw.the-hard-way.gov
+  commonName: int.the-hard-way.gov
   secretName: thw-svc-int-tls
+  dnsNames:
+    - int.the-hard-way.gov
+  emailAddresses:
+    - int@breeze-blocks.net
+  ipAddresses:
+    - 192.168.5.39
+    - 192.168.5.41
+    - 192.168.5.43
+    - 192.168.5.45
+    - 192.168.5.47
+    - 192.168.5.49
   privateKey:
-    algorithm: ECDSA
-    size: 256
+    algorithm: RSA
+    size: 4096
   issuerRef:
     name: thw-svc-int
     kind: ClusterIssuer
     group: cert-manager.io
+  usages:
+    - cert sign
+    - client auth
+    - digital signature
+    - server auth
+    - signing
