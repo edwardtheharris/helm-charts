@@ -349,7 +349,7 @@ controller:
 
         # Vault namespace for the Transit VaultAuthMethod CR.
         # @type: string
-        namespace: ""
+        namespace: "vault"
 
         # Vault Auth method to be used with the Transit VaultAuthMethod CR.
         # @type: string
@@ -365,12 +365,12 @@ controller:
           # This is a required field and must be setup in Vault prior to deploying the helm chart
           # if `defaultAuthMethod.enabled=true`
           # @type: string
-          role: ""
+          role: vault
 
           # Kubernetes ServiceAccount associated with the Transit Vault Auth Role
           # Defaults to using the Operator's service-account.
           # @type: string
-          serviceAccount:
+          serviceAccount: vault
 
           # Token Audience should match the audience of the vault kubernetes auth role.
           # @type: array<string>
@@ -656,7 +656,7 @@ defaultVaultConnection:
 
   # TLSServerName to use as the SNI host for TLS connections.
   # @type: string
-  tlsServerName: vault.breeze-blocks.net
+  tlsServerName: vault.the-hard-way.gov
 
   # SkipTLSVerify for TLS connections.
   # @type: boolean
@@ -677,11 +677,11 @@ defaultVaultConnection:
 defaultAuthMethod:
   # toggles the deployment of the VaultAuthMethod CR
   # @type: boolean
-  enabled: false
+  enabled: true
 
   # Vault namespace for the VaultAuthMethod CR
   # @type: string
-  namespace: ""
+  namespace: "vault"
 
   # Kubernetes namespace glob patterns which are allow-listed for use with the default AuthMethod.
   # @type: array<string>
@@ -701,11 +701,11 @@ defaultAuthMethod:
     # This is a required field and must be setup in Vault prior to deploying the helm chart
     # if `defaultAuthMethod.enabled=true`
     # @type: string
-    role: ""
+    role: "vault"
 
     # Kubernetes ServiceAccount associated with the default Vault Auth Role
     # @type: string
-    serviceAccount: default
+    serviceAccount: vault
 
     # Token Audience should match the audience of the vault kubernetes auth role.
     # @type: array<string>
@@ -844,7 +844,7 @@ defaultAuthMethod:
 
     # Namespace of the VaultAuthGlobal CR to reference.
     # @type: string
-    namespace: ""
+    namespace: "vault"
 
     # allow default globals
     # @type: boolean

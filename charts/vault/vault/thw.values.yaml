@@ -1,9 +1,6 @@
 # Copyright IBM Corp. 2018, 2026
 # SPDX-License-Identifier: MPL-2.0
 
-service:
-  hostname: vault.the-hard-way.gov
-  clusterIssuer: thw-svc-int
 # Available parameters and their default values for the Vault chart.
 
 global:
@@ -44,7 +41,7 @@ global:
   serverTelemetry:
     # Enable integration with the Prometheus Operator
     # See the top level serverTelemetry section below before enabling this feature.
-    prometheusOperator: true
+    prometheusOperator: false
 
 injector:
   # True if you want to enable vault agent injection.
@@ -361,8 +358,9 @@ server:
   # If true, or "-" with global.enabled true, Vault server will be installed.
   # See vault.mode in _helpers.tpl for implementation details.
   enabled: true
+  hostname: vault.the-hard-way.gov
+  clusterIssuer: thw-svc-int
 
-  # [Enterprise Only] This value refers to a Kubernetes secret that you have
   # created that contains your enterprise license. If you are not using an
   # enterprise image or if you plan to introduce the license key via another
   # route, then leave secretName blank ("") or set it to null.
@@ -374,9 +372,6 @@ server:
     # The key within the Kubernetes secret that holds the enterprise license.
     secretKey: "license"
 
-  service:
-    hostname: vault.the-hard-way.gov
-    clusterIssuer: thw-svc-int
   # OpenShift service-ca operator integration
   # Automates TLS certificate generation via the service-ca operator
   serviceCA:
@@ -870,9 +865,7 @@ server:
   # persistentVolumeClaimRetentionPolicy:
   #   whenDeleted: Retain
   #   whenScaled: Retain
-  persistentVolumeClaimRetentionPolicy:
-    whenDeleted: Retain
-    whenScaled: Retain
+  persistentVolumeClaimRetentionPolicy: {}
 
   # This configures the Vault Statefulset to create a PVC for audit
   # logs.  Once Vault is deployed, initialized, and unsealed, Vault must
@@ -1403,7 +1396,7 @@ serverTelemetry:
     #  https://github.com/prometheus-operator/kube-prometheus
 
     # Enable deployment of the Vault Server ServiceMonitor CustomResource.
-    enabled: true
+    enabled: false
 
     # Selector labels to add to the ServiceMonitor.
     # When empty, defaults to:
@@ -1465,7 +1458,7 @@ serverTelemetry:
 
     # Deploy the PrometheusRule custom resource for AlertManager based alerts.
     # Requires that AlertManager is properly deployed.
-    enabled: true
+    enabled: false
 
     # Selector labels to add to the PrometheusRules.
     # When empty, defaults to:

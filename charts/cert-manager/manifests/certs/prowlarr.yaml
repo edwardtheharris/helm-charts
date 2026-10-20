@@ -1,0 +1,27 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: prowlarr
+  namespace: cert-manager
+spec:
+  isCA: false
+  usages:
+    - client auth
+    - server auth
+  commonName: prowlarr.the-hard-way.gov
+  secretName: prowlarr-tls
+  dnsNames:
+    - prowlarr.the-hard-way.gov
+  ipAddresses:
+    - 192.168.5.42
+    - 192.168.5.226
+  emailAddresses:
+    - prowlarr@the-hard-way.gov
+  privateKey:
+    algorithm: RSA
+    size: 4096
+  issuerRef:
+    name: thw-svc-int
+    kind: ClusterIssuer
+    group: cert-manager.io

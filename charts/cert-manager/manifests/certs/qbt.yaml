@@ -1,0 +1,27 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: qbt
+  namespace: cert-manager
+spec:
+  isCA: false
+  usages:
+    - client auth
+    - server auth
+  commonName: qbt.breeze-blocks.net
+  secretName: qbt-tls
+  dnsNames:
+    - qbt.breeze-blocks.net
+  ipAddresses:
+    - 192.168.5.42
+    - 192.168.5.226
+  emailAddresses:
+    - qbt@breeze-blocks.net
+  privateKey:
+    algorithm: RSA
+    size: 4096
+  issuerRef:
+    name: comms-svc-int
+    kind: ClusterIssuer
+    group: cert-manager.io

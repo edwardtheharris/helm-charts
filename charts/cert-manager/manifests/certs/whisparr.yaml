@@ -1,0 +1,27 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: whisparr
+  namespace: cert-manager
+spec:
+  isCA: false
+  usages:
+    - client auth
+    - server auth
+  commonName: whisparr.the-hard-way.gov
+  secretName: whisparr-tls
+  dnsNames:
+    - whisparr.the-hard-way.gov
+  ipAddresses:
+    - 192.168.5.42
+    - 192.168.5.226
+  emailAddresses:
+    - whisparr@the-hard-way.gov
+  privateKey:
+    algorithm: RSA
+    size: 4096
+  issuerRef:
+    name: thw-svc-int
+    kind: ClusterIssuer
+    group: cert-manager.io

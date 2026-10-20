@@ -1,9 +1,6 @@
 # Copyright IBM Corp. 2018, 2026
 # SPDX-License-Identifier: MPL-2.0
 
-service:
-  hostname: vault.breeze-blocks.net
-  clusterIssuer: comms-svc-int
 # Available parameters and their default values for the Vault chart.
 
 global:
@@ -44,7 +41,7 @@ global:
   serverTelemetry:
     # Enable integration with the Prometheus Operator
     # See the top level serverTelemetry section below before enabling this feature.
-    prometheusOperator: true
+    prometheusOperator: false
 
 injector:
   # True if you want to enable vault agent injection.
@@ -856,7 +853,7 @@ server:
     mountPath: "/vault/data"
     # Name of the storage class to use.  If null it will use the
     # configured default Storage Class.
-    storageClass: nfs
+    storageClass: csi-lvm-linear
     # Access Mode of the storage device being used for the PVC
     accessMode: ReadWriteOnce
     # Annotations to apply to the PVC
@@ -870,9 +867,7 @@ server:
   # persistentVolumeClaimRetentionPolicy:
   #   whenDeleted: Retain
   #   whenScaled: Retain
-  persistentVolumeClaimRetentionPolicy:
-    whenDeleted: Retain
-    whenScaled: Retain
+  persistentVolumeClaimRetentionPolicy: {}
 
   # This configures the Vault Statefulset to create a PVC for audit
   # logs.  Once Vault is deployed, initialized, and unsealed, Vault must
@@ -887,7 +882,7 @@ server:
     mountPath: "/vault/audit"
     # Name of the storage class to use.  If null it will use the
     # configured default Storage Class.
-    storageClass: nfs
+    storageClass: csi-lvm-linear
     # Access Mode of the storage device being used for the PVC
     accessMode: ReadWriteOnce
     # Annotations to apply to the PVC
@@ -1403,7 +1398,7 @@ serverTelemetry:
     #  https://github.com/prometheus-operator/kube-prometheus
 
     # Enable deployment of the Vault Server ServiceMonitor CustomResource.
-    enabled: true
+    enabled: false
 
     # Selector labels to add to the ServiceMonitor.
     # When empty, defaults to:
@@ -1465,7 +1460,7 @@ serverTelemetry:
 
     # Deploy the PrometheusRule custom resource for AlertManager based alerts.
     # Requires that AlertManager is properly deployed.
-    enabled: true
+    enabled: false
 
     # Selector labels to add to the PrometheusRules.
     # When empty, defaults to:
