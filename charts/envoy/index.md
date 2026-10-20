@@ -4,6 +4,12 @@ date: 2026-01-09
 title: Envoy Gateway charts
 ---
 
+```{admonition} Don't forget!
+Install the Gateway API separtely using the
+[official docs](https://gateway-api.sigs.k8s.io/guides/getting-started/introduction/)
+after the envoy crds and before the gateway itself.
+```
+
 The charts here were pulled from the public repository on
 docker.io.
 
