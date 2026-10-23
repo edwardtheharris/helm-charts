@@ -851,7 +851,7 @@ server:
     mountPath: "/vault/data"
     # Name of the storage class to use.  If null it will use the
     # configured default Storage Class.
-    storageClass: nfs
+    storageClass: csi-lvm-linear
     # Access Mode of the storage device being used for the PVC
     accessMode: ReadWriteOnce
     # Annotations to apply to the PVC
@@ -862,10 +862,10 @@ server:
   # Persistent Volume Claim (PVC) retention policy
   # ref: https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#persistentvolumeclaim-retention
   # Example:
-  # persistentVolumeClaimRetentionPolicy:
-  #   whenDeleted: Retain
-  #   whenScaled: Retain
-  persistentVolumeClaimRetentionPolicy: {}
+  persistentVolumeClaimRetentionPolicy:
+    whenDeleted: Retain
+    whenScaled: Retain
+  # persistentVolumeClaimRetentionPolicy: {}
 
   # This configures the Vault Statefulset to create a PVC for audit
   # logs.  Once Vault is deployed, initialized, and unsealed, Vault must
@@ -880,7 +880,7 @@ server:
     mountPath: "/vault/audit"
     # Name of the storage class to use.  If null it will use the
     # configured default Storage Class.
-    storageClass: nfs
+    storageClass: csi-lvm-linear
     # Access Mode of the storage device being used for the PVC
     accessMode: ReadWriteOnce
     # Annotations to apply to the PVC
