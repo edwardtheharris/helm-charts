@@ -32,7 +32,7 @@ README
 3. Deploy the L2 version to your cluster.
 
    ```{code-block} shell
-   helm install --namespace networking metallb . -f values.yaml
+   helm install --namespace metallb-system metallb . -f values.yaml
    ```
 
 4. Define a simple `IPAddressPool`{l=yaml}.

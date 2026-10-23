@@ -331,7 +331,9 @@ enableCertificateOwnerRef: false
 #    # Configure certificate request backoff durations
 #    certificateRequestMinimumBackoffDuration: 1h
 #    certificateRequestMaximumBackoffDuration: 32h
-config: {}
+config:
+  gatewayAPI:
+    enabled: true
 
 # Setting Nameservers for DNS01 Self Check.
 # For more information, see the [cert-manager documentation](https://cert-manager.io/docs/configuration/acme/dns01/#setting-nameservers-for-dns01-self-check).
@@ -485,12 +487,10 @@ podLabels: {}
 # settings. However, when a Pod's dnsPolicy is set to "None", the dnsConfig field has to be specified.
 # For more information, see [Pod's DNS Config](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#pod-dns-config).
 # +docs:property
-podDnsConfig:
-  nameservers:
-    - >-
-      192.168.5.5
-    - >-
-      192.168.5.7
+# podDnsConfig:
+#   nameservers:
+#     - "1.1.1.1"
+#     - "8.8.8.8"
 
 # Optional hostAliases for cert-manager-controller pods. May be useful when performing ACME DNS-01 self checks.
 hostAliases: []
@@ -657,7 +657,7 @@ prometheus:
   # cert-manager-webhook Deployments.
   # Note that you cannot enable both PodMonitor and ServiceMonitor as they are
   # mutually exclusive. Enabling both will result in an error.
-  enabled: false
+  enabled: true
 
   servicemonitor:
     # Create a ServiceMonitor to add cert-manager to Prometheus.
@@ -671,7 +671,7 @@ prometheus:
     # Specifies the `prometheus` label on the created ServiceMonitor. This is
     # used when different Prometheus instances have label selectors matching
     # different ServiceMonitors.
-    prometheusInstance: default
+    prometheusInstance: cms-pr
 
     # The interval to scrape metrics.
     interval: 60s
@@ -686,7 +686,7 @@ prometheus:
     annotations: {}
 
     # Keep labels from scraped data, overriding server-side labels.
-    honorLabels: false
+    honorLabels: true
 
     # EndpointAdditionalProperties allows setting additional properties on the
     # endpoint such as relabelings, metricRelabelings etc.
@@ -735,6 +735,7 @@ prometheus:
     # EndpointAdditionalProperties allows setting additional properties on the
     # endpoint such as relabelings, metricRelabelings etc.
     #
+
     # For example:
     #  endpointAdditionalProperties:
     #   relabelings:
@@ -753,6 +754,7 @@ prometheus:
     #         key: "tls.crt"
     #
     # +docs:property
+
     endpointAdditionalProperties: {}
 
 # +docs:section=Webhook
@@ -995,6 +997,7 @@ webhook:
   #
   # For example:
   #   tolerations:
+
   #   - key: foo.bar.com/role
   #     operator: Equal
   #     value: master
