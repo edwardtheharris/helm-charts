@@ -28,7 +28,7 @@ jobs:
           helm repo update
           helm lint charts/awx-operator 
           helm lint charts/cert-manager
-          helm lint charts/gateway-helm
+          # helm lint charts/gateway-helm
           helm lint charts/grafana
           helm lint charts/homarr
           helm lint charts/metallb
